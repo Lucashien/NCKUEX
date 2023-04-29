@@ -1,0 +1,261 @@
+@font-face {
+    font-family: "Source Han Sans SC Regular";
+    src: url(./fonts/NotoSansTC-Regular.otf);
+}
+@font-face {
+    font-family: "Source Han Sans SC Thin";
+    src: url(./fonts/NotoSansTC-Thin.otf);
+}
+@font-face {
+    font-family: "Source Han Sans SC Light";
+    src: url(./fonts/NotoSansTC-Light.otf);
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-family: "Source Han Sans SC Regular", sans-serif;
+    background-color: #181818;
+    padding: 1vw;
+}
+/* ////////////////////////////////////// */
+header{
+    height: 15vh;
+}
+#title{
+    display: flex;
+    justify-content: center;
+    height: 30%;
+    border-bottom: .1vw inset white;
+    margin: 0 2vw;
+    padding: 1vw 0;
+}
+#text{
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+    margin-top: 1vh;
+}
+#hi, #user{
+    display:none;
+}
+#user{
+    width: 70%;
+}
+#hi #login{
+    width: 15%;
+}
+#hi.active{
+    display: block;
+}
+/* ////////////////////////////////////// */
+main{
+    display: flex;
+    height: 75vh;
+}
+#left{
+    width: 20%;
+    padding-left: 1.5vw;
+}
+#right{
+    width: 80%;
+}
+#left .top{
+    height: 35%;
+}
+#left .bot{
+    height: 55%;
+    border-top: .1vw inset white;
+    border-bottom: .1vw inset white;
+}
+#right .top{
+    height: 10%;
+}
+.top, .bot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#right .bot{
+    height: 80%;
+    overflow-y: scroll;
+    display: block;
+    padding-right: 2vw;
+}
+/* ////////////////////////////////////// */
+::-webkit-scrollbar{
+    width: 1vw;
+    border: .1em outset white;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #81D6FA;
+}
+li{
+    list-style: none;
+}
+/* ////////////////////////////////////// */
+h4, li{
+    color: white;
+    font-size: 1.1vw;
+    font-weight: lighter;
+}
+#left h4{
+    padding-bottom: 1vw;
+}
+#left li{
+    text-align: right;
+}
+/* ////////////////////////////////////// */
+#college, #department{
+    position: relative;
+    width: 15vw;
+    border: .1vw solid white;
+}
+.header{
+    padding: .6vw;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 0.4vw solid transparent;
+    border-right: 0.4vw solid transparent;
+    border-top: .6vw solid white;
+    margin-left: .5vw;
+    margin-top: .5vh
+}
+.content{
+    position: absolute;
+    left: 0;
+    width: 93%;
+    max-height: 15vw;
+    overflow-y: scroll;
+    background-color: #181818;
+    border: .1vw solid white;
+    padding-right: 1vw;
+    display: none;
+}
+.content li{
+    margin: 1.5vw 0;
+    cursor: pointer;
+}
+#college.active .content, #department.active .content{
+    display: block;
+    z-index: 10;
+}
+/* ////////////////////////////////////// */
+#grade li{
+    width: 10vw;
+    margin: 3.5vh 0;
+    padding: .5vh 0;
+    cursor: pointer;
+    text-align: center;
+}
+#grade li.active{
+    color: #181818;
+    background-color: #81D6FA;
+}
+/* ////////////////////////////////////// */
+#right .top .container, #uploader{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#uploader{
+    width: 15%;
+}
+/* ////////////////////////////////////// */
+#right li{
+    text-align: center;
+}
+#lecture, #teacher, #year, #clas{
+    position: relative;
+    width: 12vw;
+    border: .1vw solid #81D6FA;
+}
+#right .top .header li{
+    color: #81D6FA;
+}
+#right .top .content{
+    width: 99%;
+    padding: 0;
+}
+#right .top .content ul{
+    margin-left: .5vw;
+    color: white;
+}
+#right .triangle{
+    border-top: .6vw solid #81D6FA;
+    margin-right: .5vw;
+    margin-top: .4vh
+}
+#lecture.active .content, #teacher.active .content, #year.active .content, #clas.active .content{
+    display: block;
+    z-index: 10;
+}
+#lecture.active .header li, #teacher.active .header li, #year.active .header li, #clas.active .header li{
+    color: #181818;
+}
+#lecture.active .header, #teacher.active .header, #year.active .header, #clas.active .header{
+    background-color: #81D6FA;
+}
+#lecture.active .triangle, #teacher.active .triangle, #year.active .triangle, #clas.active .triangle{
+    border-top-color: #181818;
+}
+/* ////////////////////////////////////// */
+#right .bot::-webkit-scrollbar{
+    width: 1.5vw;
+}
+.document{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: .1vw inset white;
+}
+p{
+    color: white;
+    font-size: 1vw;
+    text-align: center;
+}
+.lec, .tc, .y, .c{
+    width: 21%;
+}
+.up{
+    width: 15%;
+    display: flex;
+}
+.uppic{
+    width: 1.5vw;
+    border-radius: 50%;
+    background-image: url(./sort_img/A_10_小恐龍.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 0 .8vw;
+}
+.lec{
+    margin-left: 1vw;
+}
+@media screen and (min-aspect-ratio: 16/8){
+    main{
+        height: 80vh;
+    }
+}
+@media screen and (min-aspect-ratio: 16/7.5){
+    main{
+        height: 90vh;
+    }
+}
+@media screen and (max-aspect-ratio: 0.8){
+    html{
+        background-image: url(./maxresdefault.jpg);
+        background-position: center;
+        background-size: contain;
+    }
+}
