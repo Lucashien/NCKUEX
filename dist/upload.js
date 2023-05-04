@@ -1,17 +1,37 @@
 // STEP 1: select element and register change event
 const imagePreview = document.querySelector('[data-target="image-preview"]');
 const spinner = document.querySelector('[data-target="spinner"]');
-const fileUploader = document.querySelector('[data-target="file-uploader"]');
+const fileUploader = document.querySelector('[data-target="upload"]');
 var FileName = "";
+
+// // 拖曳檔案
+// console.log("hi");
+// const dropzone = document.getElementById("dropzone");
+// dropzone.addEventListener("dragover", e => {
+//   console.log("dragover");
+//   e.preventDefault();
+// });
+
+// dropzone.addEventListener("drop", e => {
+//   console.log("drop");
+//   e.preventDefault();
+//   // 取得拖曳的檔案
+//   const file = e.dataTransfer.files[0];
+//   // 上傳檔案
+//   handleFileUpload(e);
+// });
+
+
 // 當input '有動靜'，執行handlFileUpload
 fileUploader.addEventListener("change", handleFileUpload);
+console.log(fileUploader)
 
-//
 async function handleFileUpload(event) {
+  console.log("upload!");
   try {
     const file = event.target.files[0];
     FileName = file.name;
-    setUploading(true);
+    // setUploading(true);
     if (!file) return; // 沒上傳就沒動靜
 
     // 1. 確認檔案是否符合上傳規格
@@ -33,7 +53,7 @@ async function handleFileUpload(event) {
 
   finally {
     event.target.value = '';  // reset input file
-    setUploading(false);
+    // setUploading(false);
   }
 }
 
@@ -97,9 +117,9 @@ function beforeUpload(fileObject) {
       errorMessages.push("You can only upload JPG or PNG file!");
     }
 
-    const isValidFileSize = fileObject.size / 1024 / 1024 < 2;
+    const isValidFileSize = fileObject.size / 1024 / 1024 < 25;
     if (!isValidFileSize) {
-      errorMessages.push("Image must smaller than 2MB!");
+      errorMessages.push("Image must smaller than 25MB!");
     }
 
     resolve({
@@ -110,10 +130,3 @@ function beforeUpload(fileObject) {
 }
 
 
-function setUploading(isUploading) {
-  if (isUploading === true) {
-    spinner.classList.add("opacity-1");
-  } else {
-    spinner.classList.remove("opacity-1");
-  }
-}

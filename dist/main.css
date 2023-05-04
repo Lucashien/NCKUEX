@@ -1,0 +1,97 @@
+@font-face {    
+    font-family: "Source Han Sans SC Thin"; 
+    src: url(./fonts/NotoSansTC-Thin.otf) ; 
+}  
+    
+@font-face { 
+    font-family: "Source Han Sans SC Light"; 
+    src: url(./fonts/NotoSansTC-Light.otf); 
+}
+
+@font-face { 
+    font-family: "Source Han Sans SC Bold"; 
+    src: url(./fonts/NotoSansTC-Bold.otf); 
+}
+
+html{ 
+    background-color: #181818; 
+} 
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.container{
+    color:white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+}
+
+.leftbox {
+    background-image: url(./images/D_1_COVER.png);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 100vh;
+}
+
+.rightbox {
+    width: 50%;
+    height: 100vh;
+    position: relative;
+    left: 15vw;
+    top: 25vh;
+}
+
+.logo{
+    position: relative;
+    left: 10%;
+    transform: translate(10vh, 25vh); 
+}
+
+input{
+    outline-style: none;
+    border: 1px solid white;
+    width: 500px;
+    font-size: 30px;
+    color: white;
+    background-color: #181818;
+    font-family: "Source Han Sans SC Light", sans-serif; 
+}
+
+p1{ 
+    font-family: "Source Han Sans SC Bold", sans-serif; 
+    font-size: 2vw; 
+    padding: 2%;
+    line-height: 2;
+    letter-spacing: 0.1em;
+} 
+
+p2{ 
+    font-family: "Source Han Sans SC Light", sans-serif; 
+    font-size: 1.2vw; 
+    padding: 2%;
+    line-height: 2;
+    letter-spacing: 0.1em;
+} 
+
+p3{ 
+    font-family: "Source Han Sans SC Thin", sans-serif; 
+    font-size: 1vw; 
+    padding: 2%;
+    letter-spacing: 0.1em;
+} 
+
+p4{ 
+    display: block;
+    height: 5vh;
+    font-family: "Source Han Sans SC Light", sans-serif; 
+    font-size: 1vw; 
+    padding: 0 2%;
+} 
+

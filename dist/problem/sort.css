@@ -2,34 +2,28 @@
     font-family: "Source Han Sans SC Regular";
     src: url(./fonts/NotoSansTC-Regular.otf);
 }
-
 @font-face {
     font-family: "Source Han Sans SC Thin";
     src: url(./fonts/NotoSansTC-Thin.otf);
 }
-
 @font-face {
     font-family: "Source Han Sans SC Light";
     src: url(./fonts/NotoSansTC-Light.otf);
 }
-
-* {
+*{
     margin: 0;
     padding: 0;
 }
-
 html {
     font-family: "Source Han Sans SC Regular", sans-serif;
     background-color: #181818;
     padding: 1vw;
 }
-
 /* ////////////////////////////////////// */
-header {
+header{
     height: 15vh;
 }
-
-#title {
+#title{
     display: flex;
     justify-content: center;
     height: 30%;
@@ -37,116 +31,94 @@ header {
     margin: 0 2vw;
     padding: 1vw 0;
 }
-
-#text {
+#text{
     display: flex;
     justify-content: flex-end;
     width: 20%;
     margin-top: 1vh;
 }
-
-#hi, #user {
-    display: none;
+#hi, #user{
+    display:none;
 }
-
-#user {
+#user{
     width: 70%;
 }
-
-#hi #login {
+#hi #login{
     width: 15%;
 }
-
-#hi.active {
+#hi.active{
     display: block;
 }
-
 /* ////////////////////////////////////// */
-main {
+main{
     display: flex;
     height: 75vh;
 }
-
-#left {
+#left{
     width: 20%;
     padding-left: 1.5vw;
 }
-
-#right {
+#right{
     width: 80%;
 }
-
-#left .top {
+#left .top{
     height: 35%;
 }
-
-#left .bot {
+#left .bot{
     height: 55%;
     border-top: .1vw inset white;
     border-bottom: .1vw inset white;
 }
-
-#right .top {
+#right .top{
     height: 10%;
 }
-
-.top, .bot {
+.top, .bot{
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-#right .bot {
+#right .bot{
     height: 80%;
     overflow-y: scroll;
     display: block;
     padding-right: 2vw;
 }
-
 /* ////////////////////////////////////// */
-::-webkit-scrollbar {
+::-webkit-scrollbar{
     width: 1vw;
     border: .1em outset white;
 }
-
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb{
     background-color: #81D6FA;
 }
-
-li {
+li{
     list-style: none;
 }
-
 /* ////////////////////////////////////// */
-h4, li {
+h4, li{
     color: white;
     font-size: 1.1vw;
     font-weight: lighter;
 }
-
-#left h4 {
+#left h4{
     padding-bottom: 1vw;
 }
-
-#left li {
+#left li{
     text-align: right;
 }
-
 /* ////////////////////////////////////// */
-#college, #department {
+#college, #department{
     position: relative;
     width: 15vw;
     border: .1vw solid white;
 }
-
-.header {
+.header{
     padding: .6vw;
     cursor: pointer;
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
-
 .triangle {
     width: 0;
     height: 0;
@@ -156,8 +128,7 @@ h4, li {
     margin-left: .5vw;
     margin-top: .5vh
 }
-
-.content {
+.content{
     position: absolute;
     left: 0;
     width: 93%;
@@ -168,97 +139,79 @@ h4, li {
     padding-right: 1vw;
     display: none;
 }
-
-.content li {
+.content li{
     margin: 1.5vw 0;
     cursor: pointer;
 }
-
-#college.active .content, #department.active .content {
+#college.active .content, #department.active .content{
     display: block;
     z-index: 10;
 }
-
 /* ////////////////////////////////////// */
-#grade li {
+#grade li{
     width: 10vw;
     margin: 3.5vh 0;
     padding: .5vh 0;
     cursor: pointer;
     text-align: center;
 }
-
-#grade li.active {
+#grade li.active{
     color: #181818;
     background-color: #81D6FA;
 }
-
 /* ////////////////////////////////////// */
-#right .top .container, #uploader {
+#right .top .container, #uploader{
     width: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
-#uploader {
+#uploader{
     width: 15%;
 }
-
 /* ////////////////////////////////////// */
-#right li {
+#right li{
     text-align: center;
 }
-
-#lecture, #teacher, #year, #clas {
+#lecture, #teacher, #year, #clas{
     position: relative;
     width: 12vw;
     border: .1vw solid #81D6FA;
 }
-
-#right .top .header li {
+#right .top .header li{
     color: #81D6FA;
 }
-
-#right .top .content {
+#right .top .content{
     width: 99%;
     padding: 0;
 }
-
-#right .top .content ul {
+#right .top .content ul{
     margin-left: .5vw;
     color: white;
 }
-
-#right .triangle {
+#right .triangle{
     border-top: .6vw solid #81D6FA;
     margin-right: .5vw;
     margin-top: .4vh
 }
-
-#lecture.active .content, #teacher.active .content, #year.active .content, #clas.active .content {
+#lecture.active .content, #teacher.active .content, #year.active .content, #clas.active .content{
     display: block;
     z-index: 10;
 }
-
-#lecture.active .header li, #teacher.active .header li, #year.active .header li, #clas.active .header li {
+#lecture.active .header li, #teacher.active .header li, #year.active .header li, #clas.active .header li{
     color: #181818;
 }
-
-#lecture.active .header, #teacher.active .header, #year.active .header, #clas.active .header {
+#lecture.active .header, #teacher.active .header, #year.active .header, #clas.active .header{
     background-color: #81D6FA;
 }
-
-#lecture.active .triangle, #teacher.active .triangle, #year.active .triangle, #clas.active .triangle {
+#lecture.active .triangle, #teacher.active .triangle, #year.active .triangle, #clas.active .triangle{
     border-top-color: #181818;
 }
-
 /* ////////////////////////////////////// */
-#right .bot::-webkit-scrollbar {
+#right .bot::-webkit-scrollbar{
     width: 1.5vw;
 }
-
-.document {
+.document{
     width: 100%;
     height: 15%;
     display: flex;
@@ -266,23 +219,19 @@ h4, li {
     align-items: center;
     border-top: .1vw inset white;
 }
-
-p {
+p{
     color: white;
     font-size: 1vw;
     text-align: center;
 }
-
-.lec, .tc, .y, .c {
+.lec, .tc, .y, .c{
     width: 21%;
 }
-
-.up {
+.up{
     width: 15%;
     display: flex;
 }
-
-.uppic {
+.uppic{
     width: 1.5vw;
     border-radius: 50%;
     background-image: url(./sort_img/A_10_小恐龍.png);
@@ -290,25 +239,21 @@ p {
     background-repeat: no-repeat;
     margin: 0 .8vw;
 }
-
-.lec {
+.lec{
     margin-left: 1vw;
 }
-
-@media screen and (min-aspect-ratio: 16/8) {
-    main {
+@media screen and (min-aspect-ratio: 16/8){
+    main{
         height: 80vh;
     }
 }
-
-@media screen and (min-aspect-ratio: 16/7.5) {
-    main {
+@media screen and (min-aspect-ratio: 16/7.5){
+    main{
         height: 90vh;
     }
 }
-
-@media screen and (max-aspect-ratio: 0.8) {
-    html {
+@media screen and (max-aspect-ratio: 0.8){
+    html{
         background-image: url(./maxresdefault.jpg);
         background-position: center;
         background-size: contain;
@@ -319,27 +264,22 @@ p {
 /*顯示個人頁面*/
 #modal {
     position: fixed;
-    width: 90%;
-    height: 80%;
+    width: 80%;
+    height:70%;
     z-index: 9999;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,-50%);
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     overflow: scroll;
+
 }
 
 #modal.visible {
     opacity: 1;
-}
-
-#modal_else {
-    position: absolute;
-    width: 100%;
-    height:100%;
-    top:0%;
-    /* background-color: red; */
 }

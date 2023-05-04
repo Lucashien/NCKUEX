@@ -1,0 +1,257 @@
+@font-face {
+    font-family: "Source Han Sans SC Thin";
+    src: url(./fonts/NotoSansTC-Thin.otf);
+}
+
+@font-face {
+    font-family: "Source Han Sans SC Light";
+    src: url(./fonts/NotoSansTC-Light.otf);
+}
+
+@font-face {
+    font-family: "Source Han Sans SC Bold";
+    src: url(./fonts/NotoSansTC-Bold.otf);
+}
+
+@font-face {
+    font-family: "Source Han Sans SC Black";
+    src: url(./fonts/NotoSansTC-Black.otf);
+}
+
+
+
+ html {
+    background-color: black;
+    max-width: 1980px;
+}  
+
+.parent {
+    display: flex;
+    justify-content: space-between;
+    width: 100vw;
+    height: auto;
+}
+
+.sidebar {
+    height: 500%;
+    width: 26vw;
+    color: white;
+    background-color: #2b2b2b;
+}
+
+.personal_content {
+    height: 500%;
+    width: 74%;
+    color: #81D6FA;
+    padding: 2vw;
+    background-color: #181818
+}
+
+.upper {
+    padding: 2vw;
+}
+
+.personal_top {
+    position: inherit;
+    background-image: url(./images/E_0_LOGO及登出框框.png);
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 6%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 50%;
+    position: relative;
+    margin: 20px;
+}
+
+.log_out {
+    width: auto;
+    text-align: right;
+    color: white;
+    margin:20px;
+}
+
+.log_out p {
+    transform: translate(-40px, 0px);
+    font-size: 20px;
+    font-family: "Source Han Sans SC Blod", sans-serif;
+}
+
+.profile {
+    height: 570px;
+}
+
+.pic {
+    height: 300px;
+    text-align: center;
+}
+
+.nickname {
+    text-align: center;
+}
+
+
+.online {
+    text-align: center;
+}
+
+.info {
+    background-image: url(./images/E_4_個人資訊框框.png);
+    background-repeat: no-repeat;
+    height: 550px;
+}
+
+.info_container {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Source Han Sans SC Light", sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    color: white;
+}
+
+.item {
+    border: 1px solid #81D6FA;
+    color: #81D6FA;
+    text-align: center;
+    width: 20%;
+    padding: 5px 10px;
+}
+
+.detail {
+    text-align: center;
+    width: 20%;
+    padding: 5px;
+}
+
+.footer {
+    height: 300px;
+    background-image: url(./images/E_5_顯示.png);
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: black;
+}
+
+.upload_num, .like {
+    text-align: center;
+    width: 50%;
+    font-family: "Source Han Sans SC Black", sans-serif;
+    font-size: 50px;
+    margin-top: 50px;
+}
+
+.upload_container {
+    background-image: url(./images/E_7_上傳框框.png);
+    background-repeat: no-repeat;
+    height: 74.85vh;
+    color: #81D6FA;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.upload {
+    text-align: center;
+}
+
+.history {
+    height: 550px;
+}
+
+.file_container {
+    display: flex;
+    height: 400px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.file {
+    height: 300px;
+    width: 400px;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 10px 20px 20px;
+    background-color: #2b2b2b;
+    margin: 30px;
+}
+
+.more {
+    background-image: url(./images/E_11_有興趣的考古題.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 300px;
+    /* display: flex; 
+    justify-content: center; 
+    align-items: center; */
+    text-align: center;
+}
+
+.image-preview{
+    position: absolute;
+    width : 100%;
+    height : 100%;
+    /* left: 50%; */
+    /* transform: translate(-50%); */
+    /* background-color: red; */
+}
+
+/*標籤排版設定*/
+p1 {
+    font-family: "Source Han Sans SC Bold", sans-serif;
+    font-size: 37px;
+    letter-spacing: 0.05em;
+    line-height: 2;
+}
+
+p2 {
+    font-family: "Source Han Sans SC Light", sans-serif;
+    font-size: 18px;
+    color: #81D6FA;
+    letter-spacing: 0.1em;
+}
+
+p3 {
+    font-family: "Source Han Sans SC Bold", sans-serif;
+    font-size: 30px;
+    color: #81D6FA;
+}
+
+p4 {
+    font-family: "Source Han Sans SC Black", sans-serif;
+    font-size: 45px;
+}
+
+p5 {
+    font-family: "Source Han Sans SC Light", sans-serif;
+    font-size: 15px;
+    color: white;
+    letter-spacing: 0.1em;
+}
+
+/**/
+
+
+  #dropzone {
+    position: absolute;
+    display: flex;
+    width: 50%;
+    height:50%;
+    border: 3px dashed #ccc;
+    top:40%;
+    right:5%;
+  }
+  
+  #dropzone:hover,
+  #dropzone:active {
+    border: 3px dashed #81D6FA;
+  }

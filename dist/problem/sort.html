@@ -1,0 +1,331 @@
+<!-- https://lucashien.github.io/NCKUEX/sort/sort.html -->
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <meta content="width=device-width, initial-scale=1" name="viewport">
+   <title>共享考古</title>
+   <link href="sort.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+   <header>
+    <div style="height: 20%;"></div>
+    <div id="title">
+        <div id="logo">
+            <img src="./sort_img/A_1_LOGO.png" style="width: 10vw;"></img>
+        </div>
+        <div id = "titlenull" style="width: 65%; color:white; text-align: center;"></div>
+        <div id="text">
+            <div id="hi">
+                <p>Hi! </p>
+            </div>
+            <div id="user">
+                <p></p>
+            </div>
+            <div id="login">
+                <P>登 入</P>
+            </div>
+        </div>
+        </div>
+    </div>
+   </header>
+
+   <main>
+    <div id="left" style="margin: 0 2vw;">
+        <div class="top">
+            <div>
+                <h4>學院</h4>
+                <div id="college">
+                    <div class="header">
+                        <li>電機資訊學院</li>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>規劃與設計學院</li>
+                            <li>工學院</li>
+                            <li>社會科學院</li>
+                            <li>醫學院</li>
+                            <li>管理學院</li>
+                            <li>文學院</li>
+                            <li>理學院</li>
+                            <li>電機資訊學院</li>
+                            <li>生物科學與科技學院</li>
+                            <li>智慧半導體及永續製造學院</li>
+                            <li>敏求智慧運算學院</li>
+                            <li>非屬學院</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="height: 2vh;"></div>
+                <h4>系所</h4>
+                <div id="department">
+                    <div class="header">
+                        <li>電機系</li>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>電機系</li>
+                            <li>資訊系</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height: 10%;"></div>
+        <div class="bot">
+            <div id="grade">
+                <ul>
+                    <li>大一</li>
+                    <li>大二</li>
+                    <li>大三</li>
+                    <li>大四</li>
+                    <li>研究所</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="right" style="margin: 0 2vw;">
+        <div class="top" style="margin: 4vh 0;">
+            <div id="uploader">
+                <h4>上傳者</h4>
+            </div>
+            <div class="container">
+                <div id="lecture">
+                    <div class="header">
+                        <li>課程</li>
+                        <div style="width: 30%;"></div>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="teacher">
+                    <div class="header">
+                        <li>教師</li>
+                        <div style="width: 30%;"></div>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                <div id="year">
+                    <div class="header">
+                        <li>年份</li>
+                        <div style="width: 30%;"></div>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>由新至舊排列</li>
+                            <li>由舊制新排列</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="clas">
+                    <div class="header">
+                        <li>類別</li>
+                        <div style="width: 30%;"></div>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>小考</li>
+                            <li>作業</li>
+                            <li>大考</li>
+                            <li>其它</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 5%;"></div>
+        </div>
+        <div class="bot">
+            <div class="document">
+                <div class="up">
+                    <!-- From 宗宗 -->
+                    <div class="uppic" onclick=showModal()><a></a></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+            <div class="document">
+                <div class="up">
+                    <div class="uppic"></div>
+                    <p>電機小恐龍</p>
+                </div>
+                <div class="lec">
+                    <p>電磁學（二）</p>
+                </div>
+                <div class="tc">
+                    <p>楊慶隆</p>
+                </div>
+                <div class="y">
+                    <p>111-2</p>
+                </div>
+                <div class="c">
+                    <p>小考</p>
+                </div>
+            </div>
+        </div>
+    </div>
+   </main>
+
+   <footer>
+       
+   </footer>
+</body>
+<script src="sort.js"></script>
+
+</html>
