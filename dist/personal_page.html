@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 
 <html>
+<style>
+    #modal html {
+        width: 1980px;
+    }
+</style>
 
 <head>
     <meta charset="utf-8">
@@ -83,18 +88,16 @@
             <div style="height: 60px;"></div>
             <div class="upload_container">
                 <!-- 上傳區 -->
-                <div class="upload">
-                    <label for="upload">
+                <label for="upload" id="dropzone">
+                    <div class="upload">
                         <input type="file" id="upload" style="display: none;" data-target="upload">
                         <a><img src="./images/E_6_上傳按鈕.png" style="transform: translateY(-10px);cursor: pointer;"></a>
                         <br>
                         <p3>電機小恐龍的上傳區</p3>
-                        <div id="dropzone"></div>
-                    </label>
-                </div>
+                    </div>
+                </label>
                 <!--  -->
             </div>
-            <script src="./upload.js"></script>
 
             <div class="history">
                 <div style="height: 20px;"></div>
@@ -148,6 +151,7 @@
             </div>
         </div>
     </div>
+    <script src="./upload.js"></script>
 </body>
 
 </html>

@@ -19,16 +19,10 @@
 }
 
 
-
- html {
-    background-color: black;
-    max-width: 1980px;
-}  
-
 .parent {
     display: flex;
     justify-content: space-between;
-    width: 100vw;
+    width: 1980px;
     height: auto;
 }
 
@@ -71,7 +65,7 @@
     width: auto;
     text-align: right;
     color: white;
-    margin:20px;
+    margin: 20px;
 }
 
 .log_out p {
@@ -196,10 +190,10 @@
     text-align: center;
 }
 
-.image-preview{
+.image-preview {
     position: absolute;
-    width : 100%;
-    height : 100%;
+    width: 100%;
+    height: 100%;
     /* left: 50%; */
     /* transform: translate(-50%); */
     /* background-color: red; */
@@ -241,17 +235,19 @@ p5 {
 /**/
 
 
-  #dropzone {
-    position: absolute;
-    display: flex;
-    width: 50%;
-    height:50%;
+#dropzone {
+    position: inherit;
+    width: 100%;
+    height: 70%;
     border: 3px dashed #ccc;
-    top:40%;
-    right:5%;
-  }
-  
-  #dropzone:hover,
-  #dropzone:active {
+    justify-content: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+#dropzone:hover,
+#dropzone:active {
     border: 3px dashed #81D6FA;
-  }
+}

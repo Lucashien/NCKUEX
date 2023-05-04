@@ -23,8 +23,7 @@ var FileName = "";
 
 
 // 當input '有動靜'，執行handlFileUpload
-fileUploader.addEventListener("change", handleFileUpload);
-console.log(fileUploader)
+// fileUploader.addEventListener("change", handleFileUpload);
 
 async function handleFileUpload(event) {
   console.log("upload!");
