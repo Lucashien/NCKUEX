@@ -186,11 +186,19 @@ h4, li {
     padding: .5vh 0;
     cursor: pointer;
     text-align: center;
+    transform: color 0.5s ease-in-out;
 }
 
-#grade li.active {
+#grade li.active{
     color: #181818;
     background-color: #81D6FA;
+}
+
+#grade li:hover {
+    color: #181818;
+    background-color: #81D6FA;
+    transform: color 0.5s ease-in-out;
+    opacity: 0.5;
 }
 
 /* ////////////////////////////////////// */
