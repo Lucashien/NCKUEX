@@ -1,0 +1,276 @@
+@font-face {  
+    font-family: "Source Han Sans SC Regular";     
+    src: url(./fonts/NotoSansTC-Regular.otf);      
+}   
+ 
+@font-face {  
+    font-family: "Source Han Sans SC Light";  
+    src: url(./fonts/NotoSansTC-Light.otf);  
+} 
+ 
+@font-face {  
+    font-family: "Source Han Sans SC Bold";  
+    src: url(./fonts/NotoSansTC-Bold.otf);  
+} 
+ 
+@font-face {  
+    font-family: "Source Han Sans SC Black";  
+    src: url(./fonts/NotoSansTC-Black.otf);  
+} 
+ 
+html{  
+    background-color: black;  
+}  
+ 
+.parent{ 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    height: auto; 
+} 
+ 
+.sidebar{ 
+    height: auto; 
+    width: 26%; 
+    height: 100%; 
+    color:white; 
+    background-color: #2b2b2b; 
+} 
+ 
+.content{ 
+    height: 100%; 
+    width: 74%; 
+    color: #81D6FA; 
+    padding: 3vh; 
+    background-color: #181818 
+} 
+ 
+.top{ 
+    background-image: url(./images/E_0_LOGO及登出框框.png); 
+    background-repeat: no-repeat; 
+    height: 8vh; 
+    display: flex; 
+    justify-content: space-between; 
+} 
+ 
+.logo{ 
+    width: 50%; 
+    position: relative; 
+    padding: 2vh; 
+} 
+ 
+.log_out{ 
+    width: 50%; 
+    text-align: right; 
+    color: white; 
+} 
+ 
+.log_out p{ 
+    transform: translate(-40px, 0px); 
+    font-size: 2vh; 
+    font-family: "Source Han Sans SC Blod", sans-serif;  
+} 
+ 
+.log_out a :hover{ 
+    color: #81D6FA 
+} 
+ 
+.profile{ 
+    height: 57vh; 
+} 
+ 
+.pic{ 
+    height: 35vh; 
+    text-align: center; 
+} 
+ 
+.nickname{ 
+    text-align: center; 
+} 
+ 
+p1{ 
+    font-family: "Source Han Sans SC Bold", sans-serif;  
+    font-size: 3.7vh;  
+    letter-spacing: 0.05em; 
+    line-height: 2; 
+} 
+ 
+p2{ 
+    font-family: "Source Han Sans SC Light", sans-serif;  
+    font-size: 1.8vh; 
+    color: #81D6FA; 
+    letter-spacing: 0.1em; 
+} 
+ 
+.info{ 
+    background-image: url(./images/E_4_個人資訊框框.png); 
+    background-repeat: no-repeat; 
+    height: 55vh; 
+} 
+ 
+.info_container{ 
+    display: flex; 
+    justify-content: space-between; 
+    font-family: "Source Han Sans SC Light", sans-serif;  
+    font-size: 1.8vh; 
+    letter-spacing: 0.1em; 
+    color: white; 
+} 
+ 
+.item{ 
+    border: 0.1vh solid #81D6FA; 
+    color: #81D6FA; 
+    text-align: center; 
+    width: 20%; 
+    padding: 0.5vh 1vh; 
+} 
+ 
+.detail{ 
+    text-align: center; 
+    width: 20%; 
+    padding: 0.5vh; 
+} 
+ 
+.footer{ 
+    height: 30vh; 
+    background-image: url(./images/E_5_顯示.png); 
+    background-size: 100%; 
+    background-position: top; 
+    background-repeat: no-repeat; 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    color: black; 
+} 
+ 
+.upload_num ,.like{ 
+    text-align: center; 
+    width: 50%; 
+    font-family: "Source Han Sans SC Black", sans-serif;  
+    font-size: 5vh; 
+    margin-top: 5vh; 
+} 
+ 
+.upload_container{ 
+    background-image: url(./images/E_7_上傳框框.png); 
+    background-repeat: no-repeat; 
+    height: 73vh; 
+    display: flex; 
+    justify-content: center; 
+    align-content: center;       
+    flex-wrap: wrap; 
+    background-color: #2b2b2b; 
+} 
+ 
+.upload{ 
+    height: 100%; 
+    width: 100%; 
+    color: white; 
+} 
+ 
+p3{ 
+    font-family: "Source Han Sans SC Bold", sans-serif;  
+    font-size: 3vh; 
+    color: #81D6FA; 
+} 
+ 
+p6{ 
+    font-family: "Source Han Sans SC Regular", sans-serif;  
+    font-size: 2.3vh;  
+    letter-spacing: 0.3em; 
+} 
+ 
+.row{ 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 2vh; 
+    margin: 3vh 2vh; 
+    width: 70vw; 
+} 
+ 
+img.frame1{ 
+    width: 15vw; 
+    height: 6vh; 
+} 
+ 
+img.frame2{ 
+    width: 20vw; 
+    height: 6vh; 
+} 
+ 
+img.button{ 
+    transform: translate(-200%, 30%); 
+    height: 100%; 
+} 
+ 
+.history{ 
+    height: 55vh; 
+} 
+ 
+.file_container{ 
+    display: flex; 
+    height: 40vh; 
+    overflow: hidden; 
+    white-space: nowrap; 
+    overflow-x: auto; 
+} 
+ 
+.file{ 
+    height: 40vh; 
+    min-width: 35vh; 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 2vh 5vh 0vh 2vh; 
+    background-color: #2b2b2b; 
+    margin: 2vh; 
+} 
+ 
+.file_info{ 
+    min-width: 12vh; 
+    color: white; 
+} 
+ 
+.edit{ 
+    opacity: 0; 
+} 
+ 
+.edit:hover{ 
+    opacity: 1; 
+} 
+ 
+img.cover{ 
+    transform: translate(-80%, -8%); 
+} 
+ 
+img.edit_button{ 
+    transform: translate(-1650%, -480%); 
+} 
+ 
+img.trash{ 
+    transform: translate(-1450%, -420%); 
+} 
+ 
+p4{ 
+    font-family: "Source Han Sans SC Black", sans-serif;  
+    font-size: 4.5vh;  
+} 
+ 
+p5{ 
+    font-family: "Source Han Sans SC Light", sans-serif;  
+    font-size: 1.5vh; 
+    color: white; 
+    letter-spacing: 0.1em; 
+} 
+ 
+.more{ 
+    background-image: url(./images/E_11_有興趣的考古題.png); 
+    background-repeat: no-repeat; 
+    background-size: 100%; 
+    height: 30vh; 
+    text-align: center; 
+} 
+ 
+ 
+ 
+

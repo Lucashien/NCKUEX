@@ -1,17 +1,18 @@
 {
-  "name": "nckuex",
-  "version": "1.0.0",
-  "description": "��#\u0000 \u0000N\u0000C\u0000K\u0000U\u0000E\u0000X\u0000\r\u0000 \u0000",
-  "main": "ser.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "buffer": "^6.0.3",
-    "express": "^4.18.2"
-  }
+    "name": "nckuex",
+    "version": "1.0.0",
+    "description": "��#\u0000 \u0000N\u0000C\u0000K\u0000U\u0000E\u0000X\u0000\r\u0000 \u0000",
+    "main": "ser.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "buffer": "^6.0.3",
+        "cheerio": "^1.0.0-rc.12",
+        "express": "^4.18.2"
+    }
 }

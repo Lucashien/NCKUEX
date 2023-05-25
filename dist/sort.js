@@ -1,278 +1,259 @@
-let collegeTarget = 7;
-let departmentTarget = 0;
-let gradeTarget = null;
-let lectureTarget = null;
+$(document).ready(function() {
+/* ////////////////////////////////////// */
+//收合側欄
 
-let departmentData = [
-  ['建築系', '都計系', '工設系', '規劃設計學院學士'],
-  ['工學院', '機械系', '化工系', '資源系', '材料系', '土木系', '水利系', '工科系', '能源學程', '系統系', '航太系', '環工系', '測量系', '醫工系'],
-  ['社會科學院', '法律系', '政治系', '經濟系', '心理系'],
-  ['護理系', '醫技系', '醫學系', '物治系', '職治系', '藥學系', '牙醫系'],
-  ['會計系', '統計系', '工資系', '企管系', '交管系', '管理學院'],
-  ['文學院學士班', '中文系', '外文系', '歷史系', '台文系'],
-  ['數學系', '物理系', '化學系', '地科系', '理學院學士班', '光電系'],
-  ['電機系', '資訊系'],
-  ['生科系', '生技系'],
-  ['智慧半導體及永續製造學院'],
-  ['敏求學院課程'],
-  ['不分系學程', '科學班'],
-];
-
-let lectureData = [
-  ['微積分', '線性代數', '程式設計', '物理學'],
-  ['離散數學', '資料結構與演算法', '電路學', '計算機組織'],
-  ['作業系統', '編譯器', '資料庫系統', '計算機網路'],
-  ['人工智慧', '機器學習', '資訊安全', '分散式系統'],
-  ['高等演算法', '資訊檢索', '自然語言處理', '深度學習']
-];
-
-let teacherData = Array.from({ length: 5 }, () =>
-  Array.from({ length: 4 }, () => new Array(3).fill('謝宗翰'))
-);
+$('#bar').click(function() {
+  $('aside, #right, #leftfix').toggleClass('active');
+});
 
 /* ////////////////////////////////////// */
-//點擊展開列表
+//展開與收起列表
 
-let leftList = ['college', 'department'];
-let rightList = ['lecture', 'teacher', 'year', 'clas'];
+$('.filter').click(function() {
+  $('.filter').not(this).find('.content').removeClass('active');
+  $(this).find('.content').toggleClass('active');
+});
 
-function active(selector) {
-  document.getElementById(selector).addEventListener('click', function () {
-    this.classList.toggle('active');
+$(document).click(function(event) {
+  if (!$(event.target).closest('.filter').length) {
+    $('.filter .active').removeClass('active');
+  }
+})
+
+/* ////////////////////////////////////// */
+//選擇器
+
+let collegeTarget = $('#college li:first').text();
+let departmentTarget = $('#department li:first').text();
+let gradeTarget;
+let lectureTarget;
+let clasTarget;
+
+$('#college .content').on('click', 'li', function(event) {
+  collegeTarget = event.target.innerText;
+  $('#college .header li').text(collegeTarget);
+  $('#department .header li').text('-請選擇-');
+  documentreset()
+  updateContent('department')
+  if(collegeTarget=='通識課程'){$('#grade').css('display', 'none')}
+  else{$('#grade').css('display', 'flex')}
+});
+
+$('#department .content').on('click', 'li', function(event) {
+  departmentTarget = event.target.innerText;
+  $('#department .header li').text(departmentTarget);
+  documentreset()
+  updateContent('lecture')
+});
+
+$('#grade li').click(function() {
+  $(this).toggleClass('active').siblings().removeClass('active');
+  gradeTarget = $(this).hasClass('active') ? $(this).text() : undefined;
+  lectureTarget = undefined;
+  $('#lecture .header li').text('-請選擇-');
+  $('#documentcontainer').empty().css('display', 'none');
+  $('.bot').css('opacity', '.25');
+  updateContent('lecture')
+});
+
+$('#lecture .content').on('click', 'li', function(event) {
+  lectureTarget = event.target.innerText;
+  $('#lecture .header li').text(lectureTarget);
+  documentSelect();
+});
+
+$('#clas .content').on('click', 'li', function(event) {
+  clasTarget = event.target.innerText;
+  $('#clas .header li').text(clasTarget);
+  documentSelect();
+});
+
+function documentreset() {
+  gradeTarget = undefined;
+  lectureTarget = undefined;
+  clasTarget = undefined;
+  $('#grade li.active, #clas li.active').removeClass('active');
+  $('#lecture .header li, #clas .header li').text('-請選擇-');
+  $('#documentcontainer').empty().css('display', 'none');
+  $('.bot').css('opacity', '.25');
+}
+
+/* ////////////////////////////////////// */
+//更新列表
+
+updateContent('lecture')
+updateContent('department')
+
+function updateContent(target) {
+  $.get('/update', {
+    json: target,
+    dep: departmentTarget,
+    grade: gradeTarget
+  }, (data) => {
+    $('#lecture .content ul').html(data);
   });
 }
 
-for (let i = 0; i < leftList.length; i++) {
-  active(leftList[i]);
-}
-for (let i = 0; i < rightList.length; i++) {
-  active(rightList[i]);
-}
-/* ////////////////////////////////////// */
-//點擊其他地方收起列表
 
-function removeActive(event, selector) {
-  if (!event.target.closest('#' + selector)) {
-    document.querySelectorAll('#' + selector + '.active').forEach(function (el) {
-      el.classList.remove('active');
+/* ////////////////////////////////////// */
+//排序檔案
+
+let yearOrder = 1;
+let likeOrder = 1;
+
+$('#year h4').click(function() {
+  if ($('#documentcontainer').css('display') == 'block') {
+    $('#like .triangle').addClass('inactive').removeClass('reverse');
+    $('#year .triangle').removeClass('inactive').toggleClass('reverse');
+    yearOrder = yearOrder == 1 ? 0 : 1;
+    let documents = $('.document');
+    documents.sort((a, b) => {
+      let A = $(a).find('.year h4').text();
+      let B = $(b).find('.year h4').text();
+      if(yearOrder == 0){if(A > B){return 1} else{return -1}}
+      if(yearOrder == 1){if(A < B){return 1} else{return -1}}
     });
-  }
-}
+    $('#documentcontainer').append(documents);
+}});
 
-document.addEventListener('click', function (event) {
-  for (let i = 0; i < leftList.length; i++) {
-    removeActive(event, leftList[i], 0);
-  }
-  for (let i = 0; i < rightList.length; i++) {
-    removeActive(event, rightList[i], 1);
-  }
-});
-
-/* ////////////////////////////////////// */
-//學院科系選擇器
-
-let college = document.querySelector('#college .content ul');
-let department = document.querySelector('#department .content ul');
-let collegeHeader = document.querySelector('#college .header li');
-let departmentHeader = document.querySelector('#department .header li');
-
-college.addEventListener('click', function (event) {
-  if (event.target.tagName === 'LI') {
-    collegeTarget = Array.from(college.children).indexOf(event.target);
-    changeHeader(collegeHeader, event.target);
-    changeContent(departmentData, collegeTarget, department);
-    departmentHeader.innerText = '-請選擇科系-';
-    departmentTarget = null;
-  }
-});
-
-department.addEventListener('click', function (event) {
-  if (event.target.tagName === 'LI') {
-    departmentTarget = Array.from(department.children).indexOf(event.target);
-    changeHeader(departmentHeader, event.target);
-  }
-});
-
-function changeHeader(selectorHeader, target) {
-  selectorHeader.innerText = target.innerText;
-  removeActiveGrade();
-  lectureTarget = null;
-  departmentJudgement();
-}
-/* ////////////////////////////////////// */
-//年級選擇器
-
-let grade = document.querySelectorAll('#grade li');
-
-grade.forEach(function (li) {
-  li.addEventListener('click', function () {
-    removeActiveGrade();
-    this.classList.add('active');
-    gradeTarget = Array.from(grade).indexOf(this);
-    departmentJudgement()
-  });
-});
-
-function removeActiveGrade() {
-  document.querySelectorAll('#grade li.active').forEach(function (el) {
-    el.classList.remove('active');
-  });
-  gradeTarget = null;
-}
-
-/* ////////////////////////////////////// */
-//課程教師選擇器
-
-let lecture = document.querySelector('#lecture .content ul');
-let teacher = document.querySelector('#teacher .content ul');
-
-departmentJudgement()
-
-lecture.addEventListener('click', function (event) {
-  if (event.target.tagName === 'LI') {
-    lectureTarget = Array.from(lecture.children).indexOf(event.target);
-    departmentJudgement();
-  }
-});
-
-teacher.addEventListener('click', function (event) {
-  if (event.target.tagName === 'LI') {
-    teacherTarget = Array.from(teacher.children).indexOf(event.target);
-  }
-});
-
-/* ////////////////////////////////////// */
-//年份類別選擇器
-
-let year = document.querySelector('#year .content ul');
-let clas = document.querySelector('#clas .content ul');
-let yearTarget = null;
-let clasTarget = null;
-
-year.addEventListener('click', function (event) {
-  if (event.target.tagName === 'LI') {
-    yearTarget = Array.from(year.children).indexOf(event.target);
-  }
-});
-
-clas.addEventListener('click', function (event) {
-  if (event.target.tagName === 'LI') {
-    clasTarget = Array.from(clas.children).indexOf(event.target);
-  }
-});
-
-/* ////////////////////////////////////// */
-//抽換列表內容的公式
-
-function changeContent(data, index, output) {
-  let HTML = '';
-  if (index == null) {
-    for (let index = 0; index < data.length; index++) {
-      for (let i = 0; i < data[index].length; i++) {
-        HTML += '<li>' + data[index][i] + '</li>';
-      }
-    }
-  }
-  else {
-    for (let i = 0; i < data[index].length; i++) {
-      HTML += '<li>' + data[index][i] + '</li>';
-    }
-  }
-  output.innerHTML = HTML;
-}
-
-function changeContent3D(data, index1, index2, output) {
-  let HTML = '';
-  if (index1 == null || index2 == null) {
-    for (let index1 = 0; index1 < data.length; index1++) {
-      for (let index2 = 0; index2 < data[index1].length; index2++) {
-        for (let i = 0; i < data[index1][index2].length; i++) {
-          HTML += '<li>' + data[index1][index2][i] + '</li>';
-        }
-      }
-    }
-  }
-  if (index1 != null && index2 != null) {
-    for (let i = 0; i < data[index1][index2].length; i++) {
-      HTML += '<li>' + data[index1][index2][i] + '</li>';
-    }
-  }
-  output.innerHTML = HTML;
-}
-
-function departmentJudgement() {
-  if (collegeTarget == 7 && departmentTarget == 0) {
-    changeContent(lectureData, gradeTarget, lecture);
-    changeContent3D(teacherData, gradeTarget, lectureTarget, teacher);
-  }
-  else {
-    lecture.innerHTML = '<li></li>';
-    teacher.innerHTML = '<li></li>';
-  }
-}
-
-/* ////////////////////////////////////// */
-
-// From 宗宗
-// 點擊頭像時，顯示出個人頁面
-function showModal() {
-  const modal = document.createElement("div");
-  modal.id = "modal";
-  document.body.appendChild(modal);
-
-  // 點擊非浮動視窗會關閉
-  const modal_else = document.createElement("div");
-  modal_else.id = "modal_else";
-  document.body.appendChild(modal_else);
-
-  fetch("./personal_page.html")
-    .then(response => response.text())
-    .then(html => {
-      modal.innerHTML = html;
-      modal.classList.add("visible");
-      const fileUploader = document.querySelector('[data-target="upload"]');
-      fileUploader.addEventListener("change", handleFileUpload);
+$('#like h4').click(function() {
+  if ($('#documentcontainer').css('display') == 'block') {
+    $('#year .triangle').addClass('inactive').removeClass('reverse');
+    $('#like .triangle').removeClass('inactive').toggleClass('reverse');
+    likeOrder = likeOrder == 1 ? 0 : 1;
+    let documents = $('.document');
+    documents.sort((a, b) => {
+      let A = parseInt($(a).find('.like h4').text());
+      let B = parseInt($(b).find('.like h4').text());
+      if(likeOrder == 0){return A - B}
+      if(likeOrder == 1){return B - A}
     });
+    $('#documentcontainer').append(documents);
+}});
 
-  modal.setAttribute("tabindex", "0");
-  modal.focus();
-  modal.addEventListener("keydown", function (e) {
-    console.log("keydown")
-    if (e.key == 'Escape' || e.key == ' ') // 按esc或空白鍵
+/* ////////////////////////////////////// */
+//檔案生成
+
+function documentSelect() {
+  if(lectureTarget != undefined && clasTarget != undefined) {
+    $('#documentcontainer').css('display', 'block');
+    $('.bot').css('opacity', '1');
+    $.get('/documentSelect', {
+      lec: lectureTarget,
+      clas: clasTarget
+    }, (data) => {
+      $('#documentcontainer').html(data);
+    });
+}}
+
+/* ////////////////////////////////////// */
+//搜索功能
+
+$('#search-box').on('input', function() {
+  if ($('#search-box').val() != '') {
+    $('#documentcontainer').css('display', 'block');
+    $('.bot').css('opacity', '1');
+    $.get('/documentSearch', {
+      search: $('#search-box').val()
+    }, (data) => {
+      $('#documentcontainer').html(data);
+    });
+}});
+
+$('#search-box').on('blur', function() {
+  if ($('#search-box').val() === '') {
+    $('#documentcontainer').empty().css('display', 'none');
+    $('.bot').css('opacity', '.25');
+}});
+
+/* ////////////////////////////////////// */
+//假登入
+
+$('#login').click(function(){
+  if ($('#login p').text() == '登 入') {
+    login();
+  }
+  setTimeout(() => {
+    $('#text').toggleClass('active');
+    $('#login p').text($('#login p').text() == '登 入' ? '登 出' : '登 入');
+    if ($('#login p').text() == '登 入') {
+      $('#user p').text('');
+      $('#user .userpic img').attr('src', '');
+    }
+  }, 100);
+})
+
+let userid = 1;
+
+function login(){
+  $.getJSON('user.json', function(data) {
+    if (data[userid]) {
+      $('#user p').text(data[userid].name);
+      $('#user .userpic img').attr('src', './img/userpic/' + data[userid].pic);
+    }
+  });
+}
+
+/* ////////////////////////////////////// */
+//預覽視窗
+
+$('.userpic').click(function(){
+  if ($('#text').hasClass('active')){
+    showModal('personal_page');
+  }
+});
+
+$(document).on('click', '.document', function(event) {
+  showModal('view');
+  console.log(this);
+});
+
+$(document).on('click', '.view #quit', function() {
+  closeModal();
+});
+
+$(document).on('click', '.view #userpic img', function() {
+  showModal('personal_page');
+});
+
+function showModal(page) {
+  $('html').css('cursor', 'wait');
+  let modal = $('<div>').attr('id', 'modal').addClass(page);
+  $('body').append(modal);
+  $.get('/page', {
+    page: page
+  }, (data) => {
+    modal.html(data);
+  });
+  setTimeout(function() {
+    modal.css('opacity', 1);
+    $('html').css('cursor', '');
+  }, 400);
+  modal.attr('tabindex', '0').focus();
+  modal.on('keydown', function(e) {
+    if (e.key == 'Escape' || e.key == ' ') {
       closeModal();
-  });
-
-  modal_else.addEventListener("click", closeModal);
+  }});
+  $('[data-target="upload"]').on('change', handleFileUpload);
 }
 
-
-// 功能：點擊非浮動視窗時，關閉浮動視窗
 function closeModal() {
-  console.log("close modal");
-  const modal = document.getElementById("modal");
-  const modal_else = document.getElementById("modal_else");
-
-  if (modal) {
-    modal.style.opacity = 0;
-    modal.style.transition = "opacity 0.5s ease-in-out";
-    setTimeout(function () {
-      modal.classList.remove("visible");
-      modal.innerHTML = "";
-      document.body.removeChild(modal);
-    }, 500); // 等待 0.5 秒後，再移除浮動視窗
-  }
-
-  if (modal_else) {
-    modal_else.classList.remove("visible");
-    modal.classList.add("invisible");
-    modal_else.innerHTML = "";
-    document.body.removeChild(modal_else);
-  }
+  $('#modal').css('opacity', 0);
+  setTimeout(function() {
+    $('#modal').removeClass('').html('').remove();
+  }, 500);
 }
+
+/* ////////////////////////////////////// */
+//奇怪的東西
+
+
+/* ////////////////////////////////////// */
+/* ------------------------------------------------------------------------------------------------------------------------- */
+/*From 宗宗*/
 
 /* Upload */
 // STEP 1: select element and register change event
-const fileUploader = document.querySelector('[data-target="upload"]');
 var FileName = "";
 
 
@@ -376,3 +357,5 @@ function beforeUpload(fileObject) {
 }
 
 
+/* ////////////////////////////////////// */
+})

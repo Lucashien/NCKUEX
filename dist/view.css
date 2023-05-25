@@ -1,0 +1,144 @@
+@font-face {
+	font-family: "Source Han Sans SC Regular";
+	src: url(./fonts/NotoSansTC-Regular.otf);
+ }
+
+ @font-face {
+	font-family: "Source Han Sans SC Thin";
+	src: url(./fonts/NotoSansTC-Thin.otf) ;
+ }
+
+ @font-face {
+	font-family: "Source Han Sans SC Light";
+	src: url(./fonts/NotoSansTC-Light.otf);
+ }
+
+ @font-face {
+	font-family: "Source Han Sans SC Bold";
+	src: url(./fonts/NotoSansTC-Bold.otf);
+ }
+
+ *{
+    margin: 0;
+    padding: 0;
+ }
+
+.view{
+    padding: 0 10vw;
+    padding-top: 7vw;
+    background-color: rgba(18, 18, 18);
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    overflow-y: auto;
+}
+
+.view header{
+    height: 10vw;
+}
+
+.view #title{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.view #title h1{
+    font-family: "Source Han Sans SC Bold", sans-serif;
+    font-size: 3vw;
+    color: aliceblue;
+}
+
+.view #info{
+    display: flex;
+    justify-content: center;
+    height: 3vw;
+    padding-bottom: 0.6vw;
+    border-bottom: 0.2vw solid #81D6FA;
+}
+
+.view #text{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center
+}
+
+.view #text p {
+    font-family: "Source Han Sans Regular", sans-serif;
+    color: white;
+    font-size: 1.2vw;
+    text-align: center;
+}
+
+.view #uploader{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center
+}
+
+.view #uploader p{
+    font-family: "Source Han Sans Light", sans-serif;
+    color: white;
+    font-size: 1vw;
+}
+
+.view #userpic img{
+    width: 2vw;
+    margin:0 1vw;
+} 
+
+.view img{
+    max-width: 100%;
+}
+
+.view main{
+    display: flex;
+    justify-content: center;
+}
+
+.view #file{
+    width: 90%;
+    height: 95vw;
+    margin-top: 3vw;
+    margin-left:8vw;
+}
+
+.view #right{
+    width: 10%;
+    height: 95vw;
+    margin-top: 4vw;
+    display: flex;
+    justify-content: center;
+}
+.view #file img{
+    width: 62vw;
+}
+
+.view #download{
+    width: 2.5vw;
+}
+
+.view #like{
+    width: 2.5vw;
+}
+
+a{
+    text-decoration: none;
+}
+
+.view #right p{
+    font-family: "Source Han Sans SC Regular", sans-serif;
+    font-size: 1vw;
+    color:aliceblue;
+    margin-left: 0.2vw;
+}
+
+.view #quit{
+    width: 3vw;
+    position: absolute;
+    top: 5vw;
+    right: 7vw;
+}
+
+.view #download, .view #like, .view #quit, .view #userpic img{
+    cursor: pointer;
+    z-index: 100;
+}
