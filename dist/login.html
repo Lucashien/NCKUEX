@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="shortcut icon" type="image/png" href="./images/1_分頁logo.png">
+    <title>NCKU EX</title>
+    <link href="login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="leftbox">
+            <div class="logo">
+                <img src="./images/D_2_大LOGO.png" style="width: 60%; padding: 2vh 0;">
+                <br>
+                <p1>考古在手 學分無窮</p1>
+                <br>
+                <p2>NCKU ID X EE</p2>
+                <div style="height: 25vh;"></div>
+                <p3>2023 NCKU EX. All rights reserved.</p3>
+            </div>
+        </div>
+
+        <div class="rightbox">
+            <form>
+                <p4>帳號</p4>
+                <input type="text">
+                <p4></p4>
+                <p4>密碼</p4>
+                <input type="password">
+            </form>
+            <br><br><br>
+            <div id="container_login" style="width: 24vw; display: block;">
+                <span id="GOOGLE_STATUS_1"></span>
+                <!-- Google login -->
+                <script src="https://accounts.google.com/gsi/client" async defer></script>
+                <script src = "./login.js"></script>
+                <div id="g_id_onload"
+                    data-client_id="770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com"
+                    data-callback="Get_member_info">
+                </div>
+                <div class="g_id_signin" data-type="standard"></div>
+                <div class="g_id_signout">Sign Out</div>
+                
+                <!--  -->
+                <br><br>
+                <a href="./sort.html">
+                    <img src="./images/D_5_訪客.png">
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>

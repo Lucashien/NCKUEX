@@ -9,7 +9,7 @@ const __dirname = dirname(__filename)
 
 // 建立一個 express (也就是網頁伺服器)實體
 const app = express()
-const port = 8788
+const port = 8888
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`listening on port: ${port}`)
