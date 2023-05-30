@@ -2,8 +2,19 @@ $(document).ready(function() {
 /* ////////////////////////////////////// */
 //收合側欄
 
-$('#bar').click(function() {
-  $('aside, #right, #leftfix').toggleClass('active');
+$('#barbutton').click(function() {
+  if($(this).hasClass('active')){
+    $('#barbutton').toggleClass('active');
+    setTimeout(function() {
+      $('aside, #right, #leftfix').toggleClass('active');
+  }, 100);
+  }
+  else{
+    $('aside, #right, #leftfix').toggleClass('active');
+    setTimeout(function() {
+      $('#barbutton').toggleClass('active');
+    }, 200);
+  }
 });
 
 /* ////////////////////////////////////// */
@@ -33,7 +44,7 @@ $('#college .content').on('click', 'li', function(event) {
   collegeTarget = event.target.innerText;
   $('#college .header li').text(collegeTarget);
   $('#department .header li').text('-請選擇-');
-  documentreset()
+  documentReset()
   updateContent('department')
   if(collegeTarget=='通識課程'){$('#grade').css('display', 'none')}
   else{$('#grade').css('display', 'flex')}
@@ -42,7 +53,7 @@ $('#college .content').on('click', 'li', function(event) {
 $('#department .content').on('click', 'li', function(event) {
   departmentTarget = event.target.innerText;
   $('#department .header li').text(departmentTarget);
-  documentreset()
+  documentReset()
   updateContent('lecture')
 });
 
@@ -68,12 +79,13 @@ $('#clas .content').on('click', 'li', function(event) {
   documentSelect();
 });
 
-function documentreset() {
+function documentReset() {
   gradeTarget = undefined;
   lectureTarget = undefined;
   clasTarget = undefined;
   $('#grade li.active, #clas li.active').removeClass('active');
   $('#lecture .header li, #clas .header li').text('-請選擇-');
+  $('#lecture .content ul').html('<li></li>');
   $('#documentcontainer').empty().css('display', 'none');
   $('.bot').css('opacity', '.25');
 }
@@ -85,12 +97,13 @@ updateContent('lecture')
 updateContent('department')
 
 function updateContent(target) {
-  $.get('/update', {
+  $.get('/update' + target + '', {
     json: target,
+    col: collegeTarget,
     dep: departmentTarget,
     grade: gradeTarget
   }, (data) => {
-    $('#lecture .content ul').html(data);
+    $('#' + target + ' .content ul').html(data);
   });
 }
 
@@ -146,10 +159,7 @@ function documentSelect() {
     });
 }}
 
-/* ////////////////////////////////////// */
-//搜索功能
-
-$('#search-box').on('input', function() {
+function documentSearch() {
   if ($('#search-box').val() != '') {
     $('#documentcontainer').css('display', 'block');
     $('.bot').css('opacity', '1');
@@ -158,15 +168,24 @@ $('#search-box').on('input', function() {
     }, (data) => {
       $('#documentcontainer').html(data);
     });
-}});
+}}
+
+/* ////////////////////////////////////// */
+//搜索功能
+
+$('#search-box').on('input', function() {
+  documentSearch()
+});
 
 $('#search-box').on('blur', function() {
   if ($('#search-box').val() === '') {
     $('#documentcontainer').empty().css('display', 'none');
     $('.bot').css('opacity', '.25');
+    $('html').css('cursor', '');
 }});
 
 /* ////////////////////////////////////// */
+/* ------------------------------------------------------------------------------------------------------------------------- */
 //假登入
 
 $('#login').click(function(){
@@ -183,8 +202,6 @@ $('#login').click(function(){
   }, 100);
 })
 
-let userid = 1;
-
 function login(){
   $.getJSON('user.json', function(data) {
     if (data[userid]) {
@@ -194,37 +211,43 @@ function login(){
   });
 }
 
-/* ////////////////////////////////////// */
-//預覽視窗
-
 $('.userpic').click(function(){
   if ($('#text').hasClass('active')){
-    showModal('personal_page');
+    showModal('personal_page', '');
   }
 });
 
-$(document).on('click', '.document', function(event) {
-  showModal('view');
-  console.log(this);
+let userID = 88;
+
+/* ////////////////////////////////////// */
+//預覽視窗
+
+$(document).on('click', '.document', function() {
+  showModal('view',  $(this).attr('id'));
 });
 
 $(document).on('click', '.view #quit', function() {
+  $('.view #file, .view #load').css('transition', '.3s ease-in-out').css('opacity', '0');
+  quitView = true;
+  closeModal();
+  setTimeout(function() {quitView = false},500);
+});
+let quitView = false;
+
+$(document).on('click', '.view #userpic img', function() {
+  showModal('preview_personal', '');
+});
+
+
+$(document).on('click', '.preview_personal #null', function() {
   closeModal();
 });
 
-$(document).on('click', '.view #userpic img', function() {
-  showModal('personal_page');
-});
-
-function showModal(page) {
+function showModal(page, doc) {
   $('html').css('cursor', 'wait');
-  let modal = $('<div>').attr('id', 'modal').addClass(page);
+  let modal = $('<div>').attr('id', doc).addClass('modal').addClass(page);
   $('body').append(modal);
-  $.get('/page', {
-    page: page
-  }, (data) => {
-    modal.html(data);
-  });
+  Page(page, doc)
   setTimeout(function() {
     modal.css('opacity', 1);
     $('html').css('cursor', '');
@@ -232,23 +255,125 @@ function showModal(page) {
   modal.attr('tabindex', '0').focus();
   modal.on('keydown', function(e) {
     if (e.key == 'Escape' || e.key == ' ') {
-      closeModal();
+    closeModal();
   }});
   $('[data-target="upload"]').on('change', handleFileUpload);
 }
 
 function closeModal() {
-  $('#modal').css('opacity', 0);
+  $('.modal').last().css('opacity', 0);
   setTimeout(function() {
-    $('#modal').removeClass('').html('').remove();
+    $('.modal').last().removeClass('').html('').remove();
   }, 500);
+}
+
+function Page(page, doc) {
+  if (page == 'view') {viewPage(page, doc);}
+}
+
+function viewPage(page, doc){
+  $.get('/' + page + '' , {
+    userID: userID,
+    doc: doc
+  }, (data) => {
+    $('#' + doc + '.modal').html(data[0]);
+    Interactive('like', data[1])
+    Interactive('rate', false)
+    viewScroll()
+    renderPDF($('#download a').attr('href'));
+  });
+}
+/* ////////////////////////////////////// */
+//倒讚幫
+
+function like() {
+  $('html').css('cursor', 'wait');
+  $.get('/like' , {
+    userID: userID,
+    doc: $('.modal.view').attr('id')
+  }, (data) => {
+    console.log(data);
+  });
+  setTimeout(function() {
+    $('#documentcontainer').empty()
+    documentSelect()
+    documentSearch()
+    $('html').css('cursor', '');
+    $('.view #like img').toggleClass('active');
+  }, 100);
+}
+
+function Interactive(target, iff){
+  console.log($('.view #' + target + ' img'));
+  if (iff) {$('.view #' + target + ' img').toggleClass('active');}
+  else {
+    $('.view #' + target).css('cursor', 'pointer').click(like).hover(
+      function(){$(this).css('transform', 'scale(1.2)')},
+      function(){$(this).css('transform', 'scale(1)')}
+    )
+  }
+}
+
+/* ////////////////////////////////////// */
+//pdf
+
+window['pdfjs-dist/build/pdf'].GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+async function renderPDF(url) {
+  $('.view').css('cursor', 'wait');
+  try {
+    const pdf = await pdfjsLib.getDocument(url).promise;
+
+    for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+      if (quitView) {break}
+
+      const canvasElement = $('<canvas>').attr('id', pageNumber);
+      $('.view #file').append(canvasElement);
+
+      const page = await pdf.getPage(pageNumber);
+
+      const scale = 1.5;
+      const viewport = page.getViewport({ scale });
+
+      const context = canvasElement[0].getContext('2d');
+      canvasElement[0].height = viewport.height;
+      canvasElement[0].width = viewport.width;
+
+      const renderContext = {
+        canvasContext: context,
+        viewport: viewport
+      };
+      await page.render(renderContext).promise;
+    }
+
+    console.log('PDF rendering completed');
+  } catch (error) {
+  }
+  $('.view').css('cursor', '');
+  $('.view #load').css('display', 'none');
+  $('.view #file').css('display', 'flex');
 }
 
 /* ////////////////////////////////////// */
 //奇怪的東西
 
+function viewScroll(){
+  let fixed = false
+  $('.view').on('scroll', function() {
+    var scroll = $(this).scrollTop();
+    var offset = $('.view #right').offset().top;
+    if (scroll > offset) {
+      if (!fixed){
+        fixed = true;
+        $('.view #right').addClass('fixed');
+      }
+    } else {
+      fixed = false;
+      $('.view #right').removeClass('fixed');
+    }
+  });
+}
 
-/* ////////////////////////////////////// */
 /* ------------------------------------------------------------------------------------------------------------------------- */
 /*From 宗宗*/
 

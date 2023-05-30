@@ -4,39 +4,46 @@
    <meta charset="utf-8">
    <meta content="width=device-width, initial-scale=1" name="viewport">
    <title>共享考古</title>
+   <link rel="shortcut icon" type="image/png" href="./images/1_分頁logo.png">
    <link href="sort.css" rel="stylesheet" type="text/css">
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 </head>
 <body>
    <header class="sort">
-    <div style="height: 20%;"></div>
+    <div style="height: 40%;"></div>
     <div id="title">
-        <div id="logo">
-            <a href="./main.html"><img src="./img/A_1_LOGO.png" style="width: 10vw;"></img></a>
+        <div class="flexstart">
+            <a href="./main.html"><div id="logo">
+                <img src="./img/LOGO.png"></img>
+            </div></a>
+            <div style="width: 4%;"></div>
+            <input type="text" id="search-box" placeholder="搜尋">
         </div>
-        <div id = "titlenull" style="width: 5%;"></div>
-        <input type="text" id="search-box" placeholder="請輸入關鍵字">
-        <div id="text">
-            <div id="hi">
-                <p>Hi! </p>
+        <div class="flexend">
+            <div id="text">
+                <div id="hi">
+                    <p>Hi! </p>
+                </div>
+                <div style="width: 5%;"></div>
+                <div id="user">
+                    <div class="userpic"><img src=""></img></div>
+                    <p></p>
+                </div>
             </div>
-            <div style="width: 5%;"></div>
-            <div id="user">
-                <div class="userpic"><img src=""></img></div>
-                <p></p>
+            <div id="login">
+                <P>登 入</p>
             </div>
-        </div>
-        <div id="login">
-            <P>登 入</p>
-        </div>
-        </div>
+        </div>    
+    </div>
+    <div style="height: 25%; border-bottom: .15vw solid #D3D3D5;">
     </div>
    </header>
 
 
    <aside class="sort">
-    <div id="left" style="margin: 0;">
-        <div style="display: inline-block; margin: 2vw 0;">
+    <div id="left">
+        <div class="filtercontainer">
             <h4>學院</h4>
             <div id="college" class="filter">
                 <div class="header">
@@ -60,7 +67,7 @@
                     </ul>
                 </div>
             </div>
-            <div style="height: 2vh;"></div>
+            <div style="height: 15%;"></div>
             <h4>系所</h4>
             <div id="department" class="filter">
                 <div class="header">
@@ -82,7 +89,8 @@
                 <li>大四</li>
                 <li>碩所</li>
             </div>
-        <div style="display: inline-block; margin: 3vw 0;">
+            <hr>
+        <div class="filtercontainer">
             <h4>課程</h4>
             <div id="lecture" class="filter">
                 <div class="header">
@@ -112,19 +120,23 @@
                 </div>
             </div>
         </div>
-        <div style="display: flex; justify-content: center; margin-top: 1vw;">
+        <!-- <div style="display: flex; justify-content: center; margin-top: 1vw;">
             <a href="https://www.youtube.com/" id="wishlist">
                 <h4>願望清單</h4>
             </a>
-        </div>
+        </div> -->
     </div>
-    <div id="bar"></div>
+    <div id="barcontainer">
+        <div id="barbutton"></div>
+        <div class="bar"></div>
+    </div>
    </aside>
 
 
    <main class="sort">
-    <div id="leftfix" style="margin: 0;"></div>
-    <div id="right" style="margin: 0 1.5vw;">
+    <div id="leftfix"></div>
+    <div id="right">
+        <div style="height: 2.5%;"></div>
         <div class="top">
             <div id="year" class="container">
                 <h4>年份</h4>
@@ -133,17 +145,19 @@
             <div id="teacher" class="container">
                 <h4>教師</h4>
             </div>
-            <div id="documentname" class="container">
-                <h4>檔名</h4>
-            </div>
             <div id="like" class="container">
                 <h4>讚賞</h4>
                 <div class="triangle inactive"></div>
             </div>
+            <div id="documentname" class="container">
+                <h4>檔名</h4>
+            </div>
+            <div id="tag">
+                <div><img src="./img/check2.png"><p>內容完整</p></div>
+                <div><img src="./img/check1.png"><p>內容完整</p></div>
+            </div>
             <div id="uploader" class="container">
                 <h4>上傳者</h4>
-            </div>
-            <div id="tag" class="container">
             </div>
         </div>
 

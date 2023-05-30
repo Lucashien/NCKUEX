@@ -1,42 +1,57 @@
-<!DOCTYPE html> 
-<html> 
-  <head> 
-    <meta charset="utf-8"> 
-    <meta content="width=device-width, initial-scale=1" name="viewport"> 
-    <link rel="shortcut icon" type="image/png" href="./images/1_分頁logo.png">
-    <title>NCKU EX</title> 
-    <link href="main.css" rel="stylesheet" type="text/css"> 
-  </head> 
+<!DOCTYPE html>
+<html>
 
-  <body> 
-    <main>
-        <div class="leftbox">
-            <div class="title">
-                <img class="logo" src="./img/大LOGO.png"> 
-                <div class="text1"><p1>考古在手</p1><p1>學分無窮</p1></div>
-                <p2>專屬成大學生的共享考古資源平台</p2>
-            </div>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link rel="shortcut icon" type="image/png" href="./images/1_分頁logo.png">
+  <title>NCKU EX</title>
+  <link href="main.css" rel="stylesheet" type="text/css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="./login.js"></script>
+
+</head>
+
+<body>
+  <main>
+    <div class="leftbox">
+      <div class="title">
+        <img class="logo" src="./img/大LOGO.png">
+        <div class="text1">
+          <p1>考古在手</p1>
+          <p1>學分無窮</p1>
         </div>
-    
-        <div class="rightbox">
-            <img id="login" src="./img/login.png">
-            <span id="GOOGLE_STATUS_1"></span>
-                <!-- Google login -->
-                <script src="https://accounts.google.com/gsi/client" async defer></script>
-                <script src = "./login.js"></script>
-                <div id="g_id_onload"
-                    data-client_id="770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com"
-                    data-callback="Get_member_info">
-                </div>
-            <div class="bar"><hr><p>首次使用</p><hr></div>
-            <img id="sign" src="./img/sign.png">
-        </div>
-    </main>
-    <footer>
-        <img src="./img/footer.png">
-    </footer>
-    
+        <p2>專屬成大學生的共享考古資源平台</p2>
+      </div>
+    </div>
+
+    <div class="rightbox">
+      <span id="GOOGLE_STATUS_1"></span>
+      <!--Google Sign in -->
+      <div id="g_id_onload" data-client_id="770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com"
+        data-callback="handleCallback"></div>
+      <img id="login" src="./img/login.png">
+      <div class="g_id_signin" data-type="standard"></div>
+
+      <!-- Google Sign out -->
+      <!-- 待更新 -->
+
+      <a href="#" onclick="signOut();">Sign out</a>
+
+      <div class="bar">
+        <hr>
+        <p>首次使用</p>
+        <hr>
+      </div>
+      <img id="sign" src="./img/sign.png">
+    </div>
+  </main>
+  <footer>
+    <img src="./img/footer.png">
+  </footer>
 
 
-  </body> 
-</html> 
+
+</body>
+
+</html>
