@@ -7,9 +7,6 @@
   <link rel="shortcut icon" type="image/png" href="./images/1_分頁logo.png">
   <title>NCKU EX</title>
   <link href="main.css" rel="stylesheet" type="text/css">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="./login.js"></script>
-
 </head>
 
 <body>
@@ -26,18 +23,7 @@
     </div>
 
     <div class="rightbox">
-      <span id="GOOGLE_STATUS_1"></span>
-      <!--Google Sign in -->
-      <div id="g_id_onload" data-client_id="770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com"
-        data-callback="handleCallback"></div>
-      <img id="login" src="./img/login.png">
-      <div class="g_id_signin" data-type="standard"></div>
-
-      <!-- Google Sign out -->
-      <!-- 待更新 -->
-
-      <a href="#" onclick="signOut();">Sign out</a>
-
+      <a href="http://localhost:8888/auth/google"><img id="login" src="./img/login.png"></a>
       <div class="bar">
         <hr>
         <p>首次使用</p>

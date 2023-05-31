@@ -195,7 +195,8 @@ $('#login').click(function(){
   setTimeout(() => {
     $('#text').toggleClass('active');
     $('#login p').text($('#login p').text() == '登 入' ? '登 出' : '登 入');
-    if ($('#login p').text() == '登 入') {
+    if ($('#login p').text() == '登 入') 
+    {
       $('#user p').text('');
       $('#user .userpic img').attr('src', '');
     }

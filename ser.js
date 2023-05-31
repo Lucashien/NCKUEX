@@ -8,6 +8,8 @@ import { fileURLToPath } from 'url'
 // google 登入用
 import querystring from 'querystring'
 import axios from 'axios'
+import session from 'express-session'
+
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -212,13 +214,13 @@ app.get('/auth/google', (req, res) => {
   }
   const auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
 
+  // console.log("query", query);
   console.log(`${auth_url}?${querystring.stringify(query)}`)
-  res.redirect(`${auth_url}?${querystring.stringify(query)}`)
+  res.redirect(`${auth_url}?${querystring.stringify(query)}`) // 將Grant傳到uri
 })
 
 //授權過後回傳到callback內
 app.get('/auth/google/callback', async (req, res) => {
-
   // 取得token
   const code = req.query.code
   const options = {
@@ -231,17 +233,16 @@ app.get('/auth/google/callback', async (req, res) => {
   const url = 'https://oauth2.googleapis.com/token'
   const response = await axios.post(url, querystring.stringify(options))
 
-  //利用tokne取得需要的資料
+  //利用token取得需要的資料
   const { id_token, access_token } = response.data
   const getData = await axios.get(
     `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
     {
-      headers: {
-        Authorization: `Bearer ${id_token}`
-      }
+      headers: { Authorization: `Bearer ${id_token}` }
     }
   )
 
+  console.log(getData.data)
   //轉址指定頁面
   res.redirect('/sort.html')
   console.log("Login success");
@@ -250,3 +251,24 @@ app.get('/auth/google/callback', async (req, res) => {
 app.get('/success', (req, res) => {
   res.send('get data from google successfully')
 })
+
+
+// 連接Database
+import mysql from "mysql";
+
+const connection = mysql.createConnection({
+  user: 'root',
+  host: 'localhost',
+  port: 3306,
+  password: '',
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error('Database connection failed!\n' + err.stack);
+    return;
+  }
+  
+  console.log('Database connection successful!');
+  // 进行数据库操作
+});
