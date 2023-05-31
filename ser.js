@@ -42,7 +42,6 @@ app.post("/file", (req, res) => {
       res.sendStatus(200);
     }
   });
-
 });
 
 /* ////////////////////////////////////// */
@@ -245,22 +244,45 @@ app.get('/auth/google/callback', async (req, res) => {
   console.log(getData.data)
   //轉址指定頁面
   res.redirect('/sort.html')
+
   console.log("Login success");
+
+  // 更新資料庫
+  const insertQuery = `INSERT INTO user_info (id, email, verified_email, username, given_name, family_name, picture, locale, hd) VALUES ('${getData.data.id}', '${getData.data.email}', ${getData.data.verified_email}, '${getData.data.name}', '${getData.data.given_name}', '${getData.data.family_name}', '${getData.data.picture}', '${getData.data.locale}', '${getData.data.hd}')`;
+
+  connection.query(insertQuery, [getData.data.id, getData.data.email, getData.data.verified_email, getData.data.name, getData.data.given_name, getData.data.family_name, getData.data.picture, getData.data.locale, getData.data.hd], (error, results) => {
+    if (error) {
+      if (error.code == "ER_DUP_ENTRY") {
+        console.log("歡迎！", getData.data.name);
+      }
+      else console.error('哭阿出錯啦！', error);
+    }
+    else {
+      console.log(`新用戶${getData.data.name}資料已加入資料庫`);
+    }
+  });
+
+  setUserInfo(getData.data);
 })
+
+
+
 
 app.get('/success', (req, res) => {
   res.send('get data from google successfully')
 })
 
-
+/*------------------<Database part>-----------------*/
 // 連接Database
 import mysql from "mysql";
+import { get } from 'http'
 
 const connection = mysql.createConnection({
   user: 'root',
   host: 'localhost',
   port: 3306,
   password: '',
+  database: `NCKUEX`
 });
 
 connection.connect((err) => {
@@ -268,7 +290,20 @@ connection.connect((err) => {
     console.error('Database connection failed!\n' + err.stack);
     return;
   }
-  
   console.log('Database connection successful!');
-  // 进行数据库操作
+});
+
+
+let UserInfo_global;
+function setUserInfo(UserInfo) {
+  connection.query(`select * from user_info where email = '${UserInfo.email}'`, (error, results, fields) => {
+    if (error) throw error;
+    UserInfo_global = results;
+    // console.log("UserInfo = ", UserInfo);
+  });
+}
+
+// 把UserInfo送到前端
+app.get('/UserInfo', (req, res) => {
+  res.send(UserInfo_global[0]);
 });
