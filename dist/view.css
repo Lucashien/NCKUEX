@@ -23,13 +23,21 @@
     padding: 0;
  }
 
+ a{
+    text-decoration: none;
+}
+
 .view{
+    overflow-x: hidden;
+}
+
+.view::-webkit-scrollbar {
+    width: 0;
+}
+
+.view #body{
     padding: 0 10vw;
     padding-top: 7vw;
-    background-color: rgba(18, 18, 18);
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-    overflow-y: auto;
 }
 
 .view header{
@@ -50,12 +58,14 @@
 .view #info{
     display: flex;
     justify-content: center;
+    padding: 0 1%;
     height: 3vw;
     padding-bottom: 0.6vw;
     border-bottom: 0.2vw solid #81D6FA;
 }
 
 .view #text{
+    width: 50%;
     display: flex;
     justify-content: flex-start;
     align-items: center
@@ -68,13 +78,14 @@
     text-align: center;
 }
 
-.view #uploader{
+.view #upload{
+    width: 50%;
     display: flex;
     justify-content: flex-end;
     align-items: center
 }
 
-.view #uploader p{
+.view #upload p{
     font-family: "Source Han Sans Light", sans-serif;
     color: white;
     font-size: 1vw;
@@ -91,37 +102,57 @@
 
 .view main{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
-.view #file{
-    width: 90%;
-    height: 95vw;
+.view #file, .view #load, .view #fail{
+    width: 80%;
     margin-top: 3vw;
-    margin-left:8vw;
+}
+.view #load{
+    height: 36vw;
+    background-image: url(./img/小恐龍.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: .5;
+}
+.view #file{
+    height: auto;
+    display: none;
+    flex-direction: column;
+    position: relative;
+}
+.view #fail{
+    height: 18vw;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.view #fail h1{
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 2vw;
+    text-align: center;
+    line-height: 50vh;
 }
 
-.view #right{
+.view #right, .view #left{
     width: 10%;
-    height: 95vw;
-    margin-top: 4vw;
     display: flex;
     justify-content: center;
-}
-.view #file img{
-    width: 62vw;
+    margin-top: 1.5vw;
+    transition: .3s ease-in-out;
 }
 
-.view #download{
+.view #right.fixed {
+    position: fixed;
+    left: 81%;
+    top: 5vh;
+}
+
+.view #right .content, .view #download, .view #like, .view #rate{
     width: 2.5vw;
-}
-
-.view #like{
-    width: 2.5vw;
-}
-
-a{
-    text-decoration: none;
+    margin-top: 2vw;
 }
 
 .view #right p{
@@ -138,7 +169,71 @@ a{
     right: 7vw;
 }
 
-.view #download, .view #like, .view #quit, .view #userpic img{
+.view #right div, .view #right img, .view #quit{
+    transition: .3s ease-in-out;
+}
+
+.view #right img.active{
+    background-color: #81D6FA;
+}
+
+.view #quit:hover, .view #download:hover, .view #rate:hover{
+    transform: scale(1.2);
     cursor: pointer;
+}
+
+.view #rate{
+    position: relative;
+}
+
+.view #rateUI{
+    position: absolute;
+    left:0;
+    top:0;
+    margin-top: 0;
+    transform: scale(.25) translate(-150%, -50%);
+    height: 100%;
+    width: 10vw;
+    background-color: #181818;
+    border: .1vw solid #81D6FA;
+    opacity: 0;
+    z-index: -100;
+}
+.view #rateUI div{
+    height: 49%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-self: center;
+}
+
+.view #rateUI hr{
+    height: 0;
+}
+
+.view #rate.active{
+    transform: scale(1.2);
+}
+.view #rate.active #rateUI{
+    opacity: 1;
     z-index: 100;
+    cursor: auto;
+    transform: scale(1) translate(-110%, 0);
+}
+
+.view #rateUI .star{
+    border-radius: 50%;
+    width: 1vw;
+    height: 1vw;
+    border: .1vw solid #81D6FA;
+    transition: .1s ease-in-out;
+    cursor: pointer;
+}
+.view #rateUI .star:hover,
+.view #rateUI .star:hover ~ .star{
+    background-color: #81D6FA;
+}
+.view #rateUI .star.active,
+.view #rateUI .star.active ~ .star{
+    background-color: #81D6FA;
 }

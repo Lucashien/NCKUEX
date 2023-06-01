@@ -64,21 +64,20 @@ app.get('/documentSelect', (req, res) => {
 });
 
 app.get('/documentSearch', (req, res) => {
-  fs.readFile('./document.json', 'utf8', function (err, data) {
+  fs.readFile('./document.json', 'utf8', function(err, data) {
     if (err) throw err;
     data = JSON.parse(data);
     let HTML = '';
     for (let id in data) {
-      if (data[id].name.includes(req.query.search) ||
-        data[id].dep.includes(req.query.search) ||
-        data[id].lec.includes(req.query.search) ||
-        data[id].teac.includes(req.query.search) ||
-        data[id].clas.includes(req.query.search) ||
-        data[id].up.includes(req.query.search)
-      ) {
-        HTML += htmlWriter(data[id]);
-      }
-    }
+      if (data[id].name.includes(req.query.search)||
+      data[id].dep.includes(req.query.search)||
+      data[id].lec.includes(req.query.search)||
+      data[id].teac.includes(req.query.search)||
+      data[id].clas.includes(req.query.search)||
+      data[id].up.includes(req.query.search)
+        ) {
+      HTML += htmlWriter(data[id], id)
+    }}
     if (HTML == '') {
       HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
     }
@@ -86,32 +85,28 @@ app.get('/documentSearch', (req, res) => {
   });
 });
 
-function htmlWriter(id) {
-  let HTML = '';
-  HTML += '<div class="document" id=' + id + '>' +
-    '<div class="year container">' +
-    '<h4>' + id.year + '</h4></div>' +
-    '<div class="teacher container">' +
-    '<h4>' + id.teac + '</h4></div>' +
-    '<div class="name container">' +
-    '<h4>' + id.clas + ' | ' + id.name + '</h4></div>' +
-    '<div class="like container"><img src="./img/like.png">' +
-    '<h4>' + id.like + '</h4></div>' +
-    '<div class="uploader container"><img src="./img/userpic/' + id.pic + '">' +
-    '<p>' + id.up + '</p>' +
-    '<img class="award" src="./img/check.png" style="opacity: ' + id.award + ';"></div>' +
-    '<div class="tag container"><div>' +
-    '<div class="tagA" style="display: ' + (id.tagA === "1" ? "flex" : "none") + '; padding: .1vw;">' +
-    '<img src="./img/check.png"><p>內容完整</p></div>' +
-    '<div class="tagB" style="display: ' + (id.tagB === "1" ? "flex" : "none") + '; padding: .1vw;">' +
-    '<img src="./img/check.png"><p>解題過程</p></div></div></div></div>';
-  return HTML
+function htmlWriter(data, id) {
+  const html = fs.readFileSync('./dist/html/document.html', 'utf8');
+  const $ = cheerio.load(html);
+  $('.document').attr('id', id);
+  $('.year h4').text(data.year);
+  $('.teacher h4').text(data.teac);
+  $('.like h4').text(data.like.count);
+  $('.name h4:eq(0)').text(data.clas);
+  $('.name h4:eq(1)').text(data.name);
+  $('.tag img:eq(0)').attr('style', 'display: ' + (data.tagA.score > 3.5 ? 'block' : 'none'));
+  $('.tag img:eq(1)').attr('style', 'display: ' + (data.tagB.score > 3.5 ? 'block' : 'none'));
+  $('.uploader img:eq(0)').attr('src', './img/userpic/' + data.pic);
+  $('.uploader h4').text(data.up);
+  $('.uploader img:eq(1)').attr('style', 'opacity:' + (data.award == 1 ? 1 : 0));
+  return $.html()
 }
 
 /* ////////////////////////////////////// */
 
-app.get('/updateDepartment', (req, res) => {
-  fs.readFile('./department.json', 'utf8', function (err, data) {
+
+app.get('/updatedepartment', (req, res) => {
+  fs.readFile('./' + req.query.json + '.json', 'utf8', function (err, data) {
     if (err) throw err;
     data = JSON.parse(data);
     let HTML = '';
@@ -124,8 +119,8 @@ app.get('/updateDepartment', (req, res) => {
   });
 });
 
-app.get('/updateLecture', (req, res) => {
-  fs.readFile('./lecture.json', 'utf8', function (err, data) {
+app.get('/updatelecture', (req, res) => {
+  fs.readFile('./' + req.query.json + '.json', 'utf8', function (err, data) {
     if (err) throw err;
     data = JSON.parse(data);
     let HTML = '';
@@ -138,52 +133,107 @@ app.get('/updateLecture', (req, res) => {
   });
 });
 
-app.get('/update', (req, res) => {
-  fs.readFile('./' + req.query.json + '.json', 'utf8', function (err, data) {
+/* ////////////////////////////////////// */
+
+import cheerio from 'cheerio';
+
+app.get('/view', (req, res) => {
+  console.log("get view");
+  fs.readFile('./dist/view.html', 'utf8', function (err, html) {
     if (err) throw err;
-    data = JSON.parse(data);
-    let HTML = '';
-    for (let id in data) {
-      if (req.query.col != null) {
-        if (data[id].col == req.query.col) {
-          HTML += '<li>' + data[id].name + '</li>';
-        }
-      }
-      if (req.query.dep != null) {
-        if (data[id].dep == req.query.dep && (req.query.grade == null || data[id].grade == req.query.grade)) {
-          HTML += '<li>' + data[id].name + '</li>';
-        }
-      }
-    }
-    res.send(HTML);
-  });
+    fs.readFile('./document.json', 'utf8', function (err, data) {
+      if (err) throw err;
+      data = JSON.parse(data);
+      const $ = cheerio.load(html);
+      $('#title h1').text(data[req.query.doc].lec);
+      $('#teac').text('教師 | ' + data[req.query.doc].teac);
+      $('#year').text('年份 | ' + data[req.query.doc].year);
+      $('#clas').text('類別 | ' + data[req.query.doc].clas);
+      $('#userpic img').attr('src', './img/userpic/' + data[req.query.doc].pic);
+      $('#up').text(data[req.query.doc].up);
+      $('#download a').attr('href', './upload/' + data[req.query.doc].url);
+      console.log(data[req.query.doc].like.user);
+      let like = data[req.query.doc].like.user.includes(req.query.userID);
+      res.send([$.html(), like]);
+    });
+  })
+});
+
+app.get('/preview_personal', (req, res) => {
+  fs.readFile('./dist/preview_personal.html', 'utf8', function (err, html) {
+    if (err) throw err;
+    res.send(html);
+  })
+});
+
+app.get('/personal_page', (req, res) => {
+  fs.readFile('./dist/personal_page.html', 'utf8', function (err, html) {
+    if (err) throw err;
+    res.send(html);
+  })
 });
 
 /* ////////////////////////////////////// */
 
-app.get('/data', (req, res) => {
-  res.send('hello idiot');
-});
-
-app.get('/page', (req, res) => {
-  fs.readFile('./dist/' + req.query.page + '.html', 'utf8', function (err, data) {
-    if (err) throw err;
-    res.send(data);
-  })
-});
-
-app.get('/downloadLink', (req, res) => {
-  fs.readFile('./document.json', 'utf8', function (err, data) {
+app.get('/like', (req, res) => {
+  fs.readFile('document.json', 'utf8', (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
-    let url;
-    for (let id in data) {
-      if (data[id].name == req.query.name) {
-        url = data[id].url;
-        break;
-      }
+    if (data[req.query.doc].like.user.includes(req.query.userID)) {
+      res.send('已讚')
     }
-    res.send(url);
+    else {
+      data[req.query.doc].like.user.push(req.query.userID);
+      data[req.query.doc].like.count = data[req.query.doc].like.user.length;
+      fs.writeFile('./document.json', JSON.stringify(data), 'utf8', function (err) {
+        if (err) throw err;
+      });
+      res.send('按讚成功')
+    }
+  });
+});
+
+app.get('/tagA', (req, res) => {
+  fs.readFile('document.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    // if (req.query.userID in data[req.query.doc].tagA.user) {
+    //   res.send('已評分')
+    //  }
+    // else{
+    data[req.query.doc].tagA.user[req.query.userID] = req.query.score;
+    let score = 0;
+    for (let id in data[req.query.doc].tagA.user) {
+      score += parseInt(data[req.query.doc].tagA.user[id]);
+    }
+    data[req.query.doc].tagA.score = score / Object.keys(data[req.query.doc].tagA.user).length;
+    fs.writeFile('./document.json', JSON.stringify(data), 'utf8', function (err) {
+      if (err) throw err;
+      res.send('評分成功');
+    });
+    //}
+  });
+});
+
+app.get('/tagB', (req, res) => {
+  fs.readFile('document.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    // if (req.query.userID in data[req.query.doc].tagB.user) {
+    //   res.send('已評分')
+    //  }
+    // else{
+    data[req.query.doc].tagB.user[req.query.userID] = req.query.score;
+    let score = 0;
+    for (let id in data[req.query.doc].tagB.user) {
+      score += parseInt(data[req.query.doc].tagB.user[id]);
+    }
+    data[req.query.doc].tagB.score = score / Object.keys(data[req.query.doc].tagB.user).length;
+    fs.writeFile('./document.json', JSON.stringify(data), 'utf8', function (err) {
+      if (err) throw err;
+      res.send('評分成功');
+    });
+    //}
   });
 });
 

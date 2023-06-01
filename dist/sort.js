@@ -202,7 +202,6 @@ $(document).ready(function () {
           login(data);
         }
         console.log("接收成功")
-        console.log("data = ", data);
       })
       .catch(error => {
         console.error(error);
@@ -217,17 +216,18 @@ $(document).ready(function () {
     }, 100);
   })
 
-  let userID = 1;
+  let userID = 1234567;
 
   function login(UserInfo) {
     console.log(UserInfo.username);
     console.log("login");
-    $('#user p').text(UserInfo.username);
+    $('#user p').text(UserInfo.given_name);
     $('#user .userpic img').attr('src', UserInfo.picture);
   }
 
   $('.userpic').click(function () {
     if ($('#text').hasClass('active')) {
+      console.log("導向personal page");
       showModal('personal_page', '');
     }
   });
@@ -241,7 +241,7 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.view #quit', function () {
-    $('.view #file, .view #load').css('transition', '.3s ease-in-out').css('opacity', '0');
+    $('.view #file, .view #load').css('transition', '.3s ease-in-out').css('opacity', '0.5');
     quitView = true;
     closeModal();
     setTimeout(function () { quitView = false }, 500);
@@ -335,6 +335,7 @@ $(document).ready(function () {
   window['pdfjs-dist/build/pdf'].GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
 
   async function renderPDF(url) {
+    console.log('renderPDF');
     $('.view').css('cursor', 'wait');
     try {
       const pdf = await pdfjsLib.getDocument(url).promise;
