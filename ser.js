@@ -29,7 +29,7 @@ import fs from 'fs';
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// jQuery.post(url,data,success(data, textStatus, jqXHR),dataType)
+// File upload
 app.post("/file", (req, res) => {
   const icon = Buffer.from(req.body.FileContent, "base64");
   // 其他格式直接寫入檔案
@@ -64,20 +64,21 @@ app.get('/documentSelect', (req, res) => {
 });
 
 app.get('/documentSearch', (req, res) => {
-  fs.readFile('./document.json', 'utf8', function(err, data) {
+  fs.readFile('./document.json', 'utf8', function (err, data) {
     if (err) throw err;
     data = JSON.parse(data);
     let HTML = '';
     for (let id in data) {
-      if (data[id].name.includes(req.query.search)||
-      data[id].dep.includes(req.query.search)||
-      data[id].lec.includes(req.query.search)||
-      data[id].teac.includes(req.query.search)||
-      data[id].clas.includes(req.query.search)||
-      data[id].up.includes(req.query.search)
-        ) {
-      HTML += htmlWriter(data[id], id)
-    }}
+      if (data[id].name.includes(req.query.search) ||
+        data[id].dep.includes(req.query.search) ||
+        data[id].lec.includes(req.query.search) ||
+        data[id].teac.includes(req.query.search) ||
+        data[id].clas.includes(req.query.search) ||
+        data[id].up.includes(req.query.search)
+      ) {
+        HTML += htmlWriter(data[id], id)
+      }
+    }
     if (HTML == '') {
       HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
     }
@@ -325,8 +326,6 @@ app.get('/success', (req, res) => {
 /*------------------<Database part>-----------------*/
 // 連接Database
 import mysql from "mysql";
-import { get } from 'http'
-
 const connection = mysql.createConnection({
   user: 'root',
   host: 'localhost',
@@ -357,3 +356,51 @@ function setUserInfo(UserInfo) {
 app.get('/UserInfo', (req, res) => {
   res.send(UserInfo_global[0]);
 });
+
+
+/*File Upload Test Block*/
+import multer from "multer";
+import path from "path";
+// 設定上傳檔案的儲存位置和檔名
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'dist/uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+// 建立multer上傳物件
+const upload = multer({ storage: storage });
+
+// 處理檔案上傳和資訊輸入的請求
+app.post('/upload', upload.single('file'), (req, res) => {
+  // 取得使用者輸入的檔案資訊
+  const { filename, courseName, category, teacher } = req.body;
+  console.log(req.file.filename);
+  console.log("filename = ", filename);
+  console.log("courseName = ", courseName);
+  console.log("category = ", category);
+  console.log("teacher = ", teacher);
+
+  // 執行相關處理，例如將檔案資訊儲存到資料庫等
+  // ...
+
+
+  const file = req.file;
+  const extname = path.extname(file.originalname);
+  fs.rename(file.path, file.destination + courseName + "_" + teacher + "_" + category + "_" + filename + Date.now() + extname, function (err) {
+    if (err) {
+      res.send("重命名錯誤");
+    } else {
+      res.send("檔案上傳成功");
+    }
+  });
+
+
+  // res.send('檔案上傳成功！');
+});
+
+
+/**/

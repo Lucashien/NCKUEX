@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>檔案上傳</title>
+  <style>
+    .form-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>檔案上傳</h2>
+    <form id="uploadForm" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="file">選擇檔案：</label>
+        <input type="file" id="file" name="file" required>
+      </div>
+      <div class="form-group">
+        <label for="filename">檔案名稱：</label>
+        <input type="text" id="filename" name="filename" required>
+      </div>
+      <div class="form-group">
+        <label for="courseName">課程名稱：</label>
+        <input type="text" id="courseName" name="courseName" required>
+      </div>
+      <div class="form-group">
+        <label for="category">類別：</label>
+        <input type="text" id="category" name="category" required>
+      </div>
+      <div class="form-group">
+        <label for="teacher">教師：</label>
+        <input type="text" id="teacher" name="teacher" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">上傳檔案</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = this;
+      var formData = new FormData(form);
+
+      // 建立AJAX請求
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/upload', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          alert('檔案上傳成功！');
+          form.reset();
+        }
+      };
+      xhr.send(formData);
+    });
+  </script>
+</body>
+</html>
