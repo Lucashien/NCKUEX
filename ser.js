@@ -104,7 +104,19 @@ function htmlWriter(data, id) {
 }
 
 /* ////////////////////////////////////// */
-
+app.get('/updatelecture', (req, res) => {
+  fs.readFile('./' + req.query.json + '.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    data = JSON.parse(data);
+    let HTML = '';
+    for (let id in data) {
+      if (data[id].dep == req.query.dep && (req.query.grade == null || data[id].grade == req.query.grade)) {
+        HTML += '<li>' + data[id].name + '</li>';
+      }
+    }
+    res.send(HTML);
+  });
+});
 
 app.get('/updatedepartment', (req, res) => {
   fs.readFile('./' + req.query.json + '.json', 'utf8', function (err, data) {
@@ -120,20 +132,19 @@ app.get('/updatedepartment', (req, res) => {
   });
 });
 
-app.get('/updatelecture', (req, res) => {
-  fs.readFile('./' + req.query.json + '.json', 'utf8', function (err, data) {
+app.get('/updateteacher', (req, res) => {
+  fs.readFile('./lecture.json', 'utf8', function (err, data) {
     if (err) throw err;
     data = JSON.parse(data);
     let HTML = '';
     for (let id in data) {
-      if (data[id].dep == req.query.dep && (req.query.grade == null || data[id].grade == req.query.grade)) {
-        HTML += '<li>' + data[id].name + '</li>';
+      if (data[id].name == req.query.lec) {
+        // HTML += '<li>' + data[id].teac + '</li>';
       }
     }
     res.send(HTML);
   });
 });
-
 /* ////////////////////////////////////// */
 
 import cheerio from 'cheerio';
@@ -241,8 +252,7 @@ app.get('/tagB', (req, res) => {
 /* ////////////////////////////////////// */
 
 
-/*Google login*/
-
+/*------------------Google login------------------*/
 //parameter
 const client_id = '770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com'
 const client_secret = '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'
@@ -264,7 +274,6 @@ app.get('/auth/google', (req, res) => {
   }
   const auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
 
-  // console.log("query", query);
   console.log(`${auth_url}?${querystring.stringify(query)}`)
   res.redirect(`${auth_url}?${querystring.stringify(query)}`) // 將Grant傳到uri
 })
@@ -292,10 +301,9 @@ app.get('/auth/google/callback', async (req, res) => {
     }
   )
 
-  console.log(getData.data)
+  // console.log(getData.data)
   //轉址指定頁面
   res.redirect('/sort.html')
-
   console.log("Login success");
 
   // 更新資料庫
@@ -316,14 +324,11 @@ app.get('/auth/google/callback', async (req, res) => {
   setUserInfo(getData.data);
 })
 
-
-
-
 app.get('/success', (req, res) => {
   res.send('get data from google successfully')
 })
 
-/*------------------<Database part>-----------------*/
+/*------------------<Database part>------------------*/
 // 連接Database
 import mysql from "mysql";
 const connection = mysql.createConnection({
@@ -358,7 +363,7 @@ app.get('/UserInfo', (req, res) => {
 });
 
 
-/*File Upload Test Block*/
+/*------------------File Upload Test Block------------------*/
 import multer from "multer";
 import path from "path";
 // 設定上傳檔案的儲存位置和檔名
@@ -378,16 +383,6 @@ const upload = multer({ storage: storage });
 app.post('/upload', upload.single('file'), (req, res) => {
   // 取得使用者輸入的檔案資訊
   const { filename, courseName, category, teacher } = req.body;
-  console.log(req.file.filename);
-  console.log("filename = ", filename);
-  console.log("courseName = ", courseName);
-  console.log("category = ", category);
-  console.log("teacher = ", teacher);
-
-  // 執行相關處理，例如將檔案資訊儲存到資料庫等
-  // ...
-
-
   const file = req.file;
   const extname = path.extname(file.originalname);
   fs.rename(file.path, file.destination + courseName + "_" + teacher + "_" + category + "_" + filename + Date.now() + extname, function (err) {
@@ -397,10 +392,5 @@ app.post('/upload', upload.single('file'), (req, res) => {
       res.send("檔案上傳成功");
     }
   });
-
-
-  // res.send('檔案上傳成功！');
 });
-
-
 /**/
