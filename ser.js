@@ -172,6 +172,7 @@ app.get('/view', (req, res) => {
 });
 
 app.get('/preview_personal', (req, res) => {
+  console.log("GET PREVIEW");
   fs.readFile('./dist/preview_personal.html', 'utf8', function (err, html) {
     if (err) throw err;
     res.send(html);
@@ -381,11 +382,15 @@ const upload = multer({ storage: storage });
 
 // 處理檔案上傳和資訊輸入的請求
 app.post('/upload', upload.single('file'), (req, res) => {
+  console.log("上傳檔案...");
+  let upload_info = JSON.parse(req.body.upload_info);
+  console.log(upload_info.dep);
   // 取得使用者輸入的檔案資訊
-  const { filename, courseName, category, teacher } = req.body;
+  // const { filename, courseName, category, teacher } = req.body;
+  const { dep, lec, clas, teacher, year } = upload_info;
   const file = req.file;
   const extname = path.extname(file.originalname);
-  fs.rename(file.path, file.destination + courseName + "_" + teacher + "_" + category + "_" + filename + Date.now() + extname, function (err) {
+  fs.rename(file.path, file.destination + year + lec + "_" + teacher + "_" + clas + "_" + dep + "_" + Date.now() + extname, function (err) {
     if (err) {
       res.send("重命名錯誤");
     } else {

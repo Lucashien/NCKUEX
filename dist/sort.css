@@ -309,7 +309,6 @@ aside.sort.active{
     z-index: 10;
 }
 
-
 /* ////////////////////////////////////// */
 .sort #grade{
     width: 100%;
@@ -510,12 +509,12 @@ footer.sort{
 /* ////////////////////////////////////// */
 .modal{
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     left: 0;
     top: 0;
     z-index: 99;
-    background-color: rgba(18, 18, 18, .95) !important;
+    background-color: rgba(18, 18, 18, .75);
     opacity: 0;
     transition: .5s ease-in-out;
 }

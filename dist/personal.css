@@ -29,7 +29,6 @@
   background-color: #181818;
   margin: 0;
   padding: 0;
-  /* height: 100vh; */
   width: 100%;
   overflow-x: hidden;
 }
@@ -65,8 +64,6 @@
 } 
 
 .personal .top{
-  /* background-image: url(./images/E_0_LOGO及登出框框.png); 
-    background-repeat: no-repeat;  */
     border-top: 0.1vw solid #ffffff;
     border-bottom: 0.1vw solid #ffffff;
     height: 2.3vw; 
@@ -114,7 +111,6 @@
 } 
 
 .personal .nickname{ 
-  /* text-align: center;  */
   display: flex;
   align-items: center;
 } 
@@ -124,7 +120,6 @@
   font-size: 1.35vw;  
   letter-spacing: 0.05em; 
   line-height: 2; 
-  /* text-align: center;  */
 } 
 
 .personal .edit img{
@@ -158,7 +153,6 @@
 .personal .detail{ 
   text-align: center; 
   width: 30%; 
-  /* padding: 0.5vh;  */
 } 
 
 .personal .footer{ 
@@ -179,7 +173,6 @@
 .personal .footer h1{ 
   color: black; 
   text-align: center; 
-  /* width: 50%;  */
   font-family: "Source Han Sans SC Black", sans-serif;  
   font-size: 2vw; 
   margin-top: 1.5vw; 
@@ -199,11 +192,11 @@
   align-items: center;
 }
 
-.personal .upload_info{
-  /* display: none; */
+.personal .upload_container{
+  display: flex;
 }
 
-.personal .upload_container{
+.personal .upload_info{
   display: none;
 }
 

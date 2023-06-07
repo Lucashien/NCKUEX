@@ -1,13 +1,13 @@
 $(document).ready(function() {
 /* ////////////////////////////////////// */
-$(' .filter').click(function() {
-    $(' .filter').not(this).find(' .content').removeClass('active');
+$('.personal').find('.filter').click(function() {
+    $('.personal').find(' .filter').not(this).find(' .content').removeClass('active');
     $(this).find(' .content').toggleClass('active');
 });
     
 $(document).click(function(event) {
     if (!$(event.target).closest(' .filter').length) {
-        $(' .filter .active').removeClass('active');
+        $('.personal').find(' .filter .active').removeClass('active');
     }
 })
 
@@ -20,51 +20,51 @@ let teacherTarget;
 let yearTarget;
 let clasTarget;
 
-$(' #college .content').on('click', 'li', function(event) {
-  collegeTarget = event.target.innerText;
-  $(' #college .header li').text(collegeTarget);
-  $(' #department .header li').text('-請選擇-');
-  $(' #lecture .header li').text('-請選擇-');
-  $(' #teacher .header li').text('-請選擇-');
-  updateContent('department')
+$('.personal').find('#college .content').on('click', 'li', function(event) {
+    collegeTarget = event.target.innerText;
+    $('.personal').find(' #college .header li').text(collegeTarget);
+    $('.personal').find(' #department .header li').text('-請選擇-');
+    $('.personal').find(' #lecture .header li').text('-請選擇-');
+    $('.personal').find(' #teacher .header li').text('-請選擇-');
+    updateContent('department')
 });
 
-$(' #department .content').on('click', 'li', function(event) {
+$('.personal').find('#department .content').on('click', 'li', function(event) {
     departmentTarget = event.target.innerText;
-    $(' #department .header li').text(departmentTarget);
-    $(' #lecture .header li').text('-請選擇-');
-    $(' #teacher .header li').text('-請選擇-');
+    $('.personal').find(' #department .header li').text(departmentTarget);
+    $('.personal').find(' #lecture .header li').text('-請選擇-');
+    $('.personal').find(' #teacher .header li').text('-請選擇-');
     updateContent('lecture')
 });
 
-$(' #grade .content').on('click', 'li', function(event) {
+$('.personal').find('#grade .content').on('click', 'li', function(event) {
     gradeTarget = event.target.innerText;
-    $(' #grade .header li').text(gradeTarget);
-    $(' #lecture .header li').text('-請選擇-');
-    $(' #teacher .header li').text('-請選擇-');
+    $('.personal').find(' #grade .header li').text(gradeTarget);
+    $('.personal').find(' #lecture .header li').text('-請選擇-');
+    $('.personal').find(' #teacher .header li').text('-請選擇-');
     updateContent('lecture')
 });
 
-$(' #lecture .content').on('click', 'li', function(event) {
+$('.personal').find('#lecture .content').on('click', 'li', function(event) {
     lectureTarget = event.target.innerText;
-    $(' #lecture .header li').text(lectureTarget);
-    $(' #teacher .header li').text('-請選擇-');
+    $('.personal').find(' #lecture .header li').text(lectureTarget);
+    $('.personal').find(' #teacher .header li').text('-請選擇-');
     updateContent('teacher')
 });
 
-$(' #teacher .content').on('click', 'li', function(event) {
+$('.personal').find('#teacher .content').on('click', 'li', function(event) {
     teacherTarget = event.target.innerText;
-    $(' #teacher .header li').text(teacherTarget);
+    $('.personal').find(' #teacher .header li').text(teacherTarget);
 });
 
-$(' #year .content').on('click', 'li', function(event) {
+$('.personal').find('#year .content').on('click', 'li', function(event) {
     yearTarget = event.target.innerText;
-    $(' #year .header li').text(yearTarget);
+    $('.personal').find(' #year .header li').text(yearTarget);
 });
 
-$(' #clas .content').on('click', 'li', function(event) {
+$('.personal').find('#clas .content').on('click', 'li', function(event) {
     clasTarget = event.target.innerText;
-    $(' #clas .header li').text(clasTarget);
+    $('.personal').find(' #clas .header li').text(clasTarget);
 });
 
 /* ////////////////////////////////////// */
@@ -82,4 +82,12 @@ function updateContent(target) {
 }
 
 /* ////////////////////////////////////// */
+$('.personal').find('#file').on('change', function() {
+    $('.personal').find('.upload_container').css('display', 'none');
+    $('.personal').find('.upload_info').css('display', 'block');
 })
+
+/* ////////////////////////////////////// */
+})
+
+

@@ -1,6 +1,5 @@
 <title>personal</title>  
-<link href="personal.css" rel="stylesheet" type="text/css">  
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<link href="personal.css" rel="stylesheet" type="text/css">
 
 <div class="personal">
   <div id="null"></div>
@@ -65,12 +64,15 @@
 
     <div class="content">
       <div style="height: 1.2vw;"></div> 
-
+      
+      <label for="file">
       <div class="upload_container"> 
         <div class="upload_pic"><img src="./img/E_6_上傳按鈕.png" style="width: 45%;"></div>
         <div class="upload_text"><p>電機小恐龍的上傳區</p></div>
       </div>
-
+    </label>
+    <input type="file" id="file" name="file" required style="display: hidden;">
+      
       <div class="upload_info">
         <div style="height: 1.3vw;"></div>
         <div class="upload_title">
@@ -302,7 +304,7 @@
       <div style="height: 2.6vw;"></div>
 
       <div class="more"> 
-        <p3>或許...小恐龍感興趣的考古區</p3> 
+        <p>或許...小恐龍感興趣的考古區</p> 
       </div>
     </div>
   </div>
