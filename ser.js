@@ -16,7 +16,7 @@ const __dirname = dirname(__filename)
 
 // 建立一個 express (也就是網頁伺服器)實體
 const app = express()
-const port = 8888
+const port = 6412
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`listening on port: ${port}`)
@@ -150,7 +150,6 @@ app.get('/updateteacher', (req, res) => {
 import cheerio from 'cheerio';
 
 app.get('/view', (req, res) => {
-  console.log("get view");
   fs.readFile('./dist/view.html', 'utf8', function (err, html) {
     if (err) throw err;
     fs.readFile('./document.json', 'utf8', function (err, data) {
@@ -164,23 +163,14 @@ app.get('/view', (req, res) => {
       $('#userpic img').attr('src', './img/userpic/' + data[req.query.doc].pic);
       $('#up').text(data[req.query.doc].up);
       $('#download a').attr('href', './upload/' + data[req.query.doc].url);
-      console.log(data[req.query.doc].like.user);
       let like = data[req.query.doc].like.user.includes(req.query.userID);
       res.send([$.html(), like]);
     });
   })
 });
 
-app.get('/preview_personal', (req, res) => {
-  console.log("GET PREVIEW");
-  fs.readFile('./dist/preview_personal.html', 'utf8', function (err, html) {
-    if (err) throw err;
-    res.send(html);
-  })
-});
-
-app.get('/personal_page', (req, res) => {
-  fs.readFile('./dist/personal_page.html', 'utf8', function (err, html) {
+app.get('/personal', (req, res) => {
+  fs.readFile('./dist/personal.html', 'utf8', function (err, html) {
     if (err) throw err;
     res.send(html);
   })
@@ -257,7 +247,7 @@ app.get('/tagB', (req, res) => {
 //parameter
 const client_id = '770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com'
 const client_secret = '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'
-const root = 'http://localhost:8888'
+const root = 'http://luffy.ee.ncku.edu.tw:6412'
 const redirect_url = root + '/auth/google/callback'
 
 //google登入連結
@@ -274,7 +264,7 @@ app.get('/auth/google', (req, res) => {
     ].join(' ')
   }
   const auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
-
+  console.log("redirect_url:", redirect_url)
   console.log(`${auth_url}?${querystring.stringify(query)}`)
   res.redirect(`${auth_url}?${querystring.stringify(query)}`) // 將Grant傳到uri
 })
@@ -305,63 +295,47 @@ app.get('/auth/google/callback', async (req, res) => {
   // console.log(getData.data)
   //轉址指定頁面
   res.redirect('/sort.html')
+  saveUserData(getData.data)
   console.log("Login success");
-
-  // 更新資料庫
-  const insertQuery = `INSERT INTO user_info (id, email, verified_email, username, given_name, family_name, picture, locale, hd) VALUES ('${getData.data.id}', '${getData.data.email}', ${getData.data.verified_email}, '${getData.data.name}', '${getData.data.given_name}', '${getData.data.family_name}', '${getData.data.picture}', '${getData.data.locale}', '${getData.data.hd}')`;
-
-  connection.query(insertQuery, [getData.data.id, getData.data.email, getData.data.verified_email, getData.data.name, getData.data.given_name, getData.data.family_name, getData.data.picture, getData.data.locale, getData.data.hd], (error, results) => {
-    if (error) {
-      if (error.code == "ER_DUP_ENTRY") {
-        console.log("歡迎！", getData.data.name);
-      }
-      else console.error('哭阿出錯啦！', error);
-    }
-    else {
-      console.log(`新用戶${getData.data.name}資料已加入資料庫`);
-    }
-  });
-
-  setUserInfo(getData.data);
 })
 
 app.get('/success', (req, res) => {
   res.send('get data from google successfully')
 })
 
-/*------------------<Database part>------------------*/
-// 連接Database
-import mysql from "mysql";
-const connection = mysql.createConnection({
-  user: 'root',
-  host: 'localhost',
-  port: 3306,
-  password: '',
-  database: `NCKUEX`
-});
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Database connection failed!\n' + err.stack);
+/*把新註冊使用者資料註冊進JSON*/
+function saveUserData(userData) {
+  // 讀取現有的 JSON 檔案
+  let jsonData = {};
+  try {
+    const existingData = fs.readFileSync('userData.json');
+    jsonData = JSON.parse(existingData);
+  } catch (error) {
+    // 若檔案不存在或解析失敗，忽略錯誤，並將 jsonData 設為空物件
+    console.error('Error reading existing file:', error);
+  }
+
+  jsonData[userData.family_name] = userData;
+
+  if (jsonData.hasOwnProperty(userData.family_name)) {
+    let student_id = userData.family_name;
+    console.log("Welcome back ", jsonData[student_id].given_name);
     return;
   }
-  console.log('Database connection successful!');
-});
 
-
-let UserInfo_global;
-function setUserInfo(UserInfo) {
-  connection.query(`select * from user_info where email = '${UserInfo.email}'`, (error, results, fields) => {
-    if (error) throw error;
-    UserInfo_global = results;
-    // console.log("UserInfo = ", UserInfo);
+  // 將新的使用者資料以 "family_name" 屬性值為主鍵加入 jsonData 物件
+  // 寫入更新後的 JSON 資料到檔案
+  const data = JSON.stringify(jsonData, null, 2);
+  fs.writeFile('userData.json', data, (err) => {
+    if (err) {
+      console.error('Error writing file:', err);
+      return;
+    }
+    console.log('User data has been saved successfully!');
   });
 }
 
-// 把UserInfo送到前端
-app.get('/UserInfo', (req, res) => {
-  res.send(UserInfo_global[0]);
-});
 
 
 /*------------------File Upload Test Block------------------*/

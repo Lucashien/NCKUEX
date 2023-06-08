@@ -1,11 +1,11 @@
 {
-    "id" : {
-        "family" : "學號",
-        "name" : "姓名",
-        "dep" : "科系",
-        "gua" : "系級",
-        "nickname" : "暱稱",
-        "pic" : "頭貼.png",
-        "award" : "卷哥認證1或0"
-        }
+    "id": {
+        "family": "學號",
+        "name": "姓名",
+        "dep": "科系",
+        "gua": "系級",
+        "nickname": "暱稱",
+        "pic": "頭貼.png",
+        "award": "卷哥認證1或0"
+    }
 }

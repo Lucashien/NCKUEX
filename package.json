@@ -18,6 +18,7 @@
         "express-session": "^1.17.3",
         "multer": "^1.4.5-lts.1",
         "mysql": "^2.0.0-alpha9",
+        "net": "^1.0.2",
         "pdf-lib": "^1.17.1",
         "save": "^2.9.0"
     }
