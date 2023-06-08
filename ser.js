@@ -140,7 +140,9 @@ app.get('/updateteacher', (req, res) => {
     let HTML = '';
     for (let id in data) {
       if (data[id].name == req.query.lec) {
-        // HTML += '<li>' + data[id].teac + '</li>';
+        for (let i in data[id].teacher) {
+          HTML += '<li>' + data[id].teacher[i] + '</li>';
+        }
       }
     }
     res.send(HTML);
@@ -358,7 +360,7 @@ function saveUserData(userData, req) {
   delete userData["locale"];
   delete userData["hd"];
 
-
+  userData.picture = "./img/userpic/小恐龍.png"
   userData.award = "0";
 
   // 將新的使用者資料以 "family_name" 屬性值為主鍵加入 jsonData 物件
@@ -393,28 +395,72 @@ const upload = multer({ storage: storage });
 
 // 處理檔案上傳和資訊輸入的請求
 app.post('/upload', upload.single('file'), (req, res) => {
-  console.log("上傳檔案...");
-  let upload_info = JSON.parse(req.body.upload_info);
-  console.log(upload_info.dep);
   // 取得使用者輸入的檔案資訊
-  // const { filename, courseName, category, teacher } = req.body;
-  const { dep, lec, clas, teacher, year } = upload_info;
-  const file = req.file;
+  let doc_info = req.body.doc_info.split(',');
+  const [col, dep, grade, lec, teac, year, clas] = doc_info;
+  const file = req.file, filename = file.originalname;
   const extname = path.extname(file.originalname);
-  fs.rename(file.path, file.destination + year + lec + "_" + teacher + "_" + clas + "_" + dep + "_" + Date.now() + extname, function (err) {
+  const label = Date.now();
+
+  res.redirect("/upload2JSON?col=" + col + "&dep=" +
+    dep + "&grade=" + grade + "&lec=" + lec + "&teac=" +
+    teac + "&year=" + year + "&clas=" + clas +
+    "&filename=" + filename + "&label=" + label);
+
+});
+
+app.get('/upload2JSON', (req, res) => {
+  const { col, dep, grade, lec, teac, year, clas, filename, label } = req.query;
+  console.log("hi", req.session)
+  console.log(label);
+  const data = {
+    [label]: {
+      name: filename,
+      url: filename,
+      year,
+      dep,
+      lec,
+      teac,
+      clas,
+      upid: req.session.user.family_name,
+      like: {
+        count: 0,
+        user: ""
+      },
+      tagA: { score: 0, user: "" },
+      tagB: { score: 0, user: "" }
+    }
+  };
+  console.log(data);
+
+  const jsonData = JSON.stringify(data);
+  fs.writeFile('document.json', jsonData, (err) => {
     if (err) {
-      res.send("重命名錯誤");
+      console.error(err);
+      res.send("寫入JSON檔案失敗");
     } else {
-      res.send("檔案上傳成功");
+      console.log("JSON檔案寫入成功");
+      res.send("上傳成功");
     }
   });
-});
+
+})
 /**/
 
 
 /*登入後使用者資訊*/
-
 // 把UserInfo送到前端
 app.get('/UserInfo', (req, res) => {
   res.send(req.session.user);
+});
+
+app.get('/UserInfo_pic', (req, res) => {
+  fs.readFile('./user.json', 'utf8', function (err, data) {
+    data = JSON.parse(data);
+    let user = req.session.user;
+    try {
+      console.log(typeof (data[user.family_name].picture));
+      res.send(data[user.family_name].picture);
+    } catch (err) { }
+  })
 });

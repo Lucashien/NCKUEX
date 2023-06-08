@@ -192,13 +192,21 @@ $(document).ready(function () {
   /* ////////////////////////////////////// */
   /* ------------------------------------------------------------------------------------------------------------------------- */
   //真登入
+  fetch('/UserInfo_pic')
+    .then(response => response.text())
+    .then(data => {
+      console.log("UserInfo_pic", data);
+      $('#user .userpic img').attr('src', data);
+    })
+    .catch(error => {
+      // 處理錯誤
+      console.error(error);
+    });
 
   fetch('/UserInfo')
     .then(response => response.json())
     .then(data => {
-
       $('#user p').text(data.given_name);
-      $('#user .userpic img').attr('src', data.picture);
       $('#logout p').text(data ? '登 出' : '登 入');
       console.log(data);
     })
@@ -220,7 +228,8 @@ $(document).ready(function () {
 
   $('.userpic').click(function () {
     if ($('#text').hasClass('active')) {
-      showModal('personal', '');
+      console.log("打開個人頁面");
+      showModal('personal', 'id');
     }
   });
 

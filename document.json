@@ -1,32 +1,24 @@
 {
-    "id": {
-        "name": "d",
-        "url": "magnet2_exam2_.pdf",
-        "year": "108-1",
-        "dep": "電機系",
-        "lec": "電磁學",
-        "teac": "楊慶隆",
+    "1686245080852": {
+        "name": "EM2 Homework Part 3(1).pdf",
+        "url": "EM2 Homework Part 3(1).pdf",
+        "year": "112-1",
+        "dep": "機械系",
+        "lec": "機械振動學",
+        "teac": "陳國聲",
         "clas": "小考",
-        "upid": "使用者id",
+        "upid": "E14084078",
         "like": {
-            "count": 12,
-            "user": [
-                "336",
-                "85465468",
-                "8546548"
-            ]
+            "count": 0,
+            "user": ""
         },
         "tagA": {
-            "score": 5,
-            "user": {
-                "8546548": "5"
-            }
+            "score": 0,
+            "user": ""
         },
         "tagB": {
-            "score": 5,
-            "user": {
-                "8546548": "5"
-            }
+            "score": 0,
+            "user": ""
         }
     }
 }
