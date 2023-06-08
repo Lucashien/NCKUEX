@@ -327,11 +327,12 @@ app.get('/welcome', auth, (req, res) => {
   res.redirect('/sort.html')
 })
 
-app.get('/logout', auth, (req, res) => {
-  req.session.destroy(() => {
-    console.log('log out successfully!');
-  })
+app.get('/logout', (req, res) => {
+  req.session.destroy();
+  console.log(req.session);
+  res.clearCookie("user");
   res.redirect('/main.html');
+  console.log('log out successfully!');
 })
 
 /*------------------把新註冊使用者資料註冊進JSON------------------*/
