@@ -8,7 +8,6 @@ import { fileURLToPath } from 'url'
 // google 登入用
 import querystring from 'querystring'
 import axios from 'axios'
-import session from 'express-session'
 
 
 const __filename = fileURLToPath(import.meta.url)
@@ -28,6 +27,8 @@ import bodyParser from 'body-parser'
 import fs from 'fs';
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
 
 // File upload
 app.post("/file", (req, res) => {
@@ -242,6 +243,27 @@ app.get('/tagB', (req, res) => {
 
 /* ////////////////////////////////////// */
 
+/*------------------維持登入------------------*/
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+app.use(cookieParser());
+app.use(session({
+  secret: 'mySecret',
+  name: 'user',      // optional
+  saveUninitialized: false,
+  resave: true,
+}));
+/*MiddleWare*/
+function auth(req, res, next) {
+  if (req.session.user) {
+    console.log('authenticated')
+    next()
+  } else {
+    console.log('not authenticated')
+    return res.redirect('/')
+  }
+}
+
 
 /*------------------Google login------------------*/
 //parameter
@@ -264,8 +286,7 @@ app.get('/auth/google', (req, res) => {
     ].join(' ')
   }
   const auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
-  console.log("redirect_url:", redirect_url)
-  console.log(`${auth_url}?${querystring.stringify(query)}`)
+  // console.log(`${auth_url}?${querystring.stringify(query)}`)
   res.redirect(`${auth_url}?${querystring.stringify(query)}`) // 將Grant傳到uri
 })
 
@@ -292,50 +313,65 @@ app.get('/auth/google/callback', async (req, res) => {
     }
   )
 
-  // console.log(getData.data)
-  //轉址指定頁面
+  req.session.user = getData.data // 加密的cookie
+
+  res.redirect('/welcome');
+  console.log("login success");
+  saveUserData(getData.data, req)
+
+})
+
+app.get('/welcome', auth, (req, res) => {
+  const userName = req.session.user.given_name
+  console.log("Welcom back: ", userName);
   res.redirect('/sort.html')
-  saveUserData(getData.data)
-  console.log("Login success");
 })
 
-app.get('/success', (req, res) => {
-  res.send('get data from google successfully')
+app.get('/logout', auth, (req, res) => {
+  req.session.destroy(() => {
+    console.log('log out successfully!');
+  })
+  res.redirect('/main.html');
 })
 
-
-/*把新註冊使用者資料註冊進JSON*/
-function saveUserData(userData) {
+/*------------------把新註冊使用者資料註冊進JSON------------------*/
+function saveUserData(userData, req) {
   // 讀取現有的 JSON 檔案
   let jsonData = {};
   try {
-    const existingData = fs.readFileSync('userData.json');
+    const existingData = fs.readFileSync('user.json');
     jsonData = JSON.parse(existingData);
+
   } catch (error) {
     // 若檔案不存在或解析失敗，忽略錯誤，並將 jsonData 設為空物件
     console.error('Error reading existing file:', error);
   }
 
-  jsonData[userData.family_name] = userData;
-
+  // 判斷是否已註冊
   if (jsonData.hasOwnProperty(userData.family_name)) {
     let student_id = userData.family_name;
-    console.log("Welcome back ", jsonData[student_id].given_name);
+    console.log("Welcome back ", jsonData[student_id].given_name, `from ${req.ip}`);
     return;
   }
+  delete userData["verified_email"];
+  delete userData["locale"];
+  delete userData["hd"];
+
+
+  userData.award = "0";
 
   // 將新的使用者資料以 "family_name" 屬性值為主鍵加入 jsonData 物件
+  jsonData[userData.family_name] = userData;
   // 寫入更新後的 JSON 資料到檔案
   const data = JSON.stringify(jsonData, null, 2);
-  fs.writeFile('userData.json', data, (err) => {
+  fs.writeFile('user.json', data, (err) => {
     if (err) {
       console.error('Error writing file:', err);
       return;
     }
-    console.log('User data has been saved successfully!');
+    console.log(`新註冊成員：${jsonData[userData.family_name].given_name}`);
   });
 }
-
 
 
 /*------------------File Upload Test Block------------------*/
@@ -373,3 +409,11 @@ app.post('/upload', upload.single('file'), (req, res) => {
   });
 });
 /**/
+
+
+/*登入後使用者資訊*/
+
+// 把UserInfo送到前端
+app.get('/UserInfo', (req, res) => {
+  res.send(req.session.user);
+});

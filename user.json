@@ -1,11 +1,20 @@
 {
-    "id": {
-        "family": "學號",
-        "name": "姓名",
-        "dep": "科系",
-        "gua": "系級",
-        "nickname": "暱稱",
-        "pic": "頭貼.png",
-        "award": "卷哥認證1或0"
-    }
+  "E14084078": {
+    "id": "102669479348138989078",
+    "email": "e14084078@gs.ncku.edu.tw",
+    "name": "謝宗翰 Hsieh,Tsung-Han E14084078",
+    "given_name": "謝宗翰 Hsieh,Tsung-Han",
+    "family_name": "E14084078",
+    "picture": "https://lh3.googleusercontent.com/a/AAcHTtcib531D64ywpyQyArYiKI0kst8MIqkxyx0XvhU=s96-c",
+    "award": 0
+  },
+  "E14086622": {
+    "id": "115116712277756623855",
+    "email": "e14086622@gs.ncku.edu.tw",
+    "name": "操之晴 TSAO,CHIH-CHING E14086622",
+    "given_name": "操之晴 TSAO,CHIH-CHING",
+    "family_name": "E14086622",
+    "picture": "https://lh3.googleusercontent.com/a/AAcHTtdi0DLHKJaJeWGZ_QGms9YpXRTFYGMrCnzBpLMS=s96-c",
+    "award": "0"
+  }
 }
