@@ -116,8 +116,8 @@ $('.confirm_button').on('click', function () {
     })
         .then(response => response.text())
         .then(data => {
-            // 成功處理回應的邏輯
-            console.log(data);
+            if(data == "上傳成功")
+                alert("上傳成功！");
         })
         .catch(error => {
             // 處理錯誤的邏輯

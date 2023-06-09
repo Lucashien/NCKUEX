@@ -75,7 +75,7 @@ app.get('/documentSearch', (req, res) => {
         data[id].lec.includes(req.query.search) ||
         data[id].teac.includes(req.query.search) ||
         data[id].clas.includes(req.query.search) ||
-        data[id].up.includes(req.query.search)
+        data[id].upid.includes(req.query.search)
       ) {
         HTML += htmlWriter(data[id], id)
       }
@@ -164,7 +164,7 @@ app.get('/view', (req, res) => {
       $('#year').text('年份 | ' + data[req.query.doc].year);
       $('#clas').text('類別 | ' + data[req.query.doc].clas);
       $('#userpic img').attr('src', './img/userpic/' + data[req.query.doc].pic);
-      $('#up').text(data[req.query.doc].up);
+      $('#upid').text(data[req.query.doc].up);
       $('#download a').attr('href', './upload/' + data[req.query.doc].url);
       let like = data[req.query.doc].like.user.includes(req.query.userID);
       res.send([$.html(), like]);
@@ -288,7 +288,6 @@ app.get('/auth/google', (req, res) => {
     ].join(' ')
   }
   const auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
-  // console.log(`${auth_url}?${querystring.stringify(query)}`)
   res.redirect(`${auth_url}?${querystring.stringify(query)}`) // 將Grant傳到uri
 })
 
@@ -331,7 +330,6 @@ app.get('/welcome', auth, (req, res) => {
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  console.log(req.session);
   res.clearCookie("user");
   res.redirect('/main.html');
   console.log('log out successfully!');
@@ -353,7 +351,7 @@ function saveUserData(userData, req) {
   // 判斷是否已註冊
   if (jsonData.hasOwnProperty(userData.family_name)) {
     let student_id = userData.family_name;
-    console.log("Welcome back ", jsonData[student_id].given_name, `from ${req.ip}`);
+    // console.log("Welcome back ", jsonData[student_id].given_name, `from ${req.ip}`);
     return;
   }
   delete userData["verified_email"];
@@ -411,8 +409,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 app.get('/upload2JSON', (req, res) => {
   const { col, dep, grade, lec, teac, year, clas, filename, label } = req.query;
-  console.log("hi", req.session)
-  console.log(label);
   const data = {
     [label]: {
       name: filename,
@@ -431,20 +427,37 @@ app.get('/upload2JSON', (req, res) => {
       tagB: { score: 0, user: "" }
     }
   };
-  console.log(data);
 
-  const jsonData = JSON.stringify(data);
-  fs.writeFile('document.json', jsonData, (err) => {
+  fs.readFile('document.json', 'utf-8', (err, fileData) => {
     if (err) {
       console.error(err);
-      res.send("寫入JSON檔案失敗");
+      res.send("讀取 JSON 檔案失敗");
     } else {
-      console.log("JSON檔案寫入成功");
-      res.send("上傳成功");
+      let existingData = {};
+      try {
+        existingData = JSON.parse(fileData);
+      } catch (err) {
+        console.error(err);
+      }
+
+      existingData = { ...existingData, ...data };
+
+      fs.writeFile('document.json', JSON.stringify(existingData), (err) => {
+        if (err) {
+          console.error(err);
+          res.send("寫入 JSON 檔案失敗");
+        } else {
+          console.log("JSON 檔案寫入成功");
+          res.send("上傳成功");
+        }
+      });
     }
   });
+});
 
-})
+
+
+
 /**/
 
 
@@ -459,7 +472,6 @@ app.get('/UserInfo_pic', (req, res) => {
     data = JSON.parse(data);
     let user = req.session.user;
     try {
-      console.log(typeof (data[user.family_name].picture));
       res.send(data[user.family_name].picture);
     } catch (err) { }
   })
