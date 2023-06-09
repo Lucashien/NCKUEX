@@ -206,9 +206,14 @@ $(document).ready(function () {
   fetch('/UserInfo')
     .then(response => response.json())
     .then(data => {
-      $('#user p').text(data.given_name);
-      $('#logout p').text(data ? '登 出' : '登 入');
-      console.log(data);
+      $.get('/UserInfoRead', {
+        userID: data.id,
+      }, (json) => {
+        $('#user p').text(json.name);
+        $('#user .userpic img').attr('src', json.picture);
+        $('#login p').text('登 出');
+        $('#hi').css('display', 'block');
+      });
     })
     .catch(error => {
       // 處理錯誤
@@ -218,7 +223,7 @@ $(document).ready(function () {
   $('#login').click(function () {
     fetch('/logout', { method: 'GET' })
       .then(() => {
-        window.location.href = '/main.html';  // 執行前端重定向
+        window.location.href = '/login.html';  // 執行前端重定向
       })
       .catch(error => {
         // 處理錯誤
@@ -272,7 +277,6 @@ $(document).ready(function () {
         closeModal();
       }
     });
-    //$('[data-target="upload"]').on('change', handleFileUpload);
   }
 
   function closeModal() {
@@ -289,7 +293,6 @@ $(document).ready(function () {
 
   function viewPage(doc) {
     $.get('/view', {
-      userID: userID,
       doc: doc
     }, (data) => {
       $('#' + doc + '.view').html(data[0]);

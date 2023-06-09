@@ -255,6 +255,7 @@ app.use(session({
   saveUninitialized: false,
   resave: true,
 }));
+
 /*MiddleWare*/
 function auth(req, res, next) {
   if (req.session.user) {
@@ -322,16 +323,43 @@ app.get('/auth/google/callback', async (req, res) => {
 
 })
 
+function ADDloginCnt(studentID, req) {
+  fs.readFile('user.json', 'utf8', (err, jsonString) => {
+    if (err) {
+      console.log('Error reading file:', err);
+      return;
+    }
+
+    try {
+      const data = JSON.parse(jsonString);
+      data[studentID]["loginCnt"]++;
+      // 更新user.json文件
+      fs.writeFile('user.json', JSON.stringify(data), 'utf8', (err) => {
+        if (err) {
+          console.log('Error writing file:', err);
+          return;
+        }
+      })
+    }
+    catch (error) {
+      console.log('Error parsing JSON:', error);
+    }
+  });
+}
+
 app.get('/welcome', auth, (req, res) => {
   const userName = req.session.user.given_name
+  const studentID = req.session.user.family_name;
+  ADDloginCnt(studentID, req);
+
   console.log("Welcom back: ", userName);
-  res.redirect('/sort.html')
+  res.redirect('/login.html')
 })
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.clearCookie("user");
-  res.redirect('/main.html');
+  res.redirect('/login.html');
   console.log('log out successfully!');
 })
 
@@ -349,17 +377,14 @@ function saveUserData(userData, req) {
   }
 
   // 判斷是否已註冊
-  if (jsonData.hasOwnProperty(userData.family_name)) {
-    let student_id = userData.family_name;
-    // console.log("Welcome back ", jsonData[student_id].given_name, `from ${req.ip}`);
-    return;
-  }
+  if (jsonData.hasOwnProperty(userData.family_name)) return;
   delete userData["verified_email"];
   delete userData["locale"];
   delete userData["hd"];
 
   userData.picture = "./img/userpic/小恐龍.png"
   userData.award = "0";
+  userData.loginCnt = 0;
 
   // 將新的使用者資料以 "family_name" 屬性值為主鍵加入 jsonData 物件
   jsonData[userData.family_name] = userData;
@@ -454,12 +479,7 @@ app.get('/upload2JSON', (req, res) => {
     }
   });
 });
-
-
-
-
 /**/
-
 
 /*登入後使用者資訊*/
 // 把UserInfo送到前端
@@ -474,5 +494,55 @@ app.get('/UserInfo_pic', (req, res) => {
     try {
       res.send(data[user.family_name].picture);
     } catch (err) { }
+  })
+});
+
+/*-----------------改名小視窗-----------------*/
+app.get('/UserInfoChange', (req, res) => {
+  fs.readFile('user.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    for (let i in data) {
+      if (data[i].id == req.query.userID) {
+        data[i].name = req.query.username;
+        data[i].picture = req.query.userpic;
+        data[i].sign = "true";
+        console.log(data[i]);
+      }
+    }
+    fs.writeFile('./user.json', JSON.stringify(data), 'utf8', function (err) {
+      if (err) throw err;
+    });
+    res.send('修改成功')
+  })
+});
+
+app.get('/UserInfoRead', (req, res) => {
+  fs.readFile('user.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    data = JSON.parse(data);
+    for (let i in data) {
+      if (data[i].id == req.query.userID) {
+        res.send(data[i]);
+      }
+    }
+  })
+})
+
+app.get('/NickName', (req, res) => {
+  fs.readFile('user.json', 'utf8', (err, data) => {
+    if (err) throw err;
+
+    data = JSON.parse(data);
+
+    try {
+      const studentID = req.session.user.family_name;
+      if (data[studentID].loginCnt == 1) {
+        console.log("Edit nickname");
+        res.send("Edit nickname");
+      }
+    } catch (err) { }
+
+
   })
 });
