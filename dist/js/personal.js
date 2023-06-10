@@ -58,18 +58,22 @@ $(document).ready(function () {
     });
 
     $('#year .content').on('click', 'li', function (event) {
+        console.log("choose year...");
         yearTarget = event.target.innerText;
         $('#year .header li').text(yearTarget);
     });
 
-    $('#clas').on('click', 'div', function (event) {
+    $('#category').on('click', 'div', function (event) {
+        console.log("hi");
         $(this).addClass('active').siblings().removeClass('active');
         if ($(this).attr('id') == 'exam') { clasTarget = '大考' }
         if ($(this).attr('id') == 'quiz') { clasTarget = '小考' }
         if ($(this).attr('id') == 'homework') { clasTarget = '作業' }
         if ($(this).attr('id') == 'other') { clasTarget = '其他' }
     });
-
+    $('.edit_button').on('click', function (event) {
+        console.log("hi");
+    })
 
     /* ////////////////////////////////////// */
 
@@ -89,24 +93,32 @@ $(document).ready(function () {
 
     /*上傳後顯示表單*/
     $('.personal').find('#file').on('change', function () {
+        console.log("篩選");
         $('.personal').find('.upload_container').css('display', 'none');
         $('.personal').find('.upload_info').css('display', 'block');
     })
 })
 
 
-
-
 // 抓取使用者選取的檔案資訊
-
 $('.confirm_button').on('click', function () {
     const selectElements = document.querySelectorAll('.header li');
     const doc_info = [];
+    var flag = false;
     // 迭代選取到的 <li> 元素，擷取並存儲內容
+    console.log("selectElements = ", selectElements);
     selectElements.forEach((element) => {
         const content = element.textContent;
         doc_info.push(content);
+        if (content == "-請選擇-") {
+            flag = true;
+        }
     });
+    if (flag) {
+        alert("有選項沒選");
+        return;
+    }
+    console.log(doc_info);
 
     const activeChoise = document.querySelector('.choise.active');
     var clas = "";
