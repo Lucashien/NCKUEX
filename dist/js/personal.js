@@ -63,17 +63,14 @@ $(document).ready(function () {
         $('#year .header li').text(yearTarget);
     });
 
-    $('#category').on('click', 'div', function (event) {
-        console.log("hi");
+    $('.personal #clas').on('click', 'div', function (event) {
         $(this).addClass('active').siblings().removeClass('active');
         if ($(this).attr('id') == 'exam') { clasTarget = '大考' }
         if ($(this).attr('id') == 'quiz') { clasTarget = '小考' }
         if ($(this).attr('id') == 'homework') { clasTarget = '作業' }
         if ($(this).attr('id') == 'other') { clasTarget = '其他' }
     });
-    $('.edit_button').on('click', function (event) {
-        console.log("hi");
-    })
+
 
     /* ////////////////////////////////////// */
 
@@ -93,21 +90,29 @@ $(document).ready(function () {
 
     /*上傳後顯示表單*/
     $('.personal').find('#file').on('change', function () {
-        console.log("篩選");
         $('.personal').find('.upload_container').css('display', 'none');
         $('.personal').find('.upload_info').css('display', 'block');
     })
+
+    const fileInput = document.getElementById('file');
+
+    fileInput.addEventListener('change', function () {
+        console.log("File Changed");
+        const fileName = fileInput.files[0].name;
+        // fileNamePlaceholder.textContent = fileName;
+        $('.file_name p').text(fileName);
+    });
 })
 
 
 // 抓取使用者選取的檔案資訊
 $('.confirm_button').on('click', function () {
-    const selectElements = document.querySelectorAll('.header li');
+    const selectElements = document.querySelectorAll('.personal.header li');
     const doc_info = [];
     var flag = false;
     // 迭代選取到的 <li> 元素，擷取並存儲內容
-    console.log("selectElements = ", selectElements);
     selectElements.forEach((element) => {
+        console.log(element);
         const content = element.textContent;
         doc_info.push(content);
         if (content == "-請選擇-") {
@@ -169,3 +174,4 @@ fetch('/UserInfo_JSON')
         $('.dep p').text(data.dep_year);
 
     })
+

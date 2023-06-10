@@ -1,87 +1,91 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-   <meta charset="utf-8">
-   <meta content="width=device-width, initial-scale=1" name="viewport">
-   <title>NCKU EX</title>
-   <link rel="shortcut icon" type="img/png" href="./img/1_分頁logo.png">
-   <link href="sort.css" rel="stylesheet" type="text/css">
-   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-   <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>NCKU EX</title>
+    <link rel="shortcut icon" type="img/png" href="./img/1_分頁logo.png">
+    <link href="sort.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
 </head>
+
 <body>
-   <header class="sort">
-    <div style="height: 40%;"></div>
-    <div id="title">
-        <div class="flexstart">
-            <a href="./login.html"><div id="logo">
-                <img src="./img/LOGO.png"></img>
-            </div></a>
-            <div style="width: 4%;"></div>
-            <input type="text" id="search-box" placeholder="搜尋">
+    <header class="sort">
+        <div style="height: 40%;"></div>
+        <div id="title">
+            <div class="flexstart">
+                <a href="./login.html">
+                    <div id="logo">
+                        <img src="./img/LOGO.png"></img>
+                    </div>
+                </a>
+                <div style="width: 4%;"></div>
+                <input type="text" id="search-box" placeholder="搜尋">
+            </div>
+            <div class="flexend">
+                <div id="text">
+                    <div id="hi">
+                        <p>Hi! </p>
+                    </div>
+                    <div style="width: 5%;"></div>
+                    <div id="user">
+                        <div class="userpic"><img src="" style="border-radius: 50%;"></img></div>
+                        <p></p>
+                    </div>
+                </div>
+                <div id="login">
+                    <P>登 出</p>
+                </div>
+            </div>
         </div>
-        <div class="flexend">
-            <div id="text">
-                <div id="hi">
-                    <p>Hi! </p>
-                </div>
-                <div style="width: 5%;"></div>
-                <div id="user">
-                    <div class="userpic"><img src=""></img></div>
-                    <p></p>
-                </div>
-            </div>
-            <div id="login">
-                <P>登 出</p>
-            </div>
-        </div>    
-    </div>
-    <div style="height: 25%; border-bottom: .15vw solid #D3D3D5;">
-    </div>
-   </header>
+        <div style="height: 25%; border-bottom: .15vw solid #D3D3D5;">
+        </div>
+    </header>
 
 
-   <aside class="sort">
-    <div id="left">
-        <div class="filtercontainer">
-            <h4>學院</h4>
-            <div id="college" class="filter">
-                <div class="header">
-                    <li>電機資訊學院</li>
-                    <div class="triangle"></div>
-                </div>
-                <div class="content">
-                    <ul>
-                        <li>規劃設計學院</li>
-                        <li>工學院</li>
-                        <li>社會科學院</li>
-                        <li>醫學院</li>
-                        <li>管理學院</li>
-                        <li>文學院</li>
-                        <li>理學院</li>
+    <aside class="sort">
+        <div id="left">
+            <div class="filtercontainer">
+                <h4>學院</h4>
+                <div id="college" class="filter">
+                    <div class="header">
                         <li>電機資訊學院</li>
-                        <li>生物科學與科技學院</li>
-                        <li>敏求智慧運算學院</li>
-                        <li>跨院之學位學程</li>
-                        <li>通識課程</li>
-                    </ul>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>規劃設計學院</li>
+                            <li>工學院</li>
+                            <li>社會科學院</li>
+                            <li>醫學院</li>
+                            <li>管理學院</li>
+                            <li>文學院</li>
+                            <li>理學院</li>
+                            <li>電機資訊學院</li>
+                            <li>生物科學與科技學院</li>
+                            <li>敏求智慧運算學院</li>
+                            <li>跨院之學位學程</li>
+                            <li>通識課程</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div style="height: 15%;"></div>
-            <h4>系所</h4>
-            <div id="department" class="filter">
-                <div class="header">
-                    <li>電機系</li>
-                    <div class="triangle"></div>
-                </div>
-                <div class="content">
-                    <ul>
+                <div style="height: 15%;"></div>
+                <h4>系所</h4>
+                <div id="department" class="filter">
+                    <div class="header">
                         <li>電機系</li>
-                        <li>資訊系</li>
-                    </ul>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>電機系</li>
+                            <li>資訊系</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
             <div id="grade">
                 <li>大一</li>
                 <li>大二</li>
@@ -90,88 +94,94 @@
                 <li>碩所</li>
             </div>
             <hr>
-        <div class="filtercontainer">
-            <h4>課程</h4>
-            <div id="lecture" class="filter">
-                <div class="header">
-                    <li>-請選擇-</li>
-                    <div class="triangle"></div>
+            <div class="filtercontainer">
+                <h4>課程</h4>
+                <div id="lecture" class="filter">
+                    <div class="header">
+                        <li>-請選擇-</li>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="content">
-                    <ul>
-                        <li></li>
-                    </ul>
+                <div style="height: 2vh;"></div>
+                <h4>類別</h4>
+                <div id="clas" class="filter">
+                    <div class="header">
+                        <li>-請選擇-</li>
+                        <div class="triangle"></div>
+                    </div>
+                    <div class="content">
+                        <ul>
+                            <li>大考</li>
+                            <li>小考</li>
+                            <li>作業</li>
+                            <li>其他</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div style="height: 2vh;"></div>
-            <h4>類別</h4>
-            <div id="clas" class="filter">
-                <div class="header">
-                    <li>-請選擇-</li>
-                    <div class="triangle"></div>
-                </div>
-                <div class="content">
-                    <ul>
-                        <li>大考</li>
-                        <li>小考</li>
-                        <li>作業</li>
-                        <li>其他</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <!-- <div style="display: flex; justify-content: center; margin-top: 1vw;">
+            <!-- <div style="display: flex; justify-content: center; margin-top: 1vw;">
             <a href="https://www.youtube.com/" id="wishlist">
                 <h4>願望清單</h4>
             </a>
         </div> -->
-    </div>
-    <div id="barcontainer">
-        <div id="barbutton"></div>
-        <div class="bar"></div>
-    </div>
-   </aside>
-
-
-   <main class="sort">
-    <div id="leftfix"></div>
-    <div id="right">
-        <div style="height: 2.5%;"></div>
-        <div class="top">
-            <div id="year" class="container">
-                <h4>年份</h4>
-                <div class="triangle inactive"></div>
-            </div>
-            <div id="teacher" class="container">
-                <h4>教師</h4>
-            </div>
-            <div id="like" class="container">
-                <h4>讚賞</h4>
-                <div class="triangle inactive"></div>
-            </div>
-            <div id="documentname" class="container">
-                <h4>檔名</h4>
-            </div>
-            <div id="tag">
-                <div><img src="./img/check2.png"><p>內容完整</p></div>
-                <div><img src="./img/check1.png"><p>解題過程</p></div>
-            </div>
-            <div id="uploader" class="container">
-                <h4>上傳者</h4>
-            </div>
         </div>
-
-        <div class="bot">
-            <div id="documentcontainer">
-            </div>
+        <div id="barcontainer">
+            <div id="barbutton"></div>
+            <div class="bar"></div>
         </div>
-        <div style="height: 2%;"></div>
-    </div>
-   </main>
+    </aside>
 
-   <footer class="sort"><p style="font-size: .5vw;">Copyright © 2023 NCKU User Interface Design and Development</p></footer>
 
-   <script src="./js/sort.js"></script>
+    <main class="sort">
+        <div id="leftfix"></div>
+        <div id="right">
+            <div style="height: 2.5%;"></div>
+            <div class="top">
+                <div id="year" class="container">
+                    <h4>年份</h4>
+                    <div class="triangle inactive"></div>
+                </div>
+                <div id="teacher" class="container">
+                    <h4>教師</h4>
+                </div>
+                <div id="like" class="container">
+                    <h4>讚賞</h4>
+                    <div class="triangle inactive"></div>
+                </div>
+                <div id="documentname" class="container">
+                    <h4>檔名</h4>
+                </div>
+                <div id="tag">
+                    <div><img src="./img/check2.png">
+                        <p>內容完整</p>
+                    </div>
+                    <div><img src="./img/check1.png">
+                        <p>解題過程</p>
+                    </div>
+                </div>
+                <div id="uploader" class="container">
+                    <h4>上傳者</h4>
+                </div>
+            </div>
+
+            <div class="bot">
+                <div id="documentcontainer">
+                </div>
+            </div>
+            <div style="height: 2%;"></div>
+        </div>
+    </main>
+
+    <footer class="sort">
+        <p style="font-size: .5vw;">Copyright © 2023 NCKU User Interface Design and Development</p>
+    </footer>
+
+    <script src="./js/sort.js"></script>
 </body>
 
 </html>
