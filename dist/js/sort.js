@@ -232,10 +232,17 @@ $(document).ready(function () {
   });
 
   $('.userpic').click(function () {
-    if ($('#text').hasClass('active')) {
-      console.log("打開個人頁面");
-      showModal('personal', 'id');
-    }
+    console.log("點擊個人頭像");
+    let userID;
+    $.get('/UserInfo', {
+    }, (data) => {
+      if (data) {
+        userID = data.family_name;
+      }
+    })
+    
+    showModal('personal', 'id');
+    
   });
 
   /* ////////////////////////////////////// */
@@ -254,7 +261,7 @@ $(document).ready(function () {
   let quitView = false;
 
   $(document).on('click', '.view #userpic img', function () {
-    showModal('personal', 'id');
+    showModal('personal', "id");
   });
 
 
@@ -303,8 +310,9 @@ $(document).ready(function () {
   }
 
   function personalPage(userid) {
+    // 這裡的ID為當前帳號的user學號
     $.get('/personal', {
-      userID: 'id',
+      userID: userid,
     }, (data) => {
       $('#' + userid + '.personal').html(data);
     });

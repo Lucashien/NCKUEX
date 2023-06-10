@@ -16,6 +16,10 @@ $(document).ready(function () {
             console.log("data =", data);
             if (data == "Edit nickname")
                 $('.modal').css('display', 'flex').css('opacity', '1');
+            else { 
+                console.log("跳轉");
+                window.location.href = 'http://luffy.ee.ncku.edu.tw:6412/sort.html'; 
+            }
         })
         .catch(error => {
             // 處理錯誤
