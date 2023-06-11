@@ -2,7 +2,7 @@
 import express from 'express'
 // const express = require('express')
 
-import { dirname } from 'path'
+import { dirname, extname } from 'path'
 import { fileURLToPath } from 'url'
 
 // google 登入用
@@ -615,4 +615,51 @@ app.get('/NickName', (req, res) => {
 
 
   })
+});
+
+
+/* Personal */
+const storage_pic = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './dist/img/userpic');
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext);
+  }
+});
+
+const upload_pic = multer({ storage: storage_pic });
+app.post('/upload-avatar', upload_pic.single('avatar'), function (req, res) {
+  if (!req.file) {
+    res.status(400).send('尚無選擇照片');
+    return;
+  }
+
+  const filename = req.file.filename;
+  // 读取 JSON 文件
+  fs.readFile('user.json', 'utf8', (err, data) => {
+    // 解析 JSON 数据
+    const jsonData = JSON.parse(data);
+
+    // 修改图片路径值
+    console.log(req.file);
+    const userid = req.session.user.family_name;
+    const newPicturePath = "./img/userpic/" + filename;
+    if (jsonData[userid]) {
+      jsonData[userid].picture = newPicturePath;
+    }
+
+    const updatedData = JSON.stringify(jsonData, null, 2);
+
+    fs.writeFile('user.json', updatedData, 'utf8', (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log('pic changed');
+    });
+  });
+
+  res.send(`頭像上傳成功，已命名為：${filename}`);
 });

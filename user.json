@@ -1,1 +1,38 @@
-{"E14084078":{"id":"102669479348138989078","email":"e14084078@gs.ncku.edu.tw","name":"ㄏㄏ","given_name":"謝宗翰 Hsieh,Tsung-Han","family_name":"E14084078","picture":"./img/userpic/帥哥.jpg","dep_year":"機械112","award":"0","loginCnt":9,"sign":"true"},"E14086622":{"id":"115116712277756623855","email":"e14086622@gs.ncku.edu.tw","name":"我是地精","given_name":"操之晴 TSAO,CHIH-CHING","family_name":"E14086622","picture":"./img/userpic/小恐龍.png","dep_year":"機械112","award":"0","loginCnt":2,"sign":"true"},"E14084052":{"id":"100122543081236715319","email":"e14084052@gs.ncku.edu.tw","name":"店功學","given_name":"李宗諺 LI,TSUNG-YEN","family_name":"E14084052","picture":"./img/userpic/小恐龍.png","dep_year":"機械112","award":"0","loginCnt":1,"sign":"true"}}
+{
+  "E14084078": {
+    "id": "102669479348138989078",
+    "email": "e14084078@gs.ncku.edu.tw",
+    "name": "ㄏㄏ",
+    "given_name": "謝宗翰 Hsieh,Tsung-Han",
+    "family_name": "E14084078",
+    "picture": "./img/userpic/1686424285268.jpg",
+    "dep_year": "機械112",
+    "award": "0",
+    "loginCnt": 18,
+    "sign": "true"
+  },
+  "E14086622": {
+    "id": "115116712277756623855",
+    "email": "e14086622@gs.ncku.edu.tw",
+    "name": "我是地精",
+    "given_name": "操之晴 TSAO,CHIH-CHING",
+    "family_name": "E14086622",
+    "picture": "./img/userpic/小恐龍.png",
+    "dep_year": "機械112",
+    "award": "0",
+    "loginCnt": 2,
+    "sign": "true"
+  },
+  "E14084052": {
+    "id": "100122543081236715319",
+    "email": "e14084052@gs.ncku.edu.tw",
+    "name": "店功學",
+    "given_name": "李宗諺 LI,TSUNG-YEN",
+    "family_name": "E14084052",
+    "picture": "./img/userpic/小恐龍.png",
+    "dep_year": "機械112",
+    "award": "0",
+    "loginCnt": 1,
+    "sign": "true"
+  }
+}
