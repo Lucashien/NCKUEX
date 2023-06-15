@@ -260,6 +260,7 @@
 .others .file_row {
   display: inline-block;
   flex-wrap: nowrap;
+  width: 100%;
 }
 
 .others .file_1 {

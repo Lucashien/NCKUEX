@@ -473,6 +473,7 @@
 .personal .file_row {
   display: inline-block;
   flex-wrap: nowrap;
+  width: 100%;
 }
 
 .personal .file_1 {
@@ -567,3 +568,23 @@
   background-color: #81D6FA;
   border-radius: 10vw;
 }
+  
+  .infochange {
+    position: absolute;
+    width: 100% !important;
+    height: 100% !important;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    background-color: rgba(18, 18, 18, .5);
+    opacity: 0;
+    transition: .5s ease-in-out;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .infochange.active {
+    opacity: 1;
+    display: flex;
+  }

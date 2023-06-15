@@ -132,7 +132,7 @@ input:focus {
 .sort #wish_duttonn {
     display: flex;
     justify-content: center;
-    width: 28%;
+    width: 54%;
 }
 
 .sort #wish_dutton {
@@ -161,6 +161,7 @@ input:focus {
     width: 1.5vw;
     margin-right: .3vw;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .sort #login {
@@ -408,7 +409,8 @@ aside.sort.active {
     background-image: url(./img/大考按鈕.svg);
 }
 
-.sort #exam:hover {
+.sort #exam:hover,
+.sort #exam.active {
     background-image: url(./img/個人頁面_大考標籤.png);
 }
 
@@ -416,7 +418,8 @@ aside.sort.active {
     background-image: url(./img/小考按鈕.svg);
 }
 
-.sort #quiz:hover {
+.sort #quiz:hover,
+.sort #quiz.active {
     background-image: url(./img/個人頁面_小考標籤.png);
 }
 
@@ -424,7 +427,8 @@ aside.sort.active {
     background-image: url(./img/作業按鈕.svg);
 }
 
-.sort #homework:hover {
+.sort #homework:hover,
+.sort #homework.active {
     background-image: url(./img/個人頁面_作業標籤.png);
 }
 
@@ -432,7 +436,8 @@ aside.sort.active {
     background-image: url(./img/其他按鈕.svg);
 }
 
-.sort #other:hover {
+.sort #other:hover,
+.sort #other.active {
     background-image: url(./img/個人頁面_其他標籤.png);
 }
 
@@ -557,13 +562,13 @@ aside.sort.active {
     border-right: 0;
 }
 
-.sort #right .triangle {
+.sort #right .triangle.reverse {
     margin: 0 .4vw;
     border-top: .3vw solid #81D6FA;
     border-bottom: 0;
 }
 
-.sort #right .triangle.reverse {
+.sort #right .triangle {
     margin: 0 .4vw;
     border-bottom: .3vw solid #81D6FA;
     border-top: 0;
@@ -686,6 +691,24 @@ footer.sort {
     display: none;
 }
 
+#MRdirty {
+    background-image: url(./img/小恐龍.png);
+    background-position: center;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 6vw;
+    height: 6vw;
+    transform: translate(-15%, -10%);
+    transition: .3s ease-in-out;
+    z-index: 9999;
+    cursor: pointer;
+}
+
+#MRdirty:hover {
+    transform: scale(1.2) translate(-15%, -10%);
+}
 
 /* ////////////////////////////////////// */
 .modal {
@@ -699,6 +722,8 @@ footer.sort {
     opacity: 0;
     transition: .5s ease-in-out;
 }
+
+
 
 /* ////////////////////////////////////// */
 @media screen and (max-aspect-ratio: 16/9) {

@@ -73,12 +73,13 @@ $(document).ready(function () {
     documentSelect();
   });
 
-    $('#clas').on('click', 'div', function (event) {
-        $(this).addClass('active').siblings().removeClass('active');
-        if ($(this).attr('id') == 'exam') { clasTarget = '大考' }
-        if ($(this).attr('id') == 'quiz') { clasTarget = '小考' }
-        if ($(this).attr('id') == 'homework') { clasTarget = '作業' }
-        if ($(this).attr('id') == 'other') { clasTarget = '其他' }
+    $('#clas').on('click', '.choise', function (event) {
+      $('#clas').find('.choise').not(this).removeClass('active');
+      $(this).addClass('active')
+    if ($(this).attr('id') == 'exam') { clasTarget = '大考' }
+    if ($(this).attr('id') == 'quiz') { clasTarget = '小考' }
+    if ($(this).attr('id') == 'homework') { clasTarget = '作業' }
+    if ($(this).attr('id') == 'other') { clasTarget = '其他' }
     documentSelect();
   });
 
@@ -91,6 +92,7 @@ $(document).ready(function () {
     $('#lecture .content ul').html('<li></li>');
     $('#documentcontainer').empty().css('display', 'none');
     $('.bot').css('opacity', '.25');
+    documentInitial()
   }
 
   /* ////////////////////////////////////// */
@@ -119,15 +121,19 @@ $(document).ready(function () {
 
   $('#year h4').click(function () {
     if ($('#documentcontainer').css('display') == 'block') {
-      $('#like .triangle').addClass('inactive').removeClass('reverse');
+      $('#like .triangle').addClass('inactive');
+      if ($('#like .triangle').hasClass('reverse')) {
+        $('#like .triangle').removeClass('reverse')
+        likeOrder = 1;
+      }
       $('#year .triangle').removeClass('inactive').toggleClass('reverse');
       yearOrder = yearOrder == 1 ? 0 : 1;
       let documents = $('.document');
       documents.sort((a, b) => {
         let A = $(a).find('.year h4').text();
         let B = $(b).find('.year h4').text();
-        if (yearOrder == 0) { if (A > B) { return 1 } else { return -1 } }
-        if (yearOrder == 1) { if (A < B) { return 1 } else { return -1 } }
+        if (yearOrder == 1) { if (A > B) { return 1 } else { return -1 } }
+        if (yearOrder == 0) { if (A < B) { return 1 } else { return -1 } }
       });
       $('#documentcontainer').append(documents);
     }
@@ -135,25 +141,46 @@ $(document).ready(function () {
 
   $('#like h4').click(function () {
     if ($('#documentcontainer').css('display') == 'block') {
-      $('#year .triangle').addClass('inactive').removeClass('reverse');
+      likesort()
+    }
+  });
+
+  function likesort() {
+    $('#year .triangle').addClass('inactive');
+    if ($('#year .triangle').hasClass('reverse')) {
+      $('#year .triangle').removeClass('reverse')
+      yearOrder = 1;
+    }
       $('#like .triangle').removeClass('inactive').toggleClass('reverse');
       likeOrder = likeOrder == 1 ? 0 : 1;
       let documents = $('.document');
       documents.sort((a, b) => {
         let A = parseInt($(a).find('.like h4').text());
         let B = parseInt($(b).find('.like h4').text());
-        if (likeOrder == 0) { return A - B }
-        if (likeOrder == 1) { return B - A }
+      if (likeOrder == 1) { return A - B }
+      if (likeOrder == 0) { return B - A }
       });
       $('#documentcontainer').append(documents);
     }
-  });
+
+  function sortInitial() {
+    $('#year .triangle, #like .triangle').addClass('inactive')
+    if ($('#year .triangle').hasClass('reverse')) {
+      $('#year .triangle').removeClass('reverse')
+      yearOrder = 1;
+    }
+    if ($('#like .triangle').hasClass('reverse')) {
+      $('#like .triangle').removeClass('reverse')
+      likeOrder = 1;
+    }
+  }
 
   /* ////////////////////////////////////// */
   //檔案生成
 
   function documentSelect() {
     if (lectureTarget != undefined && clasTarget != undefined) {
+      sortInitial()
       $('#documentcontainer').css('display', 'block');
       $('.bot').css('opacity', '1');
       $.get('/documentSelect', {
@@ -167,6 +194,7 @@ $(document).ready(function () {
 
   function documentSearch() {
     if ($('#search-box').val() != '') {
+      sortInitial()
       $('#documentcontainer').css('display', 'block');
       $('.bot').css('opacity', '1');
       $.get('/documentSearch', {
@@ -176,6 +204,18 @@ $(document).ready(function () {
       });
     }
   }
+
+  function documentInitial() {
+    $('#documentcontainer').css('display', 'block');
+    $('.bot').css('opacity', '1');
+    $.get('/documentSearch', {
+      search: 'd'
+    }, (data) => {
+      $('#documentcontainer').html(data);
+    });
+    setTimeout(function () { likesort() }, 100);
+  }
+  documentInitial()
 
   /* ////////////////////////////////////// */
   //搜索功能
@@ -234,24 +274,14 @@ $(document).ready(function () {
   });
 
   $('.userpic').click(function () {
-    console.log("點擊個人頭像");
-    let userID;
-    $.get('/UserInfo', {
-    }, (data) => {
-      if (data) {
-        userID = data.family_name;
-      }
-    })
-
-    showModal('personal', 'id');
-
+    showModal('personal', userID, '');
   });
 
   /* ////////////////////////////////////// */
   //預覽視窗
 
   $(document).on('click', '.document', function () {
-        showModal('view', $(this).attr('id'), $(this).find('.uploader h4').attr('id'));
+    showModal('view', $(this).attr('id'), $(this).find('.uploader h4').attr('id'));
   });
 
   $(document).on('click', '.view #quit', function () {
@@ -262,15 +292,15 @@ $(document).ready(function () {
   });
   let quitView = false;
 
-    $(document).on('click', '.personal #null, .personal .back_button', function () {
+  $(document).on('click', '.personal #null, .personal .back_button', function () {
     closeModal();
   });
 
-    function showModal(page, id, up) {
+  function showModal(page, id, up) {
     $('html').css('cursor', 'wait');
     let modal = $('<div>').attr('id', id).addClass('modal').addClass(page);
     $('body').append(modal);
-        Page(page, id, up)
+    Page(page, id, up)
     setTimeout(function () {
       modal.css('opacity', 1);
       $('html').css('cursor', '');
@@ -290,25 +320,25 @@ $(document).ready(function () {
     }, 500);
   }
 
-    function Page(page, id, up) {
-        if (page == 'view') { viewPage(id, up); }
+  function Page(page, id, up) {
+    if (page == 'view') { viewPage(id, up); }
     if (page == 'personal') { personalPage(id); }
-        if (page == 'others') { othersPage(id); }
+    if (page == 'others') { othersPage(id); }
   }
 
-    function viewPage(doc, up) {
+  function viewPage(doc, up) {
     $.get('/view', {
       userID: userID,
       doc: doc
     }, (data) => {
       $('#' + doc + '.view').html(data[0]);
-            $.get('/viewUploader', {
-                upid: up
-            }, (data) => {
-                $('#' + doc + '.view').find('#userpic img').attr('src', data[1]);
-                $('#' + doc + '.view').find('#up').text(data[0])
-                $('#' + doc + '.view').find('#upload').find('div').eq(2).attr('id', up)
-            })
+      $.get('/viewUploader', {
+        upid: up
+      }, (data) => {
+        $('#' + doc + '.view').find('#userpic img').attr('src', data[1]);
+        $('#' + doc + '.view').find('#up').text(data[0])
+        $('#' + doc + '.view').find('#upload').find('div').eq(2).attr('id', up)
+      })
       active_like(data[1])
       active_rate(data[2])
       viewScroll()
@@ -317,32 +347,78 @@ $(document).ready(function () {
   }
 
   function personalPage(userid) {
-    // 這裡的ID為當前帳號的user學號
-    $.get('/personal', {
+    $.get('/person', {
       userID: userid,
+      tar: 'personal'
     }, (data) => {
       $('#' + userid + '.personal').html(data);
     });
+    setTimeout(function () {
+      $.get('/personaldoc', {
+        userID: userid,
+      }, (data) => {
+        $('#' + userid + '.personal').find('.file_row').html(data[0]);
+        $('#' + userid + '.personal').find('.upload_num p').text(data[1]);
+        $('#' + userid + '.personal').find('.like_num p').text(data[2]);
+      });
+    }, 100);
   }
 
+    $(document).on('click', '.personal .edit', function () {
+      console.log('556515')
+      let infochange = $('<div>').addClass('infochange');
+      $('body').append(infochange);
+      $.get('/infochange', {
+      }, (data) => {
+        $('.infochange').html(data);
+      });
+      $('.infochange').css('display', 'flex').css('opacity', '1');
+    })
+  
+    $(document).on('click', '.personal #done', function () {
+      $.get('/UserInfoChange', {
+        // userpic: $('#userpic').attr('src'),
+        username: $('#username').val(),
+        userID: userID
+      }, (data) => {
+      });
+    })
+  
+    $(document).on('click', '.personal #quit', function () {
+      $('.modal').css('display', 'none').css('opacity', '0');
+      $.get('/logout', {
+      }, (data) => {
+      });
+    })
+  
   /* ////////////////////////////////////// */
 
-    $(document).on('click', '.view #userpic img', function () {
-        let upid = $('.view').find('#upload').find('div').eq(2).attr('id')
-        showModal('others', upid, '');
-    });
+  $(document).on('click', '.view #userpic img', function () {
+    let upid = $('.view').find('#upload').find('div').eq(2).attr('id')
+    showModal('others', upid, '');
+  });
 
-    function othersPage(userid) {
-        $.get('/others', {
-            userID: userid,
-        }, (data) => {
-            $('#' + userid + '.others').html(data);
+  $(document).on('click', '.others #null, .others .back_button', function () {
+    closeModal();
+  });
+
+  function othersPage(userid) {
+    $.get('/person', {
+      userID: userid,
+      tar: 'others'
+    }, (data) => {
+      $('#' + userid + '.others').html(data);
     });
+    setTimeout(function () {
+      $.get('/personaldoc', {
+        userID: userid,
+      }, (data) => {
+        $('#' + userid + '.others').find('.file_row').html(data[0]);
+        $('#' + userid + '.others').find('.upload_num p').text(data[1]);
+        $('#' + userid + '.others').find('.like_num p').text(data[2]);
+      });
+    }, 100);
   }
-
-    $(document).on('click', '.others #null, .others .back_button', function () {
-        closeModal();
-    });
 
   /* ////////////////////////////////////// */
   //倒讚幫
@@ -381,8 +457,7 @@ $(document).ready(function () {
       setTimeout(function () {
         console.log(data);
         $('#documentcontainer').empty();
-        documentSelect();
-        documentSearch();
+          documentInitial();
         $('html').css('cursor', '');
         active_like(!iff);
       }, 100);
@@ -474,8 +549,7 @@ $(document).ready(function () {
         setTimeout(function () {
           console.log(data);
           $('#documentcontainer').empty();
-          documentSelect();
-          documentSearch();
+            documentInitial();
           $('html').css('cursor', '');
           active_rate(!iff);
         }, 100);
@@ -526,24 +600,24 @@ $(document).ready(function () {
   }
 
   /* ////////////////////////////////////// */
-    //滾軸
+  //滾軸
 
-    function viewScroll() {
-        let fixed = false
-        $('.view').on('scroll', function () {
-            var scroll = $(this).scrollTop();
-            var offset = $('.view #right').offset().top;
-            if (scroll > offset) {
-                if (!fixed) {
-                    fixed = true;
-                    $('.view #right').addClass('fixed');
-                }
-            } else {
-                fixed = false;
-                $('.view #right').removeClass('fixed');
-            }
-        });
-    }
+  function viewScroll() {
+    let fixed = false
+    $('.view').on('scroll', function () {
+      var scroll = $(this).scrollTop();
+      var offset = $('.view #right').offset().top;
+      if (scroll > offset) {
+        if (!fixed) {
+          fixed = true;
+          $('.view #right').addClass('fixed');
+        }
+      } else {
+        fixed = false;
+        $('.view #right').removeClass('fixed');
+      }
+    });
+  }
 
-    /* ////////////////////////////////////// */
+  /* ////////////////////////////////////// */
 })

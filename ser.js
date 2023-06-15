@@ -61,11 +61,11 @@ app.get('/documentSelect', (req, res) => {
       .then(htmls => {
         let HTML = htmls.join('');
 
-    if (HTML == '') {
-      HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
-    }
+        if (HTML == '') {
+          HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
+        }
 
-    res.send(HTML);
+        res.send(HTML);
       })
       .catch(error => {
         console.error(error);
@@ -79,7 +79,7 @@ app.get('/documentSearch', (req, res) => {
     if (err) throw err;
     data = JSON.parse(data);
     let promises = []; // 保存所有异步操作的 Promise
-    
+
     for (let id in data) {
       if (data[id].name.includes(req.query.search) ||
         data[id].dep.includes(req.query.search) ||
@@ -96,11 +96,11 @@ app.get('/documentSearch', (req, res) => {
       .then(htmls => {
         let HTML = htmls.join('');
 
-    if (HTML == '') {
-      HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
-    }
+        if (HTML == '') {
+          HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
+        }
 
-    res.send(HTML);
+        res.send(HTML);
       })
       .catch(error => {
         console.error(error);
@@ -134,8 +134,9 @@ async function htmlUser(id) {
       if (err) reject(err);
       user = JSON.parse(user);
       resolve([user[id].name, user[id].picture, user[id].award]);
-  });
-})}
+    });
+  })
+}
 
 /* ////////////////////////////////////// */
 app.get('/updatelecture', (req, res) => {
@@ -196,12 +197,12 @@ app.get('/view', (req, res) => {
       $('#teac').text('教師 | ' + data[req.query.doc].teac);
       $('#year').text('年份 | ' + data[req.query.doc].year);
       $('#clas').text('類別 | ' + data[req.query.doc].clas);
-      $('#download a').attr('href', './upload/' + data[req.query.doc].url);
+      $('#download a').attr('href', './uploads/' + data[req.query.doc].url);
       let like = data[req.query.doc].like.user.includes(req.query.userID);
       let rate = false;
-      if(data[req.query.doc].tagA.user[req.query.userID]){rate = true};
-      if(like) {$('#like img:eq(0)').attr('src', './img/like2.png')}
-      if(rate) {$('#rate img:eq(0)').attr('src', './img/rate2.png')}
+      if (data[req.query.doc].tagA.user[req.query.userID]) { rate = true };
+      if (like) { $('#like img:eq(0)').attr('src', './img/like2.png') }
+      if (rate) { $('#rate img:eq(0)').attr('src', './img/rate2.png') }
       res.send([$.html(), like, rate]);
     });
   })
@@ -232,8 +233,8 @@ app.get('/loading', (req, res) => {
 
 /* ////////////////////////////////////// */
 
-app.get('/others', (req, res) => {
-  fs.readFile('./dist/others.html', 'utf8', function (err, html) {
+app.get('/person', (req, res) => {
+  fs.readFile('./dist/' + req.query.tar + '.html', 'utf8', function (err, html) {
     if (err) throw err;
     fs.readFile('./user.json', 'utf8', function (err, user) {
       if (err) throw err;
@@ -249,6 +250,34 @@ app.get('/others', (req, res) => {
     });
   })
 });
+
+app.get('/personaldoc', (req, res) => {
+  fs.readFile('./document.json', 'utf8', function (err, data) {
+    if (err) throw err;
+    data = JSON.parse(data);
+    let HTML = '';
+    let doccount = 0;
+    let doclikecount = 0;
+    for (let id in data) {
+      if (data[id].upid == req.query.userID) {
+        HTML += psdochtmlwrite(data[id]);
+        doccount += 1;
+        doclikecount += 1;
+      }
+    }
+    res.send([HTML, doccount, doclikecount]);
+  });
+});
+
+function psdochtmlwrite(data, id) {
+  const html = fs.readFileSync('./dist/html/persondoc.html', 'utf8');
+  const $ = cheerio.load(html);
+  $('.file_1').attr('id', id);
+  $('.file_clas img').attr('src', './img/個人頁面_' + data.clas + '標籤.png');
+  $('.file_detail p').eq(0).text(data.lec);
+  $('.file_detail p').eq(1).text(data.year);
+  return $.html()
+}
 
 /* ////////////////////////////////////// */
 
@@ -272,7 +301,7 @@ app.get('/like', (req, res) => {
       data[req.query.doc].like.count = data[req.query.doc].like.user.length;
       fs.writeFile('./document.json', JSON.stringify(data), 'utf8', function (err) {
         if (err) throw err;
-      res.send('按讚成功')
+        res.send('按讚成功')
       });
     }
   });
@@ -539,26 +568,26 @@ const upload = multer({ storage: storage });
 // 處理檔案上傳和資訊輸入的請求
 app.post('/upload', upload.single('file'), (req, res) => {
   // 取得使用者輸入的檔案資訊
-  console.log("hi",req.body);
   let doc_info = req.body.doc_info.split(',');
   const [col, dep, grade, lec, teac, year, clas] = doc_info;
-  const file = req.file, filename = file.originalname;
+  const file = req.file, filename = file.filename, name = file.originalname;
+  console.log("file", file)
   const extname = path.extname(file.originalname);
   const label = Date.now();
 
   res.redirect("/upload2JSON?col=" + col + "&dep=" +
     dep + "&grade=" + grade + "&lec=" + lec + "&teac=" +
     teac + "&year=" + year + "&clas=" + clas +
-    "&filename=" + filename + "&label=" + label);
+    "&filename=" + filename + "&label=" + label + "&name=" + name);
 
 });
 
 app.get('/upload2JSON', (req, res) => {
-  const { col, dep, grade, lec, teac, year, clas, filename, label } = req.query;
+  const { col, dep, grade, lec, teac, year, clas, filename, label, name } = req.query;
   console.log(req.query)
   const data = {
     [label]: {
-      name: filename,
+      name: name,
       url: filename,
       year,
       dep,
@@ -568,10 +597,10 @@ app.get('/upload2JSON', (req, res) => {
       upid: req.session.user.family_name,
       like: {
         count: 0,
-        user: ""
+        user: []
       },
-      tagA: { score: 0, user: "" },
-      tagB: { score: 0, user: "" }
+      tagA: { score: 0, user: {} },
+      tagB: { score: 0, user: {} }
     }
   };
 
@@ -591,10 +620,10 @@ app.get('/upload2JSON', (req, res) => {
 
       fs.writeFile('document.json', JSON.stringify(existingData), (err) => {
         if (err) {
-          console.error(err);
+          // console.error(err);
           res.send("寫入 JSON 檔案失敗");
         } else {
-          console.log("JSON 檔案寫入成功");
+          // console.log("JSON 檔案寫入成功");
           res.send("上傳成功");
         }
       });
@@ -665,7 +694,7 @@ app.get('/NickName', (req, res) => {
     data = JSON.parse(data);
     try {
       const studentID = req.session.user.family_name;
-      if (data[studentID].loginCnt==1)
+      if (data[studentID].loginCnt == 1)//要改
         res.send("Edit nickname");
       else
         res.send("Login");

@@ -61,8 +61,6 @@ confirmButton.addEventListener('click', function () {
             console.error(error);
         });
 
-
-
     // 隱藏確定按鈕
     confirmButton.style.display = 'none';
     // 銷毀 Cropper 實例
@@ -70,6 +68,8 @@ confirmButton.addEventListener('click', function () {
     preview.style.display = "none"
     resultImage.style.display = "";
 });
+
+
 
 // 資料 URL 轉換為 Blob 物件的函式
 function dataURLToBlob(dataURL) {
