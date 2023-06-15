@@ -2,19 +2,23 @@
     font-family: "Source Han Sans SC Regular";
     src: url(./fonts/NotoSansTC-Regular.otf);
 }
+
 @font-face {
     font-family: "Source Han Sans SC Thin";
     src: url(./fonts/NotoSansTC-Thin.otf);
 }
+
 @font-face {
     font-family: "Source Han Sans SC Light";
     src: url(./fonts/NotoSansTC-Light.otf);
 }
-*{
+
+* {
     user-select: none;
     margin: 0;
     padding: 0;
 }
+
 html {
     font-family: "Source Han Sans SC Light", sans-serif;
     background-color: #181818;
@@ -23,29 +27,38 @@ html {
 }
 
 /* ////////////////////////////////////// */
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     width: 1vw;
     border: .1em outset #D3D3D5;
 }
-::-webkit-scrollbar-thumb{
+
+::-webkit-scrollbar-thumb {
     background-color: #81D6FA;
     border-radius: 10vw;
 }
-li{
+
+li {
     list-style: none;
 }
-.sort img{
+
+.sort img {
     max-width: 100%;
 }
-.sort h1, .sort h4, .sort li, .sort p{
+
+.sort h1,
+.sort h4,
+.sort li,
+.sort p {
     color: #D3D3D5;
     font-size: .9vw;
     font-weight: lighter;
 }
-.sort a{
+
+.sort a {
     text-decoration: none;
 }
-.sort h1{
+
+.sort h1 {
     color: rgba(255, 255, 255, 0.5);
     font-size: 2vw;
     text-align: center;
@@ -53,40 +66,46 @@ li{
 }
 
 /* ////////////////////////////////////// */
-header.sort{
+header.sort {
     height: 6vw;
     position: relative;
     z-index: 50;
     margin: 0 2vw
 }
-.sort #title{
+
+.sort #title {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 30%;
     background-color: #181818;
 }
-.flexstart, .flexend{
+
+.flexstart,
+.flexend {
     display: flex;
     align-items: center;
     height: 100%;
 }
-.flexstart{
+
+.flexstart {
     width: 69%;
     justify-content: flex-start;
 }
-.flexend{
+
+.flexend {
     width: 30%;
     justify-content: flex-end;
 }
 
 /* ////////////////////////////////////// */
-.sort #logo img{
+.sort #logo img {
     width: 6.8vw;
     padding-left: .1vw;
     padding-top: .1vw;
 }
-.sort input{
+
+.sort input {
     height: 100%;
     padding-right: 1.5vw;
     width: 74%;
@@ -94,72 +113,109 @@ header.sort{
     background-color: #181818;
     border: .1vw solid #81D6FA;
 }
-::-webkit-input-placeholder, .sort input {
+
+::-webkit-input-placeholder,
+.sort input {
     font-size: .8vw;
-    color:#D3D3D5;
+    color: #D3D3D5;
     text-align: end;
 }
 
+input:focus {
+    outline: none;
+}
+
+
 /* ////////////////////////////////////// */
-.sort #text, .sort #login{
+.sort #text,
+.sort #login,
+.sort #wish_duttonn {
     display: flex;
     justify-content: center;
-    width: 54%;
+    width: 28%;
 }
-.sort #user{
+
+.sort #wish_dutton {
+    width: 25%;
+    height: 1.7vw;
+    background-image: url(./img/願望清單按鈕.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.sort #wish_dutton:hover {
+    background-image: url(./img/願望清單按鈕_hover.png);
+}
+
+.sort #user {
     width: auto;
     display: flex;
 }
-.sort #hi #login{
-    width: 45%;
+
+.sort #hi {
+    display: none;
 }
-.sort .userpic img{
+
+.sort .userpic img {
     width: 1.5vw;
     margin-right: .3vw;
+    border-radius: 50%;
 }
-.sort #login{
+
+.sort #login {
     width: 11%;
 }
-.sort #login p{
+
+.sort #login p {
     font-size: 1.2vw;
 }
-.sort #login:hover{
+
+.sort #login:hover {
     cursor: pointer;
     background-color: #81D6FA;
 }
-.sort #login:hover p{
+
+.sort #login:hover p {
     color: #181818;
 }
-.sort #text{
+
+.sort #text {
     justify-content: flex-end;
     margin-right: 2vw;
 }
 
-
 /* ////////////////////////////////////// */
-main.sort{
+main.sort {
     display: flex;
     height: 40vw;
 }
-.sort #left, .sort #leftfix{
+
+.sort #left,
+.sort #leftfix {
     width: 22%;
     background-color: #181818;
     text-align: center;
 }
-.sort #right{
+
+.sort #right {
     width: 75%;
 }
-.sort .top{
+
+.sort .top {
     height: 10%;
     padding: 2vh 0;
     padding-right: 3vw;
 }
-.sort .top, .sort .bot{
+
+.sort .top,
+.sort .bot {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.sort .bot{
+
+.sort .bot {
     height: 80%;
     display: block;
     background-image: url(./img/小恐龍.png);
@@ -170,22 +226,24 @@ main.sort{
 
 
 /* ////////////////////////////////////// */
-aside.sort{
+aside.sort {
     position: absolute;
     z-index: 2;
     display: flex;
     height: 80%;
     width: 20%;
-    left:0;
+    left: 0;
     top: 15vh;
     margin-left: 3.5vw;
     transition: .5s ease-in-out;
 }
-aside.sort #left{
+
+aside.sort #left {
     width: 85%;
     transition: .5s ease-in-out;
 }
-.sort #barcontainer{
+
+.sort #barcontainer {
     width: 15%;
     display: flex;
     align-items: center;
@@ -193,7 +251,8 @@ aside.sort #left{
     flex-direction: column;
     position: relative;
 }
-.sort #barbutton{
+
+.sort #barbutton {
     width: 3vw;
     height: 3vw;
     border-radius: 10vw;
@@ -205,77 +264,92 @@ aside.sort #left{
     background-size: 3.5vw 3.5vw;
     transition: .3s ease-in-out;
 }
-.sort #barbutton.active{
+
+.sort #barbutton.active {
     background-image: url(./img/arrow2.png);
     transform: rotate(180deg);
 }
-.sort #barbutton:hover{
+
+.sort #barbutton:hover {
     cursor: pointer;
     transform: scale(1.2);
 }
-.sort #barbutton.active:hover{
+
+.sort #barbutton.active:hover {
     transform: rotate(180deg) scale(1.2);
 }
-.sort .bar{
+
+.sort .bar {
     background-color: #81D6FA;
     width: .12vw;
     height: 95%;
     margin-top: 2vw;
     position: absolute;
 }
-aside.sort.active #left{
+
+aside.sort.active #left {
     transform: translateX(-20%);
 }
-aside.sort.active{
+
+aside.sort.active {
     transform: translateX(-90%);
 }
-.sort #leftfix{
+
+.sort #leftfix {
     transition: .5s ease-in-out;
     margin-left: 3%;
 }
-.sort #leftfix.active{
+
+.sort #leftfix.active {
     width: 5%;
 }
-.sort #right{
+
+.sort #right {
     transition: .5s ease-in-out;
 }
-.sort #right.active{
+
+.sort #right.active {
     width: 100%;
 }
 
 
 /* ////////////////////////////////////// */
 
-.sort #left h4{
+.sort #left h4 {
     font-family: "Source Han Sans SC Regular", sans-serif;
     font-weight: bold;
     font-size: 1vw;
     padding-bottom: 1vw;
     text-align: left;
 }
-.sort #left li{
+
+.sort #left li {
     text-align: right;
     cursor: pointer;
 }
-.sort .filtercontainer{
+
+.sort .filtercontainer {
     display: inline-block;
     width: 100%;
     height: 30%;
     margin: 1vw 0;
     margin-left: .5vw;
 }
-.sort .filter{
+
+.sort .filter {
     width: 90%;
     border: .05vw solid #D3D3D5;
     position: relative;
 }
-.sort .header{
+
+.sort .header {
     padding: .4vw;
     cursor: pointer;
     display: flex;
     justify-content: flex-end;
-    align-items: center;   
+    align-items: center;
 }
+
 .sort .triangle {
     width: 0;
     height: 0;
@@ -285,7 +359,8 @@ aside.sort.active{
     margin: 0 .6vw;
     margin-top: .5vh
 }
-.sort .content{
+
+.sort .content {
     position: absolute;
     left: 0;
     width: 93.5%;
@@ -297,40 +372,101 @@ aside.sort.active{
     padding-right: 1vw;
     display: none;
 }
-.sort .content li{
+
+.sort .content li {
     margin: 1.5vw 0;
 }
-.sort .content.active{
+
+.sort .content.active {
     display: block;
     z-index: 10;
 }
 
+.sort #clas {
+    border: 0;
+}
+
+.sort #clas .row {
+    display: flex;
+    align-items: center;
+    align-content: space-around;
+    margin-left: 0.8vw;
+}
+
+.sort .choise {
+    display: flex;
+    align-items: center;
+    margin-right: 1vw;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 7vw;
+    height: 2.5vw;
+}
+
+.sort #exam {
+    background-image: url(./img/大考按鈕.svg);
+}
+
+.sort #exam:hover {
+    background-image: url(./img/個人頁面_大考標籤.png);
+}
+
+.sort #quiz {
+    background-image: url(./img/小考按鈕.svg);
+}
+
+.sort #quiz:hover {
+    background-image: url(./img/個人頁面_小考標籤.png);
+}
+
+.sort #homework {
+    background-image: url(./img/作業按鈕.svg);
+}
+
+.sort #homework:hover {
+    background-image: url(./img/個人頁面_作業標籤.png);
+}
+
+.sort #other {
+    background-image: url(./img/其他按鈕.svg);
+}
+
+.sort #other:hover {
+    background-image: url(./img/個人頁面_其他標籤.png);
+}
+
 /* ////////////////////////////////////// */
-.sort #grade{
+.sort #grade {
     width: 100%;
     display: flex;
     justify-content: flex-start;
 }
-.sort #grade li{
+
+.sort #grade li {
     padding: .2vw .4vw;
     margin: 0 .25vw;
     transition: .25s ease-in-out;
 }
-.sort #grade li:hover{
+
+.sort #grade li:hover {
     color: #181818;
     background-color: #81D6FA;
 }
-.sort #grade li.active{
+
+.sort #grade li.active {
     color: #181818;
     background-color: #81D6FA;
 }
-.sort #left hr{
+
+.sort #left hr {
     width: 85%;
     margin-top: 3vw;
     margin-bottom: 2vw;
     margin-left: .5vw;
 }
-.sort #wishlist{
+
+.sort #wishlist {
     width: 60%;
     background-color: #81D6FA;
     display: flex;
@@ -339,65 +475,80 @@ aside.sort.active{
     cursor: pointer;
     border-radius: 10vw;
 }
-.sort #wishlist h4{
+
+.sort #wishlist h4 {
     color: #181818;
     padding: .5vw;
 }
 
 
 /* ////////////////////////////////////// */
-.sort .top{
+.sort .top {
     justify-content: flex-start;
 }
-.sort .top h4{
+
+.sort .top h4 {
     color: #81D6FA;
     margin: 0 .1vw;
 }
-.sort .container{
+
+.sort .container {
     width: 14%;
     display: flex;
     justify-content: center;
     align-items: center;
+    white-space: nowrap;
 }
-.sort .top .container{
+
+.sort .top .container {
     width: 6%;
     margin: 0 3.5%;
     padding: .3vw;
     border: .05vw solid #81D6FA;
 }
-.sort #year{
+
+.sort #year {
     margin-left: 5%;
 }
-.sort #documentname{
+
+.sort #documentname {
     margin-right: 2%;
 }
-.sort #tag{
+
+.sort #tag {
     width: 12%;
     margin-right: 8%;
     margin-top: .4vw;
 }
-.sort #tag div{ 
+
+.sort #tag div {
     display: flex;
     align-items: center;
     padding: .2vw;
 }
-.sort #tag img{
+
+.sort #tag img {
     width: 1.2vw;
     height: 1.2vw;
     padding: 0 .4vw;
 }
-.sort #uploader{
+
+.sort #uploader {
     border: 0;
 }
-.sort #uploader h4{
+
+.sort #uploader h4 {
     color: #D3D3D5;
     font-size: 1vw;
 }
-.sort #year, .sort #like{
+
+.sort #year,
+.sort #like {
     padding: .4vw 0;
     padding-left: .6vw;
 }
-.sort #right .triangle.inactive{
+
+.sort #right .triangle.inactive {
     margin: 0 .6vw;
     width: .3vw;
     border-top: .05vw solid #81D6FA;
@@ -405,30 +556,35 @@ aside.sort.active{
     border-left: 0;
     border-right: 0;
 }
-.sort #right .triangle{
+
+.sort #right .triangle {
     margin: 0 .4vw;
     border-top: .3vw solid #81D6FA;
     border-bottom: 0;
 }
-.sort #right .triangle.reverse{
+
+.sort #right .triangle.reverse {
     margin: 0 .4vw;
     border-bottom: .3vw solid #81D6FA;
     border-top: 0;
 }
-.sort .top #year h4:hover, .sort .top #like h4:hover{
+
+.sort .top #year h4:hover,
+.sort .top #like h4:hover {
     cursor: pointer;
 }
 
 
 /* ////////////////////////////////////// */
-.sort #documentcontainer{
+.sort #documentcontainer {
     height: 100%;
     padding-right: 2vw;
     overflow-y: scroll;
     display: none;
     background-color: #181818;
 }
-.sort .document{
+
+.sort .document {
     width: 100%;
     height: 15%;
     display: flex;
@@ -438,53 +594,81 @@ aside.sort.active{
     border-top: .1vw solid #D3D3D5;
     border-bottom: .1vw outset #D3D3D5;
 }
-.sort .document:hover{
+
+.sort .document:hover {
     background-color: #58b7e0;
     cursor: pointer;
 }
+
 /* ////////////////////////////////////// */
-.sort .document h4{
+.sort .document h4 {
     font-size: 1vw;
 }
-.sort .document img{
+
+.sort .document img {
     width: 1vw;
     margin-right: .5vw;
 }
-.sort .uploader, .sort .name{
+
+.sort .uploader,
+.sort .name {
     justify-content: flex-start;
 }
-.sort .year{
+
+.sort .year {
     margin-left: 1.5%;
 }
-.sort .like{
+
+.sort .like {
     width: 4%;
     margin: 0 5%;
     justify-content: flex-start;
 }
-.sort .name{
-    margin-left: 4%;
-}
-.sort .name p{
-    margin: 0 .8vw;
-}
-.sort .tag{
-    width: 8%;
-    margin-right: 6%;
-}
-.sort .tag img{
-    width: 1.2vw;
-}
-.sort .tag div{
-    padding: .2vw;
-}
-.sort .uploader{
+
+.sort .name {
+    margin-left: 2%;
     width: 20%;
 }
-.sort .uploader h4{
-    width: 30%;
+
+.sort .name p {
+    margin: 0 .4vw;
+}
+
+.sort .name img {
+    width: 40%;
+    margin-top: .1vw;
+}
+
+.sort .name>h4,
+.sort .uploader>h4 {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sort .tag {
+    width: 6%;
+    margin-right: 8%;
+}
+
+.sort .tag img {
+    width: 1.2vw;
+}
+
+.sort .tag div {
+    padding: .2vw;
+}
+
+.sort .uploader {
+    width: 16%;
+}
+
+.sort .uploader h4 {
+    width: auto;
     margin-right: 1.5vw;
 }
-.sort .uploader img{
+
+.sort .uploader img {
     width: 1.8vw;
     height: 1.8vw;
     border-radius: 10px;
@@ -497,13 +681,14 @@ footer.sort {
     justify-content: flex-end;
     margin-right: 4.5vw;
 }
-footer.sort{
+
+footer.sort {
     display: none;
 }
 
 
 /* ////////////////////////////////////// */
-.modal{
+.modal {
     position: absolute;
     width: 100% !important;
     height: 100% !important;
@@ -516,13 +701,14 @@ footer.sort{
 }
 
 /* ////////////////////////////////////// */
-@media screen and (max-aspect-ratio: 16/9){
-    main.sort{
+@media screen and (max-aspect-ratio: 16/9) {
+    main.sort {
         height: 45vw;
     }
 }
-@media screen and (max-aspect-ratio: 16/10){
-    main.sort{
+
+@media screen and (max-aspect-ratio: 16/10) {
+    main.sort {
         height: 50vw;
     }
 }

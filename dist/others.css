@@ -1,29 +1,29 @@
-@font-face {  
-  font-family: "Source Han Sans SC Regular";     
-  src: url(./fonts/NotoSansTC-Regular.otf);      
-}   
+@font-face {
+  font-family: "Source Han Sans SC Regular";
+  src: url(./fonts/NotoSansTC-Regular.otf);
+}
 
-@font-face {  
-  font-family: "Source Han Sans SC Light";  
-  src: url(./fonts/NotoSansTC-Light.otf);  
-} 
+@font-face {
+  font-family: "Source Han Sans SC Light";
+  src: url(./fonts/NotoSansTC-Light.otf);
+}
 
-@font-face {  
-  font-family: "Source Han Sans SC Bold";  
-  src: url(./fonts/NotoSansTC-Bold.otf);  
-} 
+@font-face {
+  font-family: "Source Han Sans SC Bold";
+  src: url(./fonts/NotoSansTC-Bold.otf);
+}
 
-@font-face {  
-  font-family: "Source Han Sans SC Black";  
-  src: url(./fonts/NotoSansTC-Black.otf);  
-} 
+@font-face {
+  font-family: "Source Han Sans SC Black";
+  src: url(./fonts/NotoSansTC-Black.otf);
+}
 
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-.others{
+.others {
   display: flex;
   justify-content: flex-end;
   background-color: #181818;
@@ -34,39 +34,40 @@
   overflow-x: hidden;
 }
 
-.others #null{
+.others #null {
   height: 100%;
   width: 30%;
 }
 
-.others .parent_1{
+.others .parent_1 {
   height: 100%;
   width: 68%;
 }
 
-.others header{
+.others header {
   display: flex;
   align-items: center;
   height: 6.5vw;
 }
 
-.others .header_2{
+.others .header_2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.1vw solid #ffffff;;
+  border-bottom: 0.1vw solid #ffffff;
+  ;
   width: 66vw;
   height: 4vw;
 }
 
-.others .logo{ 
+.others .logo {
   width: 5vw;
   display: flex;
   align-items: center;
   margin-left: 1.2vw;
 }
 
-.others .back_button{
+.others .back_button {
   height: 2vw;
   background-image: url(./img/返回按鈕.png);
   background-size: 100%;
@@ -75,64 +76,65 @@
   cursor: pointer;
 }
 
-.others .back_button:hover{
+.others .back_button:hover {
   background-image: url(./img/返回按鈕_hover.png);
 }
 
-.others .parent_2{
-  display: flex; 
+.others .parent_2 {
+  display: flex;
   justify-content: space-between;
 }
 
-.others .sidebar{ 
-  height: auto; 
-  width: 26.1%; 
-  color:white; 
-  background-color:#181818; 
+.others .sidebar {
+  height: auto;
+  width: 26.1%;
+  color: white;
+  background-color: #181818;
   font-family: "Source Han Sans SC Bold", sans-serif;
-} 
+}
 
-.others .content{ 
+.others .content {
   height: auto;
   width: 73.9%;
   padding-left: 2.7vw;
   padding-right: 2vw;
   background-color: #181818;
-  color: #81D6FA; 
+  color: #81D6FA;
   font-family: "Source Han Sans SC Bold", sans-serif;
   font-size: 1vw;
-} 
+}
 
-.others .profile{ 
+.others .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-} 
+}
 
-.others .pic img{ 
-  height: 9.5vw; 
-} 
+.others .pic img {
+  height: 9.5vw;
+  border-radius: 50%;
+}
 
-.others .nickname{ 
+.others .nickname {
   display: flex;
   align-items: center;
-} 
+}
 
-.others .nickname p{ 
+.others .nickname p {
   color: #81D6FA;
-  font-size: 1.35vw;  
-  letter-spacing: 0.1em; 
-  line-height: 2; 
+  font-size: 1.35vw;
+  letter-spacing: 0.1em;
+  line-height: 2;
   /* text-align: center;  */
-} 
+}
 
-.others .fire img{
+.others .fire img {
   height: 1.7vw;
   /* margin-left: 0.5vw; */
   cursor: pointer;
 }
 
-.others .bio{
+.others .bio {
   height: 1.2vw;
   background-image: url(./img/他人頁面_自介.png);
   background-size: 100%;
@@ -143,32 +145,35 @@
   align-items: flex-start; */
 }
 
-.others .bio p{
+.others .bio p {
   height: 1.2vw;
   color: #181818;
   font-family: "Source Han Sans SC Regular", sans-serif;
   font-size: 0.5vw;
 }
 
-.others .info, .others .sum{ 
+.others .info,
+.others .sum {
   display: flex;
-} 
+}
 
-.others .name, .others .dep{
+.others .name,
+.others .dep {
   display: flex;
   flex-direction: column;
   text-align: center;
   font-size: 0.5vw;
   color: #D3D3D5;
-  letter-spacing: 0.3em; 
+  letter-spacing: 0.3em;
 }
 
-.others .info img{ 
+.others .info img {
   width: 5.5vw;
   padding-bottom: 0.5vw;
-} 
+}
 
-.others .upload_num, .others .like_num{ 
+.others .upload_num,
+.others .like_num {
   width: 6vw;
   background-size: 100%;
   height: 7.3vw;
@@ -179,23 +184,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
 
-.others .upload_num{ 
+.others .upload_num {
   background-image: url(./img/個人資料_上傳數.png);
-} 
+}
 
-.others .like_num{ 
+.others .like_num {
   background-image: url(./img/個人資料_讚數.png);
-} 
+}
 
-.others footer{
+.others footer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.others .wishlist{
+.others .wishlist {
   border: 0.1vw solid #81D6FA;
   background-color: #81D6FA;
   border-radius: 0.8vw;
@@ -206,30 +211,30 @@
   align-items: center;
 }
 
-.others .wishlist p{
+.others .wishlist p {
   color: #181818;
 }
 
-.others .wishlist .text{
+.others .wishlist .text {
   display: flex;
   justify-content: center;
   color: #81D6FA;
   font-size: 1.1vw;
-  letter-spacing: 0.1em; 
+  letter-spacing: 0.1em;
 }
 
-.others .key img{
+.others .key img {
   height: 1.5vw;
 }
 
-.others .lock{
+.others .lock {
   height: 19.5vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.others .customer{
+.others .customer {
   height: 5vw;
   background-image: url(./img/個人資料_客服按鈕.png);
   background-size: 100%;
@@ -238,90 +243,91 @@
   cursor: pointer;
 }
 
-.others .customer:hover{
+.others .customer:hover {
   background-image: url(./img/個人資料_客服按鈕_hover.png);
 }
 
-.others .his_title{
+.others .his_title {
   font-size: 1.1vw;
 }
 
-.others .file_container{ 
+.others .file_container {
   width: 100%;
   height: 56vw;
-  overflow: auto; 
-} 
+  overflow: auto;
+}
 
-.others .file_row{
+.others .file_row {
   display: inline-block;
   flex-wrap: nowrap;
 }
 
-.others .file_1{ 
+.others .file_1 {
   height: 13vw;
   display: inline-block;
   width: 33%;
   margin-bottom: 1vw;
-} 
+}
 
-.others .file_2{ 
+.others .file_2 {
   height: 11.4vw;
   /* width: 14vw;  */
-  display: flex; 
-  justify-content: space-between; 
+  display: flex;
+  justify-content: space-between;
   margin: 0.4vw;
   padding: 0.8vw;
-  background-color:rgba(211, 211, 213, 0.2); 
+  background-color: rgba(211, 211, 213, 0.2);
   border-radius: 0.8vw;
-} 
+}
 
-.others .file_info{ 
+.others .file_info {
   width: 35%;
-  color: white; 
+  color: white;
   display: flex;
   flex-direction: column;
-} 
+}
 
-.others .file_clas img{
+.others .file_clas img {
   width: 5vw;
 }
 
-.others .file_detail{
+.others .file_detail {
   margin-top: 1.2vw;
   margin-left: 0.5vw;
 }
 
-.others .file_detail p{
+.others .file_detail p {
   font-size: 0.5vw;
-  font-family: "Source Han Sans SC bold", sans-serif; 
+  font-family: "Source Han Sans SC bold", sans-serif;
   margin-bottom: 0.5vw;
-} 
+}
 
-.others .file_detail p1{
+.others .file_detail p1 {
   font-size: 0.5vw;
-  font-family: "Source Han Sans SC Light", sans-serif; 
-} 
+  font-family: "Source Han Sans SC Light", sans-serif;
+}
 
-.others .file_pic{ 
+.others .file_pic {
   width: 65%;
   display: flex;
   justify-content: end;
   align-items: center;
-} 
-
-.others .file_pic img{ 
-  width: 85%;
-} 
-
-::-webkit-scrollbar{
-  width:0;
 }
-.others ::-webkit-scrollbar{
+
+.others .file_pic img {
+  width: 85%;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.others ::-webkit-scrollbar {
   width: .5vw;
   border: .1em outset #D3D3D5;
 }
-.others ::-webkit-scrollbar-thumb{
+
+.others ::-webkit-scrollbar-thumb {
   background-color: #81D6FA;
   border-radius: 10vw;
 }
-

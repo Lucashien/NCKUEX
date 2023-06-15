@@ -73,9 +73,12 @@ $(document).ready(function () {
     documentSelect();
   });
 
-  $('#clas .content').on('click', 'li', function (event) {
-    clasTarget = event.target.innerText;
-    $('#clas .header li').text(clasTarget);
+    $('#clas').on('click', 'div', function (event) {
+        $(this).addClass('active').siblings().removeClass('active');
+        if ($(this).attr('id') == 'exam') { clasTarget = '大考' }
+        if ($(this).attr('id') == 'quiz') { clasTarget = '小考' }
+        if ($(this).attr('id') == 'homework') { clasTarget = '作業' }
+        if ($(this).attr('id') == 'other') { clasTarget = '其他' }
     documentSelect();
   });
 
@@ -195,7 +198,6 @@ $(document).ready(function () {
   fetch('/UserInfo_pic')
     .then(response => response.text())
     .then(data => {
-      console.log("UserInfo_pic", data);
       $('#user .userpic img').attr('src', data);
     })
     .catch(error => {
@@ -240,16 +242,16 @@ $(document).ready(function () {
         userID = data.family_name;
       }
     })
-    
+
     showModal('personal', 'id');
-    
+
   });
 
   /* ////////////////////////////////////// */
   //預覽視窗
 
   $(document).on('click', '.document', function () {
-    showModal('view', $(this).attr('id'));
+        showModal('view', $(this).attr('id'), $(this).find('.uploader h4').attr('id'));
   });
 
   $(document).on('click', '.view #quit', function () {
@@ -260,20 +262,15 @@ $(document).ready(function () {
   });
   let quitView = false;
 
-  $(document).on('click', '.view #userpic img', function () {
-    showModal('personal', "id");
-  });
-
-
-  $(document).on('click', '.personal #null', function () {
+    $(document).on('click', '.personal #null, .personal .back_button', function () {
     closeModal();
   });
 
-  function showModal(page, id) {
+    function showModal(page, id, up) {
     $('html').css('cursor', 'wait');
     let modal = $('<div>').attr('id', id).addClass('modal').addClass(page);
     $('body').append(modal);
-    Page(page, id)
+        Page(page, id, up)
     setTimeout(function () {
       modal.css('opacity', 1);
       $('html').css('cursor', '');
@@ -293,17 +290,27 @@ $(document).ready(function () {
     }, 500);
   }
 
-  function Page(page, id) {
-    if (page == 'view') { viewPage(id); }
+    function Page(page, id, up) {
+        if (page == 'view') { viewPage(id, up); }
     if (page == 'personal') { personalPage(id); }
+        if (page == 'others') { othersPage(id); }
   }
 
-  function viewPage(doc) {
+    function viewPage(doc, up) {
     $.get('/view', {
+      userID: userID,
       doc: doc
     }, (data) => {
       $('#' + doc + '.view').html(data[0]);
-      Interactive(data[1])
+            $.get('/viewUploader', {
+                upid: up
+            }, (data) => {
+                $('#' + doc + '.view').find('#userpic img').attr('src', data[1]);
+                $('#' + doc + '.view').find('#up').text(data[0])
+                $('#' + doc + '.view').find('#upload').find('div').eq(2).attr('id', up)
+            })
+      active_like(data[1])
+      active_rate(data[2])
       viewScroll()
       renderPDF($('#download a').attr('href'), doc);
     });
@@ -319,39 +326,53 @@ $(document).ready(function () {
   }
 
   /* ////////////////////////////////////// */
-  //滾軸
 
-  function viewScroll() {
-    let fixed = false
-    $('.view').on('scroll', function () {
-      var scroll = $(this).scrollTop();
-      var offset = $('.view #right').offset().top;
-      if (scroll > offset) {
-        if (!fixed) {
-          fixed = true;
-          $('.view #right').addClass('fixed');
-        }
-      } else {
-        fixed = false;
-        $('.view #right').removeClass('fixed');
-      }
+    $(document).on('click', '.view #userpic img', function () {
+        let upid = $('.view').find('#upload').find('div').eq(2).attr('id')
+        showModal('others', upid, '');
+    });
+
+    function othersPage(userid) {
+        $.get('/others', {
+            userID: userid,
+        }, (data) => {
+            $('#' + userid + '.others').html(data);
     });
   }
+
+    $(document).on('click', '.others #null, .others .back_button', function () {
+        closeModal();
+    });
 
   /* ////////////////////////////////////// */
   //倒讚幫
 
-  function Interactive(iff) {
-    if (iff) { $('.view #like img').toggleClass('active'); }
-    else {
-      $('.view #like').css('cursor', 'pointer').hover(
-        function () { $(this).css('transform', 'scale(1.2)') },
-        function () { $(this).css('transform', 'scale(1)') }
-      )
-    }
+  let userID;
+  $.get('/UserInfo', {}, (user) => {
+    userID = user.family_name
+  });
+
+  function active_like(iff) {
+    $('.view #like').hover(
+      function () {
+        $(this).find('img').attr('src', './img/like3.png');
+      },
+      function () {
+        if (iff) {
+          $(this).find('img').attr('src', './img/like2.png');
+        } else {
+          $(this).find('img').attr('src', './img/like1.png');
+        }
+      }
+    );
+    $('.view #like').off('click').click(function () {
+      $('.view #like').off('mouseenter mouseleave');
+      like(iff);
+    });
   }
 
-  $(document).on('click', '.view #like', function () {
+
+  function like(iff) {
     $('html').css('cursor', 'wait');
     $.get('/like', {
       userID: userID,
@@ -363,42 +384,103 @@ $(document).ready(function () {
         documentSelect();
         documentSearch();
         $('html').css('cursor', '');
-        $('.view #like img').toggleClass('active');
+        active_like(!iff);
       }, 100);
     });
-  })
+  }
 
   /* ////////////////////////////////////// */
   //五星好評
 
-  $(document).on('click', '.view #rate', function () {
-    $('.view #rate').addClass('active');
-    rateStar('A');
-    rateStar('B');
-  })
+  let rff;
+  function active_rate(iff) {
+    if (iff != undefined) { rff = iff }
+    $('.view #rate').hover(
+      function () {
+        $(this).find('img').first().attr('src', './img/rate3.png');
+      },
+      function () {
+        if (rff) {
+          $(this).find('img').first().attr('src', './img/rate2.png');
+        } else {
+          $(this).find('img').first().attr('src', './img/rate1.png');
+        }
+      }
+    );
+    $('.view #rate').click(function () {
+      $(this).off('mouseenter mouseleave');
+      $(this).addClass('active');
+      active_rateUI(0)
+      active_rateUI(1)
+      rate()
+      $('.view #rate').off('click')
+    });
+  }
 
   $(document).click(function (event) {
     if (!$(event.target).closest('.view #rate').length) {
       $('.view #rate').removeClass('active');
+      if (rff) {
+        $('.view #rate').find('img').first().attr('src', './img/rate2.png');
+      } else {
+        $('.view #rate').find('img').first().attr('src', './img/rate1.png');
+      }
+      active_rate(rff)
     }
   })
 
-  function rateStar(tar) {
-    $('.view #rate' + tar).on('click', '.star', function () {
+
+
+  let ratescore = [0, 0];
+  function active_rateUI(tar) {
+    let ratelist = $('.view #rate').find('.ratelist').eq(tar);
+    ratelist.find('.star:not(.active)').hover(
+      function () {
+        $(this).find('img').attr('src', './img/star2.png');
+        $(this).nextAll('.star:not(.active)').find('img').attr('src', './img/star2.png');
+      },
+      function () {
+        $(this).find('img').attr('src', './img/star.png');
+        $(this).nextAll('.star:not(.active)').find('img').attr('src', './img/star.png');
+      }
+    );
+    ratelist.find('.star').click(function () {
+      ratelist.find('.star').removeClass('active').find('img').attr('src', './img/star.png');
+      $(this).addClass('active').find('img').attr('src', './img/star2.png');
+      $(this).nextAll('.star').addClass('active').find('img').attr('src', './img/star2.png');
+      ratelist.find('.star').off('mouseenter mouseleave');
+      ratescore[tar] = 6 - $(this).index();
+      active_rateUI(tar)
+    });
+  }
+
+
+  function rate(iff) {
+    $('.view #rate').find('.check').hover(
+      function () {
+        $(this).find('img').first().attr('src', './img/Group198.png');
+      },
+      function () {
+        $(this).find('img').first().attr('src', './img/Group197.png');
+      }
+    )
+    $('.view #rate').find('.check').off('click').click(function () {
       $('html').css('cursor', 'wait');
-      $('.view #rate' + tar + ' .star').removeClass('active');
-      $(this).toggleClass('active');
-      $.get('/tag' + tar + '', {
+      $.get('/rate', {
+        score: ratescore,
         userID: userID,
-        score: 5 - $(this).index(),
         doc: $('.modal.view').attr('id')
       }, (data) => {
         setTimeout(function () {
           console.log(data);
+          $('#documentcontainer').empty();
+          documentSelect();
+          documentSearch();
           $('html').css('cursor', '');
+          active_rate(!iff);
         }, 100);
       });
-    });
+    })
   }
 
   /* ////////////////////////////////////// */
@@ -444,4 +526,24 @@ $(document).ready(function () {
   }
 
   /* ////////////////////////////////////// */
+    //滾軸
+
+    function viewScroll() {
+        let fixed = false
+        $('.view').on('scroll', function () {
+            var scroll = $(this).scrollTop();
+            var offset = $('.view #right').offset().top;
+            if (scroll > offset) {
+                if (!fixed) {
+                    fixed = true;
+                    $('.view #right').addClass('fixed');
+                }
+            } else {
+                fixed = false;
+                $('.view #right').removeClass('fixed');
+            }
+        });
+    }
+
+    /* ////////////////////////////////////// */
 })

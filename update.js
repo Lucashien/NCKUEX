@@ -1,4 +1,4 @@
-// 載入 `express`, 現在可以放心使用 `import` 了
+// 載入 `express`, 現在可以放心使用 `import` 了 new
 import express from 'express'
 // const express = require('express')
 
@@ -15,7 +15,7 @@ const __dirname = dirname(__filename)
 
 // 建立一個 express (也就是網頁伺服器)實體
 const app = express()
-const port = 6412
+const port = 8888
 // 啟動伺服器
 app.listen(port, () => {
   console.log(`listening on port: ${port}`)
@@ -61,11 +61,11 @@ app.get('/documentSelect', (req, res) => {
       .then(htmls => {
         let HTML = htmls.join('');
 
-    if (HTML == '') {
-      HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
-    }
+        if (HTML == '') {
+          HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
+        }
 
-    res.send(HTML);
+        res.send(HTML);
       })
       .catch(error => {
         console.error(error);
@@ -96,11 +96,11 @@ app.get('/documentSearch', (req, res) => {
       .then(htmls => {
         let HTML = htmls.join('');
 
-    if (HTML == '') {
-      HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
-    }
+        if (HTML == '') {
+          HTML = '<h1>太糟了！這裡沒有任何死人骨頭<h1>';
+        }
 
-    res.send(HTML);
+        res.send(HTML);
       })
       .catch(error => {
         console.error(error);
@@ -272,7 +272,7 @@ app.get('/like', (req, res) => {
       data[req.query.doc].like.count = data[req.query.doc].like.user.length;
       fs.writeFile('./document.json', JSON.stringify(data), 'utf8', function (err) {
         if (err) throw err;
-      res.send('按讚成功')
+        res.send('按讚成功')
       });
     }
   });
@@ -330,7 +330,7 @@ function auth(req, res, next) {
 //parameter
 const client_id = '770897758084-pmf9c33inv3pt39eo65fvapl6971v0lu.apps.googleusercontent.com'
 const client_secret = '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'
-const root = 'http://luffy.ee.ncku.edu.tw:6412'
+const root = 'http://localhost:8888'
 const redirect_url = root + '/auth/google/callback'
 
 //google登入連結
@@ -520,7 +520,7 @@ function Dep_Year(studentID) {
   return dep + year.toString();
 }
 
-/*------------------File Upload------------------*/
+/*------------------File Upload Test Block------------------*/
 import multer from "multer";
 import path from "path";
 // 設定上傳檔案的儲存位置和檔名
@@ -539,7 +539,6 @@ const upload = multer({ storage: storage });
 // 處理檔案上傳和資訊輸入的請求
 app.post('/upload', upload.single('file'), (req, res) => {
   // 取得使用者輸入的檔案資訊
-  console.log("hi",req.body);
   let doc_info = req.body.doc_info.split(',');
   const [col, dep, grade, lec, teac, year, clas] = doc_info;
   const file = req.file, filename = file.originalname;
@@ -555,7 +554,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 app.get('/upload2JSON', (req, res) => {
   const { col, dep, grade, lec, teac, year, clas, filename, label } = req.query;
-  console.log(req.query)
   const data = {
     [label]: {
       name: filename,
@@ -665,7 +663,7 @@ app.get('/NickName', (req, res) => {
     data = JSON.parse(data);
     try {
       const studentID = req.session.user.family_name;
-      if (data[studentID].loginCnt==1)
+      if (data[studentID].loginCnt) // 要改回==1
         res.send("Edit nickname");
       else
         res.send("Login");

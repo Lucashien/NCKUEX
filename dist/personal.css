@@ -1,29 +1,29 @@
-@font-face {  
-  font-family: "Source Han Sans SC Regular";     
-  src: url(./fonts/NotoSansTC-Regular.otf);      
-}   
+@font-face {
+  font-family: "Source Han Sans SC Regular";
+  src: url(./fonts/NotoSansTC-Regular.otf);
+}
 
-@font-face {  
-  font-family: "Source Han Sans SC Light";  
-  src: url(./fonts/NotoSansTC-Light.otf);  
-} 
+@font-face {
+  font-family: "Source Han Sans SC Light";
+  src: url(./fonts/NotoSansTC-Light.otf);
+}
 
-@font-face {  
-  font-family: "Source Han Sans SC Bold";  
-  src: url(./fonts/NotoSansTC-Bold.otf);  
-} 
+@font-face {
+  font-family: "Source Han Sans SC Bold";
+  src: url(./fonts/NotoSansTC-Bold.otf);
+}
 
-@font-face {  
-  font-family: "Source Han Sans SC Black";  
-  src: url(./fonts/NotoSansTC-Black.otf);  
-} 
+@font-face {
+  font-family: "Source Han Sans SC Black";
+  src: url(./fonts/NotoSansTC-Black.otf);
+}
 
-*{
+* {
   margin: 0;
   padding: 0;
 }
 
-.personal{
+.personal {
   display: flex;
   justify-content: flex-end;
   background-color: #181818;
@@ -34,39 +34,40 @@
   overflow-x: hidden;
 }
 
-.personal #null{
+.personal #null {
   height: 100%;
   width: 30%;
 }
 
-.personal .parent_1{
+.personal .parent_1 {
   height: 100%;
   width: 68%;
 }
 
-.personal header{
+.personal header {
   display: flex;
   align-items: center;
   height: 6.5vw;
 }
 
-.personal .header_2{
+.personal .header_2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.1vw solid #ffffff;;
+  border-bottom: 0.1vw solid #ffffff;
+  ;
   width: 66vw;
   height: 4vw;
 }
 
-.personal .logo{ 
+.personal .logo {
   width: 5vw;
   display: flex;
   align-items: center;
   margin-left: 1.2vw;
 }
 
-.personal .back_button{
+.personal .back_button {
   height: 2vw;
   background-image: url(./img/返回按鈕.png);
   background-size: 100%;
@@ -75,62 +76,63 @@
   cursor: pointer;
 }
 
-.personal .back_button:hover{
+.personal .back_button:hover {
   background-image: url(./img/返回按鈕_hover.png);
 }
 
-.personal .parent_2{
-  display: flex; 
+.personal .parent_2 {
+  display: flex;
   justify-content: space-between;
 }
 
-.personal .sidebar{ 
-  height: auto; 
-  width: 26.1%; 
-  color:white; 
-  background-color:#181818; 
+.personal .sidebar {
+  height: auto;
+  width: 26.1%;
+  color: white;
+  background-color: #181818;
   font-family: "Source Han Sans SC Bold", sans-serif;
-} 
+}
 
-.personal .content{ 
+.personal .content {
   height: auto;
   width: 73.9%;
   padding-left: 2.7vw;
   padding-right: 2vw;
   background-color: #181818;
-  color: #81D6FA; 
+  color: #81D6FA;
   font-family: "Source Han Sans SC Bold", sans-serif;
   font-size: 1vw;
-} 
+}
 
-.personal .profile{ 
+.personal .profile {
   display: flex;
   flex-direction: column;
   align-items: center;
-} 
+}
 
-.personal .pic img{ 
-  height: 9.5vw; 
-} 
+.personal .pic img {
+  height: 9.5vw;
+  border-radius: 50%;
+}
 
-.personal .nickname{ 
+.personal .nickname {
   display: flex;
   align-items: center;
-} 
+}
 
-.personal .nickname p{ 
+.personal .nickname p {
   color: #81D6FA;
-  font-size: 1.35vw;  
-  letter-spacing: 0.1em; 
-  line-height: 2; 
-} 
+  font-size: 1.35vw;
+  letter-spacing: 0.1em;
+  line-height: 2;
+}
 
-.personal .fire img{
+.personal .fire img {
   height: 1.7vw;
   cursor: pointer;
 }
 
-.personal .edit{
+.personal .edit {
   height: 1.2vw;
   background-image: url(./img/個人資料_修改按鈕.png);
   background-size: 100%;
@@ -139,29 +141,32 @@
   cursor: pointer;
 }
 
-.personal .edit:hover{
+.personal .edit:hover {
   background-image: url(./img/個人資料_修改按鈕_hover.png);
 }
 
-.personal .info, .personal .sum{ 
+.personal .info,
+.personal .sum {
   display: flex;
-} 
+}
 
-.personal .name, .personal .dep{
+.personal .name,
+.personal .dep {
   display: flex;
   flex-direction: column;
   text-align: center;
   font-size: 0.5vw;
   color: #D3D3D5;
-  letter-spacing: 0.3em; 
+  letter-spacing: 0.3em;
 }
 
-.personal .info img{ 
+.personal .info img {
   width: 5.5vw;
   padding-bottom: 0.5vw;
-} 
+}
 
-.personal .upload_num, .personal .like_num{ 
+.personal .upload_num,
+.personal .like_num {
   width: 6vw;
   background-size: 100%;
   height: 7.3vw;
@@ -172,48 +177,48 @@
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
 
-.personal .upload_num{ 
+.personal .upload_num {
   background-image: url(./img/個人資料_上傳數.png);
-} 
+}
 
-.personal .like_num{ 
+.personal .like_num {
   background-image: url(./img/個人資料_讚數.png);
-} 
+}
 
-.personal footer{
+.personal footer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.personal .wishlist{
+.personal .wishlist {
   border: 0.1vw solid #81D6FA;
   border-radius: 0.8vw;
   width: 13.5vw;
 }
 
-.personal .wishlist .text{
+.personal .wishlist .text {
   display: flex;
   justify-content: center;
   color: #81D6FA;
   font-size: 1.1vw;
-  letter-spacing: 0.1em; 
+  letter-spacing: 0.1em;
 }
 
-.personal .key img{
+.personal .key img {
   height: 1.5vw;
 }
 
-.personal .lock{
+.personal .lock {
   height: 19.5vw;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.personal .customer{
+.personal .customer {
   height: 5vw;
   background-image: url(./img/個人資料_客服按鈕.png);
   background-size: 100%;
@@ -222,15 +227,16 @@
   cursor: pointer;
 }
 
-.personal .customer:hover{
+.personal .customer:hover {
   background-image: url(./img/個人資料_客服按鈕_hover.png);
 }
 
-.personal .upload_container, .personal .upload_info{
+.personal .upload_container,
+.personal .upload_info {
   height: 23.8vw;
 }
 
-.personal .upload_container{
+.personal .upload_container {
   cursor: pointer;
   background-image: url(./img/上傳區.png);
   background-size: 100%;
@@ -238,11 +244,11 @@
   width: 47.5vw;
 }
 
-.personal .upload_container{
+.personal .upload_container {
   /* display: none; */
 }
 
-.personal .upload_info{
+.personal .upload_info {
   display: none;
   background-image: url(./img/上傳區外框.png);
   background-size: 100%;
@@ -250,24 +256,25 @@
   width: 47.5vw;
 }
 
-.personal .upload_info_2{
+.personal .upload_info_2 {
   padding: 0 1.5vw;
   display: flex;
   flex-direction: column;
 }
 
-.personal .upload_title{
+.personal .upload_title {
   display: flex;
   justify-content: flex-start;
   font-size: 1.1vw;
 }
 
-.personal .row{
+.personal .row {
   display: flex;
   align-items: center;
 }
 
-.personal .row p, .personal .row li{
+.personal .row p,
+.personal .row li {
   font-family: "Source Han Sans SC Light", sans-serif;
   color: #D3D3D5;
   list-style-type: none;
@@ -275,15 +282,15 @@
   font-size: 0.5vw;
 }
 
-.personal .row p{
+.personal .row p {
   font-family: "Source Han Sans SC Bold", sans-serif;
 }
 
-.personal .filter{
+.personal .filter {
   position: relative;
 }
 
-.personal .row #college{
+.personal .row #college {
   width: 12.5vw;
   border-top: 0.1vw solid #ffffff;
   border-bottom: 0.1vw solid #ffffff;
@@ -308,45 +315,45 @@
   margin-top: 0.1vw;
 }
 
-.personal .row #department{
+.personal .row #department {
   width: 9.5vw;
   border-top: 0.1vw solid #ffffff;
   border-bottom: 0.1vw solid #ffffff;
   margin-right: 1.7vw;
 }
 
-.personal .row #grade{
+.personal .row #grade {
   width: 9.5vw;
   border-top: 0.1vw solid #ffffff;
   border-bottom: 0.1vw solid #ffffff;
 }
 
-.personal .row #lecture{
+.personal .row #lecture {
   width: 26.5vw;
   border-top: 0.1vw solid #ffffff;
   border-bottom: 0.1vw solid #ffffff;
   margin-right: 1.7vw;
 }
 
-.personal .row #teacher{
+.personal .row #teacher {
   width: 9.5vw;
   border-top: 0.1vw solid #ffffff;
   border-bottom: 0.1vw solid #ffffff;
 }
 
-.personal .row #year{
+.personal .row #year {
   width: 12vw;
   border-top: 0.1vw solid #ffffff;
   border-bottom: 0.1vw solid #ffffff;
   margin-right: 1.7vw;
 }
 
-.personal .row .content{
+.personal .row .content {
   display: none;
   position: absolute;
   max-height: 10vw;
   overflow-y: scroll;
-  background-color:#181818;
+  background-color: #181818;
   border: 0.1vw solid #D3D3D5;
   /* padding-right: 1vw; */
   text-align: right;
@@ -354,19 +361,19 @@
   cursor: pointer;
 }
 
-.personal .row .content.active{
+.personal .row .content.active {
   display: block;
   z-index: 10;
 }
 
-.personal .row #clas{
+.personal .row #clas {
   width: 25vw;
   display: flex;
   align-items: center;
   align-content: space-around
 }
 
-.personal .choise{
+.personal .choise {
   display: flex;
   align-items: center;
   margin-right: 1vw;
@@ -377,51 +384,56 @@
   height: 1.4vw;
 }
 
-.personal #exam{
+.personal #exam {
   background-image: url(./img/大考按鈕.png);
 }
 
-.personal #exam.active, .personal #exam:hover{
+.personal #exam:hover,
+.personal #exam.active {
   background-image: url(./img/個人頁面_大考標籤.png);
 }
 
-.personal #quiz{
+.personal #quiz {
   background-image: url(./img/小考按鈕.png);
 }
 
-.personal #quiz.active, .personal #quiz:hover{
+.personal #quiz:hover,
+.personal #quiz.active {
   background-image: url(./img/個人頁面_小考標籤.png);
 }
 
-.personal #homework{
+.personal #homework {
   background-image: url(./img/作業按鈕.png);
 }
 
-.personal #homework.active, .personal #homework:hover{
+.personal #homework:hover,
+.personal #homework.active {
   background-image: url(./img/個人頁面_作業標籤.png);
 }
 
-.personal #other{
+.personal #other {
   background-image: url(./img/其他按鈕.png);
 }
 
-.personal #other.active, .personal #other:hover{
+.personal #other:hover,
+.personal #other.active {
   background-image: url(./img/個人頁面_其他標籤.png);
 }
 
-.personal .bottom{
+.personal .bottom {
   display: flex;
   justify-content: end;
   align-items: center;
 }
 
-.personal .file_name{
+.personal .file_name {
   color: #ffffff;
   font-size: 0.5vw;
   font-family: "Source Han Sans SC Light", sans-serif;
 }
 
-.personal .confirm_button, .personal .edit_button{
+.personal .confirm_button,
+.personal .edit_button {
   height: 2.2vw;
   background-size: 100%;
   background-repeat: no-repeat;
@@ -430,102 +442,128 @@
   margin-left: 1vw;
 }
 
-.personal .confirm_button{
+.personal .confirm_button {
   background-image: url(./img/個人頁面_確認上傳按鈕.png);
 }
 
-.personal .confirm_button:hover{
+.personal .confirm_button:hover {
   background-image: url(./img/個人頁面_確認上傳按鈕_hover.png);
 }
 
-.personal .edit_button{
+.personal .edit_button {
   background-image: url(./img/個人頁面_修改按鈕.png);
   margin-right: 1.5vw;
 }
 
-.personal .edit_button:hover{
+.personal .edit_button:hover {
   background-image: url(./img/個人頁面_修改按鈕_hover.png);
 }
 
 
-.personal .his_title{
+.personal .his_title {
   font-size: 1.1vw;
 }
 
-.personal .file_container{ 
+.personal .file_container {
   width: 100%;
   height: 28vw;
-  overflow: auto; 
-} 
+  overflow: auto;
+}
 
-.personal .file_row{
+.personal .file_row {
   display: inline-block;
   flex-wrap: nowrap;
 }
 
-.personal .file_1{ 
+.personal .file_1 {
   height: 13vw;
   display: inline-block;
   width: 33%;
   margin-bottom: 1vw;
-} 
+}
 
-.personal .file_2{ 
+.personal .file_2 {
   height: 11.4vw;
-  display: flex; 
-  justify-content: space-between; 
+  display: flex;
+  justify-content: space-between;
   margin: 0.4vw;
   padding: 0.8vw;
-  background-color:rgba(211, 211, 213, 0.2); 
+  background-color: rgba(211, 211, 213, 0.2);
   border-radius: 0.8vw;
-} 
+  position: relative;
+}
 
-.personal .file_info{ 
+.personal .file_info {
   width: 35%;
-  color: white; 
+  color: white;
   display: flex;
   flex-direction: column;
-} 
+}
 
-.personal .file_clas img{
+.personal .file_clas img {
   width: 5vw;
 }
 
-.personal .file_detail{
+.personal .file_detail {
   margin-top: 1.2vw;
   margin-left: 0.5vw;
 }
 
-.personal .file_detail p{
+.personal .file_detail p {
   font-size: 0.5vw;
-  font-family: "Source Han Sans SC bold", sans-serif; 
+  font-family: "Source Han Sans SC bold", sans-serif;
   margin-bottom: 0.5vw;
-} 
+}
 
-.personal .file_detail p1{
+.personal .file_detail p1 {
   font-size: 0.5vw;
-  font-family: "Source Han Sans SC Light", sans-serif; 
-} 
+  font-family: "Source Han Sans SC Light", sans-serif;
+}
 
-.personal .file_pic{ 
+.personal .file_pic {
   width: 65%;
   display: flex;
   justify-content: end;
   align-items: center;
-} 
-
-.personal .file_pic img{ 
-  width: 85%;
-} 
-
-::-webkit-scrollbar{
-  width:0;
 }
-.personal ::-webkit-scrollbar{
+
+.personal .file_pic img {
+  width: 85%;
+}
+
+.personal .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  border-radius: 0.8vw;
+
+}
+
+.personal .file_2:hover .overlay {
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.personal .overlay img {
+  width: 1.5vw;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+.personal ::-webkit-scrollbar {
   width: .5vw;
   border: .1em outset #D3D3D5;
 }
-.personal ::-webkit-scrollbar-thumb{
+
+.personal ::-webkit-scrollbar-thumb {
   background-color: #81D6FA;
   border-radius: 10vw;
 }

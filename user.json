@@ -1,1 +1,50 @@
-{"E14084078":{"id":"102669479348138989078","email":"e14084078@gs.ncku.edu.tw","name":"852","given_name":"謝宗翰 Hsieh,Tsung-Han","family_name":"E14084078","picture":"img/userpic/1686829248052-1686829245243.png","dep_year":"機械112","award":"0","loginCnt":38,"sign":"true"},"E14086622":{"id":"115116712277756623855","email":"e14086622@gs.ncku.edu.tw","name":"我是地精","given_name":"操之晴 TSAO,CHIH-CHING","family_name":"E14086622","picture":"./img/userpic/小恐龍.png","dep_year":"機械112","award":"0","loginCnt":2,"sign":"true"},"E14084052":{"id":"100122543081236715319","email":"e14084052@gs.ncku.edu.tw","name":"店功學","given_name":"李宗諺 LI,TSUNG-YEN","family_name":"E14084052","picture":"./img/userpic/小恐龍.png","dep_year":"機械112","award":"0","loginCnt":1,"sign":"true"},"E14082181":{"id":"105101919966573284833","email":"e14082181@gs.ncku.edu.tw","name":"321123","given_name":"蘇品瑄 su,pin-hsuan","family_name":"E14082181","picture":"./img/userpic/小恐龍.png","dep_year":"機械112","award":"0","loginCnt":1,"sign":"true"}}
+{
+    "E14084078": {
+        "id": "102669479348138989078",
+        "email": "e14084078@gs.ncku.edu.tw",
+        "name": "handson",
+        "given_name": "謝宗翰 Hsieh,Tsung-Han",
+        "family_name": "E14084078",
+        "picture": "img/userpic/1686834073129-1686834070038.png",
+        "dep_year": "機械112",
+        "award": "0",
+        "loginCnt": 2,
+        "sign": "true"
+    },
+    "E14086622": {
+        "id": "115116712277756623855",
+        "email": "e14086622@gs.ncku.edu.tw",
+        "name": "我是地精",
+        "given_name": "操之晴 TSAO,CHIH-CHING",
+        "family_name": "E14086622",
+        "picture": "./img/userpic/小恐龍.png",
+        "dep_year": "機械112",
+        "award": "0",
+        "loginCnt": 2,
+        "sign": "true"
+    },
+    "E14084052": {
+        "id": "100122543081236715319",
+        "email": "e14084052@gs.ncku.edu.tw",
+        "name": "店功學",
+        "given_name": "李宗諺 LI,TSUNG-YEN",
+        "family_name": "E14084052",
+        "picture": "./img/userpic/小恐龍.png",
+        "dep_year": "機械112",
+        "award": "0",
+        "loginCnt": 1,
+        "sign": "true"
+    },
+    "E14082181": {
+        "id": "105101919966573284833",
+        "email": "e14082181@gs.ncku.edu.tw",
+        "name": "321123",
+        "given_name": "蘇品瑄 su,pin-hsuan",
+        "family_name": "E14082181",
+        "picture": "./img/userpic/小恐龍.png",
+        "dep_year": "機械112",
+        "award": "0",
+        "loginCnt": 1,
+        "sign": "true"
+    }
+}

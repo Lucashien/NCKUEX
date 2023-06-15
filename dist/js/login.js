@@ -19,7 +19,6 @@ $(document).ready(function () {
                     if (data == "Edit nickname")
                         $('.modal').css('display', 'flex').css('opacity', '1');
                     else {
-                        console.log("跳轉");
                         window.location.href = 'http://luffy.ee.ncku.edu.tw:6412/sort.html';
                     }
                 })
@@ -40,7 +39,16 @@ $(document).ready(function () {
     }
 
     function processData(data) {
-        loading();
+        //個人專屬頁面
+        fetch('/UserInfo_JSON')
+            .then(response => response.json())
+            .then(data => {
+                console.log("hi", data.loginCnt);
+                if (data.loginCnt != 1) {
+                    loading();
+                }
+            })
+
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve('處理完成');
