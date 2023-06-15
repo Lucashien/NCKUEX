@@ -179,6 +179,13 @@ app.get('/personal', (req, res) => {
   })
 });
 
+app.get('/loading', (req, res) => {
+  fs.readFile('./dist/html/loading.html', 'utf8', function (err, html) {
+    if (err) throw err;
+    res.send(html);
+  })
+});
+
 /* ////////////////////////////////////// */
 
 app.get('/like', (req, res) => {
@@ -637,12 +644,9 @@ app.post('/upload-avatar', upload_pic.single('avatar'), function (req, res) {
   }
 
   const filename = req.file.filename;
-  // 读取 JSON 文件
   fs.readFile('user.json', 'utf8', (err, data) => {
-    // 解析 JSON 数据
     const jsonData = JSON.parse(data);
 
-    // 修改图片路径值
     console.log(req.file);
     const userid = req.session.user.family_name;
     const newPicturePath = "./img/userpic/" + filename;

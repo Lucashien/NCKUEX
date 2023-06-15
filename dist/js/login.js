@@ -14,18 +14,39 @@ $(document).ready(function () {
         .then(response => response.text())
         .then(data => {
             console.log("data =", data);
-            if (data == "Edit nickname")
-                $('.modal').css('display', 'flex').css('opacity', '1');
-            else { 
-                console.log("跳轉");
-                window.location.href = 'http://luffy.ee.ncku.edu.tw:6412/sort.html'; 
-            }
+            processData(data)
+                .then(() => {
+                    if (data == "Edit nickname")
+                        $('.modal').css('display', 'flex').css('opacity', '1');
+                    else {
+                        console.log("跳轉");
+                        window.location.href = 'http://luffy.ee.ncku.edu.tw:6412/sort.html';
+                    }
+                })
+
         })
         .catch(error => {
             // 處理錯誤
             console.error(error);
         });
 
+    function loading() {
+        let loading = $('<div>').addClass('loading');
+        $('body').append(loading);
+        $.get('/loading', {
+        }, (data) => {
+            $('.loading').html(data);
+        });
+    }
+
+    function processData(data) {
+        loading();
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve('處理完成');
+            }, 2000);
+        });
+    }
 
     $.get('/UserInfo', {
     }, (data) => {

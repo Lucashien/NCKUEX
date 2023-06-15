@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .loading {
+            position: absolute;
+            left: 0;
+            top: 0;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(18, 18, 18, .25);
+        }
+
+        .loader {
+            border: 8px solid #f3f3f3;
+            /* 设置圆圈的边框样式 */
+            border-top: 8px solid #3498db;
+            /* 设置圆圈顶部的边框样式，即加载时的颜色 */
+            border-radius: 50%;
+            /* 设置圆圈的边框半径，使其呈现圆形 */
+            width: 60px;
+            /* 设置圆圈的宽度 */
+            height: 60px;
+            /* 设置圆圈的高度 */
+            animation: spin 1s linear infinite;
+            /* 设置动画效果，实现旋转 */
+            margin: 0 auto;
+            /* 水平居中显示圆圈 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            /* 定义动画开始时的旋转角度为0度 */
+            100% {
+                transform: rotate(360deg);
+            }
+
+            /* 定义动画结束时的旋转角度为360度 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading">
+        <div class="loader"></div> <!-- 加载圆圈的容器 -->
+    </div>
+</body>
+
+</html>
