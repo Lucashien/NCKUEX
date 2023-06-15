@@ -1,45 +1,85 @@
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>CustomCrop</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js"></script>
+    <title>圖片裁切</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
     <style>
-        .croppie-container {
+        #resultContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        #resultImage {
             width: 100%;
-            height: 80%;
+            height: 100%;
+            object-fit: cover;
         }
     </style>
 </head>
 
-<script type="text/javascript">
+<body>
+    <input type="file" id="imageInput" />
+    <div>
+        <img id="imagePreview" src="" alt="預覽圖片" />
+    </div>
+    <button id="confirmButton" style="display: none;">確定</button>
 
-    //初始化Croppie
-    var basic = $('#main-cropper').croppie
-        ({
-            viewport: { width: 300, height: 300 }, // 裁切區塊
-            boundary: { width: 500, height: 400 }, // 預覽區塊
-            showZoomer: true, //隱藏或顯示縮放滑塊
-            url: '/DefaultImages/preview.jpg', //預設圖片
-            format: 'png' //'jpeg'|'png'|'webp'
+    <img id="resultImage" src="" alt="裁切結果" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script>
+        // 選擇 input 元素和預覽圖片元素
+        const input = document.getElementById('imageInput');
+        const preview = document.getElementById('imagePreview');
+        const confirmButton = document.getElementById('confirmButton');
+        const resultImage = document.getElementById('resultImage');
+
+        let cropper;
+
+        // 當選擇圖片時，讀取並顯示預覽圖片，並啟動裁切功能
+        input.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                preview.src = event.target.result;
+
+                // 初始化 Cropper 實例
+                cropper = new Cropper(preview, {
+                    aspectRatio: 1, // 裁切框的寬高比例，這裡設為1表示正方形
+                    viewMode: 1, // 裁切框的視圖模式，這裡設為1表示只顯示裁切框內的圖片部分
+                    dragMode: 'move', // 裁切框的拖動模式，這裡設為move表示可以拖動整個裁切框
+                    responsive: true, // 啟用響應式佈局
+                });
+                cropper.crop();
+                confirmButton.style.display = 'block';
+            };
+
+            reader.readAsDataURL(file);
+            // preview.style.display = "none";
         });
 
-    //讀取上傳指定的檔案 顯示在框中
-    function readFile(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+        // 當點擊確定按鈕時，取得裁切後的圖片資料並顯示
+        confirmButton.addEventListener('click', function () {
+            // 取得裁切後的圖片資料
+            const croppedCanvas = cropper.getCroppedCanvas();
 
-            reader.onload = function (e) {
-                $('#main-cropper').croppie('bind', {
-                    url: e.target.result
-                });
-            }
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+            // 將圖片放置在圓形容器中
+            resultImage.src = croppedCanvas.toDataURL();
 
-    // 當change 事件發動了以後 閱讀上船的文件內容
-    $('#select').on('change', function () { readFile(this); });
+            // 隱藏確定按鈕
+            confirmButton.style.display = 'none';
+            // 銷毀 Cropper 實例
+            cropper.destroy();
+            preview.style.display = "none"
+        });
+    </script>
+</body>
 
-</script>
+</html>

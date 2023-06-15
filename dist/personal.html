@@ -348,32 +348,4 @@
   </div>
 </div>
 
-<form id="upload-form">
-  <input type="file" id="avatar-input" accept="image/*">
-  <button type="submit">上传头像</button>
-</form>
-
-<script>
-  const uploadForm = document.getElementById('upload-form');
-  const avatarInput = document.getElementById('avatar-input');
-
-  uploadForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('avatar', avatarInput.files[0]);
-
-    fetch('/upload-avatar', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.text())
-      .then(data => {
-        console.log(data); // 上传成功的消息
-      })
-      .catch(error => {
-        console.error(error); // 错误处理
-      });
-  });
-</script>
-
 <script src="./js/personal.js"></script>

@@ -1,65 +1,79 @@
-@font-face {    
-    font-family: "Source Han Sans SC Thin"; 
-    src: url(./fonts/NotoSansTC-Thin.otf) ; 
-}  
-    
-@font-face { 
-    font-family: "Source Han Sans SC Light"; 
-    src: url(./fonts/NotoSansTC-Light.otf); 
+@font-face {
+    font-family: "Source Han Sans SC Thin";
+    src: url(./fonts/NotoSansTC-Thin.otf);
 }
 
-@font-face { 
-    font-family: "Source Han Sans SC Bold"; 
-    src: url(./fonts/NotoSansTC-Bold.otf); 
+@font-face {
+    font-family: "Source Han Sans SC Light";
+    src: url(./fonts/NotoSansTC-Light.otf);
+}
+
+@font-face {
+    font-family: "Source Han Sans SC Bold";
+    src: url(./fonts/NotoSansTC-Bold.otf);
 }
 
 /* ////////////////////////////////////// */
 
-*{
+* {
     user-select: none;
     padding: 0;
     margin: 0;
 }
-html{ 
+
+html {
     background-color: #181818;
     overflow-X: hidden;
 }
+
 ::-webkit-scrollbar {
     width: 0;
 }
-a{
+
+a {
     text-decoration: none;
 }
-body{
+
+body {
     width: 100vw;
     height: 100vh;
 }
 
 /* ////////////////////////////////////// */
 
-p1, p2, p3, p4, p5{ 
-    font-family: "Source Han Sans SC Light", sans-serif; 
+p1,
+p2,
+p3,
+p4,
+p5 {
+    font-family: "Source Han Sans SC Light", sans-serif;
     color: white;
-    font-size: .92em; 
+    font-size: .92em;
     line-height: 2;
     letter-spacing: 0.08em;
 }
-p1, p5{ 
-    font-family: "Source Han Sans SC Bold", sans-serif; 
+
+p1,
+p5 {
+    font-family: "Source Han Sans SC Bold", sans-serif;
     font-size: 1.85em;
-} 
-p2{
+}
+
+p2 {
     letter-spacing: 0.1em;
 }
-p3{
+
+p3 {
     color: #81D6FA;
     font-weight: 100;
     margin-bottom: .05em;
 }
-p4{
+
+p4 {
     letter-spacing: 0.04em;
 }
-p5{
+
+p5 {
     color: black;
 }
 
@@ -86,57 +100,69 @@ main {
     justify-content: flex-start;
     align-items: center;
 }
-img.logo{
+
+img.logo {
     width: 26.5em;
     margin-left: .14em;
 }
-.text1{
+
+.text1 {
     margin-top: .8em;
 }
-p1:nth-child(1){
+
+p1:nth-child(1) {
     margin-left: .32em;
 }
-p1:nth-child(2){
+
+p1:nth-child(2) {
     margin-left: .48em;
 }
-p2{
+
+p2 {
     margin-left: .48em;
 }
-p3:nth-child(3){
+
+p3:nth-child(3) {
     margin-left: .3em;
 }
-.aboutus{
+
+.aboutus {
     margin-top: 2.8%;
 }
-.aboutus a{
+
+.aboutus a {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     width: 13em;
     margin-left: .35em;
 }
-.aboutus img{
+
+.aboutus img {
     width: 2.7em;
     margin-right: .6em;
 }
-.text3{
+
+.text3 {
     margin-top: 6em;
     display: none;
     text-align: center;
 }
-.text3 p3{
+
+.text3 p3 {
     font-size: 1.2em;
 }
 
 /* ////////////////////////////////////// */
 
-.rightbox{
+.rightbox {
     width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.acess{
+
+.acess {
     margin-top: 3.5em;
     width: 100%;
     height: auto;
@@ -144,7 +170,8 @@ p3:nth-child(3){
     justify-content: center;
     align-items: center;
 }
-.acess button{
+
+.acess button {
     width: 17em;
     margin: 0 2%;
     height: 4em;
@@ -153,28 +180,34 @@ p3:nth-child(3){
     justify-content: center;
     align-items: center;
 }
-.acess button:nth-child(2){
+
+.acess button:nth-child(2) {
     background-color: #81D6FA;
 }
-button p5{
+
+button p5 {
     font-size: 1.4em;
     margin-bottom: .2em;
 }
-#login p5{
+
+#login p5 {
     margin-right: 6%;
 }
-#login img{
+
+#login img {
     width: 12%;
     margin-right: 6%;
 }
-a:hover, button:hover{
+
+a:hover,
+button:hover {
     transform: scale(1.1);
     cursor: pointer;
 }
 
 /* ////////////////////////////////////// */
 
-footer{
+footer {
     height: 4.25vw;
     background-color: #81D6FA;
     display: flex;
@@ -184,87 +217,114 @@ footer{
 
 /* ////////////////////////////////////// */
 
-@media screen and (max-aspect-ratio: 16/9.1){
-    main{
+@media screen and (max-aspect-ratio: 16/9.1) {
+    main {
         height: 90vh;
         background-size: 100vh;
         font-size: 18px;
     }
-    footer{
+
+    footer {
         height: 10vh;
     }
-    .acess{
+
+    .acess {
         flex-direction: column;
     }
-    .acess button{
+
+    .acess button {
         margin: 1em 0;
     }
 }
-@media screen and (max-aspect-ratio: 16/12.1){
-    main{
+
+@media screen and (max-aspect-ratio: 16/12.1) {
+    main {
         height: 90vh;
         font-size: 20px;
     }
-    footer{
+
+    footer {
         height: 10vh;
     }
-    .rightbox{
+
+    .rightbox {
         display: none;
     }
-    .leftbox{
+
+    .leftbox {
         margin: 0;
         width: 100%;
         display: block;
         text-align: center;
     }
-    .title{
+
+    .title {
         margin: 0;
         position: relative;
         top: 30%;
     }
-    .aboutus a{
+
+    .aboutus a {
         display: none;
     }
+
     .text3 {
         display: block;
         animation: fade 2s ease-in-out infinite;
     }
-    @media screen and (max-width: 675px){
-        main{
+
+    @media screen and (max-width: 675px) {
+        main {
             font-size: 12px;
             background-position: center;
         }
-        footer{
+
+        footer {
             font-size: 12px;
             text-align: center;
         }
     }
 }
-@media screen and (min-width: 1600px){
-    main{
+
+@media screen and (min-width: 1600px) {
+    main {
         font-size: 18px;
     }
 }
-@media screen and (min-width: 1920px){
-    main{
+
+@media screen and (min-width: 1920px) {
+    main {
         font-size: 22px;
     }
-} 
+}
 
 @keyframes fade {
-    0% { opacity: 0; }
-    50% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
-a, button, img{
+
+a,
+button,
+img {
     transition: .5s ease-in-out;
 }
-html{
+
+html {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 /* ////////////////////////////////////// */
-.modal{
+.modal {
     position: absolute;
     width: 100% !important;
     height: 100% !important;
@@ -278,19 +338,22 @@ html{
     justify-content: center;
     align-items: center;
 }
-.modal.active{
+
+.modal.active {
     opacity: 1;
     display: flex;
 }
-.welcome{
+
+.welcome {
     width: 29%;
     height: 36%;
     margin-bottom: 2%;
 }
-.header{
+
+.header {
     width: 100%;
     height: 17.5%;
-    background-color: rgba(129, 214, 250,.8);
+    background-color: rgba(129, 214, 250, .8);
     border-top-left-radius: 1.5vw;
     border-top-right-radius: 1.5vw;
     display: flex;
@@ -298,17 +361,20 @@ html{
     align-items: center;
     position: relative;
 }
-.header p5{
+
+.header p5 {
     font-size: 1em;
     letter-spacing: 0.2em;
 }
-.header img{
+
+.header img {
     position: absolute;
     right: 3%;
     bottom: 25%;
     width: 5%;
 }
-.content{
+
+.content {
     width: 100%;
     height: 82.5%;
     background-color: rgba(222, 222, 222, .2);
@@ -319,45 +385,57 @@ html{
     justify-content: center;
     align-items: center;
 }
-.content div:nth-child(1){
+
+.content div:nth-child(1) {
     width: auto;
     text-align: center;
     position: relative;
 }
-.content img#userpic{
+
+.content img#userpic {
+    justify-content: center;
+    align-items: center;
     width: 22%;
     margin-left: 0%;
+    border-radius: 50%;
+    overflow: hidden;
 }
-.content img:nth-child(2){
+
+.content img:nth-child(2) {
     width: 3%;
     position: absolute;
     right: 36%;
     bottom: 8%
 }
-.content img#done{
+
+.content img#done {
     width: 18%;
 }
-.content input{
-    background-color: rgba(0,0,0,0);
+
+.content input {
+    background-color: rgba(0, 0, 0, 0);
     border: 0;
     margin-top: 2%;
     padding-bottom: 1%;
     border-bottom: .2px solid #D3D3D5;
     margin-bottom: 4%;
 }
-::-webkit-input-placeholder, input{
+
+::-webkit-input-placeholder,
+input {
     font-size: .2vw;
-    color:#D3D3D5;
+    color: #D3D3D5;
     text-align: center;
 }
+
 input:focus {
     outline: none;
 }
+
 /* ////////////////////////////////////// */
-img#userpic:hover, img#quit:hover, img#done:hover{
-  transform: scale(1.1);
-  cursor: pointer;
+img#userpic:hover,
+img#quit:hover,
+img#done:hover {
+    transform: scale(1.1);
+    cursor: pointer;
 }
-  
-
-

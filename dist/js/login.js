@@ -59,7 +59,7 @@ $(document).ready(function () {
 
     $('#done').click(function () {
         $.get('/UserInfoChange', {
-            userpic: $('#userpic').attr('src'),
+            // userpic: $('#userpic').attr('src'),
             username: $('#username').val(),
             userID: userID
         }, (data) => {

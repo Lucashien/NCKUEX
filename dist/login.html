@@ -8,6 +8,7 @@
   <title>NCKU EX</title>
   <link href="login.css" rel="stylesheet" type="text/css">
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
 </head>
 
 <body>
@@ -23,7 +24,10 @@
           <p2>專屬成大的共享考古資源平台</p2>
         </div>
         <div class="aboutus">
-          <a href=""><img src="./img/Group174.png"><p3>點擊</p3><p3>了解我們！</p3></a>
+          <a href=""><img src="./img/Group174.png">
+            <p3>點擊</p3>
+            <p3>了解我們！</p3>
+          </a>
         </div>
         <div class="text3">
           <p3>- 請使用橫的螢幕以免造成我們的困擾 -</p3>
@@ -34,7 +38,8 @@
     <div class="rightbox">
       <div class="acess">
         <button id="login">
-          <img src="./img/7123953_logo_google_g_icon 2.png"><p5>成大用戶</p5>
+          <img src="./img/7123953_logo_google_g_icon 2.png">
+          <p5>成大用戶</p5>
         </button>
         <button id="visitor">
           <p5>訪客</p5>
@@ -52,16 +57,29 @@
         <img src="./img/Group180.png" id="quit">
       </div>
       <div class="content">
+
         <div>
-          <img src="./img/userpic/小恐龍.png" id="userpic">
+          <label for="imageInput">
+            <img src="./img/userpic/小恐龍.png" id="userpic">
+          </label>
+          <input type="file" id="imageInput" style="display: none;">
           <img src="./img/Group.png">
+
+          <img id="imagePreview" src="" style="opacity: 0;" />
+          <button id="confirmButton" style="display: none;">確定</button>
+
         </div>
+
+
         <input type="text" id="username" placeholder="請輸入你的暱稱">
         <img src="./img/Group122.png" id="done">
       </div>
     </div>
   </div>
   <script src="./js/login.js"></script>
+  <script src="./js/profile.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 </body>
 
 </html>

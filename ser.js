@@ -580,13 +580,10 @@ app.get('/UserInfoChange', (req, res) => {
   fs.readFile('user.json', 'utf8', (err, data) => {
     if (err) throw err;
     data = JSON.parse(data);
-    for (let i in data) {
-      if (data[i].id == req.query.userID) {
-        data[i].name = req.query.username;
-        data[i].picture = req.query.userpic;
-        data[i].sign = "true";
-      }
-    }
+
+    data[req.session.user.family_name].name = req.query.username;
+    // data[req.session.user.family_name].picture = req.query.userpic;
+
     fs.writeFile('./user.json', JSON.stringify(data), 'utf8', function (err) {
       if (err) throw err;
     });
@@ -613,7 +610,7 @@ app.get('/NickName', (req, res) => {
     data = JSON.parse(data);
     try {
       const studentID = req.session.user.family_name;
-      if (data[studentID].loginCnt == 1)
+      if (data[studentID].loginCnt) // 要改回==1
         res.send("Edit nickname");
       else
         res.send("Login");
@@ -626,44 +623,32 @@ app.get('/NickName', (req, res) => {
 
 
 /* Personal */
-const storage_pic = multer.diskStorage({
+const storage_userpic = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './dist/img/userpic');
+    cb(null, 'dist/img/userpic');
   },
   filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
-    cb(null, Date.now() + ext);
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
 
-const upload_pic = multer({ storage: storage_pic });
-app.post('/upload-avatar', upload_pic.single('avatar'), function (req, res) {
-  if (!req.file) {
-    res.status(400).send('尚無選擇照片');
-    return;
-  }
+// 創建 multer 中間件
+const upload_pic = multer({ storage: storage_userpic });
+// 定義上傳圖片的路由處理
+app.post('/upload_userpic', upload_pic.single('file'), (req, res) => {
+  // 取得使用者輸入的檔案資訊
+  const file = req.file
 
-  const filename = req.file.filename;
   fs.readFile('user.json', 'utf8', (err, data) => {
-    const jsonData = JSON.parse(data);
+    if (err) throw err;
+    data = JSON.parse(data);
+    data[req.session.user.family_name].picture = file.path.substring(5);
 
-    console.log(req.file);
-    const userid = req.session.user.family_name;
-    const newPicturePath = "./img/userpic/" + filename;
-    if (jsonData[userid]) {
-      jsonData[userid].picture = newPicturePath;
-    }
-
-    const updatedData = JSON.stringify(jsonData, null, 2);
-
-    fs.writeFile('user.json', updatedData, 'utf8', (err) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log('pic changed');
+    fs.writeFile('./user.json', JSON.stringify(data), 'utf8', function (err) {
+      if (err) throw err;
     });
   });
 
-  res.send(`頭像上傳成功，已命名為：${filename}`);
+
+
 });

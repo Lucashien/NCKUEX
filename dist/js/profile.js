@@ -1,115 +1,86 @@
-const $upload = $('#upload'),
-    $crop = $('#crop'),
-    $result = $('#result'),
-    $croppie = $('#croppie');
-var cr,
-    cr_img = '',
-    img_w = 360,
-    img_h = 360,
-    isCrop = 0;
-//支援上傳檔案判斷
-$(function () {
-    if (window.File && window.FileList && window.FileReader)
-        fileInit();
-    else
-        alert('您的裝置不支援圖片上傳');
-});
-//圖片上傳及拖曳上傳
-var fileselect = document.getElementById("fileselect"),
-    filedrag = document.getElementById("filedrag");
-function fileInit() {
-    // file select
-    fileselect.addEventListener("change", FileSelectHandler, false);
-    // is XHR2 available?
-    var xhr = new XMLHttpRequest();
-    // file drop
-    if (xhr.upload) {
-        filedrag.addEventListener("dragover", FileDragHover, false);
-        filedrag.addEventListener("dragleave", FileDragHover, false);
-        filedrag.addEventListener("drop", FileSelectHandler, false);
-    }
-}
-// file selection
-function FileSelectHandler(e) {
-    // cancel event and hover styling
-    FileDragHover(e);
-    // fetch FileList object
-    var files = e.target.files || e.dataTransfer.files;
-    if (files[0] && files[0].type.match('image.*')) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $upload.hide();
-            if (cr_img == '') { //第一次上傳
-                cr_img = e.target.result;
-                cropInit();
-            }
-            else {// 綁定圖片
-                cr_img = e.target.result;
-                bindCropImg();
-            }
-            $crop.fadeIn(300);
-        }
-        reader.readAsDataURL(files[0]);
-    }
-}
-// file drag hover
-function FileDragHover(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    filedrag.className = (e.type == "dragover" ? "hover" : "");
-}
+// 選擇 input 元素和預覽圖片元素
+const input = document.getElementById('imageInput');
+const preview = document.getElementById('imagePreview');
+const confirmButton = document.getElementById('confirmButton');
+const resultImage = document.getElementById('userpic');
 
+let cropper;
 
-//裁切設定
-function cropInit() {
-    cr = $croppie.croppie({
-        viewport: {
-            width: img_w,
-            height: img_h
-        },
-        boundary: {
-            width: img_w,
-            height: img_h
-        },
-        mouseWheelZoom: false,
-        enableOrientation: true
-    });
+// 當選擇圖片時，讀取並顯示預覽圖片，並啟動裁切功能
+input.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-    $(".cr-slider-wrap").append('<button id="cr-rotate" onClick="cropRotate(-90);">↻ Rotate</button>');
+    reader.onload = function (event) {
+        preview.src = event.target.result;
 
-    bindCropImg();
-}
-//綁定圖片
-function bindCropImg() {
-    cr.croppie('bind', {
-        url: cr_img
-    });
-}
-//旋轉按鈕
-function cropRotate(deg) {
-    cr.croppie('rotate', parseInt(deg));
-}
-//取消裁切
-function cropCancel() {
-    if ($upload.is(':hidden')) {
-        $upload.fadeIn(300).siblings().hide();
-        fileselect.value = "";
-        isCrop = 0;
-    }
-}
-//圖片裁切
-function cropResult() {
-    if (!isCrop) {
-        isCrop = 1;
-        cr.croppie('result', {
-            type: 'canvas', // canvas(base64)|html
-            size: { width: img_w, height: img_h }, //'viewport'|'original'|{width:500, height:500}
-            format: 'jpeg', //'jpeg'|'png'|'webp'
-            quality: 1 //0~1
-        }).then(function (resp) {
-            $crop.hide();
-            $result.find('img').attr('src', resp);
-            $result.fadeIn(300);
+        // 初始化 Cropper 實例
+        cropper = new Cropper(preview, {
+            aspectRatio: 1, // 裁切框的寬高比例，這裡設為1表示正方形
+            viewMode: 1, // 裁切框的視圖模式，這裡設為1表示只顯示裁切框內的圖片部分
+            dragMode: 'move', // 裁切框的拖動模式，這裡設為move表示可以拖動整個裁切框
+            responsive: true, // 啟用響應式佈局
         });
+        resultImage.style.display = "none";
+        cropper.crop();
+        confirmButton.style.display = 'block';
+    };
+
+    reader.readAsDataURL(file);
+    // preview.style.display = "none";
+});
+
+// 當點擊確定按鈕時，取得裁切後的圖片資料並顯示
+confirmButton.addEventListener('click', function () {
+    // 取得裁切後的圖片資料
+    const croppedCanvas = cropper.getCroppedCanvas();
+
+    // 將圖片放置在圓形容器中
+    resultImage.src = croppedCanvas.toDataURL();
+    // 將資料 URL 轉換為 Blob 物件
+    const blob = dataURLToBlob(resultImage.src);
+
+    // 建立檔案物件
+    const img = new File([blob], `${Date.now()}.png`, { type: 'image/png' });
+    console.log(img)
+    var formData = new FormData();
+    formData.append('file', img);
+
+    // 發送 Fetch 請求
+    fetch('/upload_userpic', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data == "上傳成功")
+                alert("上傳成功！");
+        })
+        .catch(error => {
+            // 處理錯誤的邏輯
+            console.error(error);
+        });
+
+
+
+    // 隱藏確定按鈕
+    confirmButton.style.display = 'none';
+    // 銷毀 Cropper 實例
+    cropper.destroy();
+    preview.style.display = "none"
+    resultImage.style.display = "";
+});
+
+// 資料 URL 轉換為 Blob 物件的函式
+function dataURLToBlob(dataURL) {
+    const byteString = atob(dataURL.split(',')[1]);
+    const mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+
+    for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
     }
+
+    return new Blob([ab], { type: mimeString });
 }
