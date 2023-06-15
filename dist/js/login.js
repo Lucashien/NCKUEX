@@ -50,7 +50,6 @@ $(document).ready(function () {
         fetch('/UserInfo_JSON')
             .then(response => response.json())
             .then(data => {
-                console.log("hi", data.loginCnt);
                 if (data.loginCnt != 1) {
                     loading();
                 }
@@ -72,7 +71,7 @@ $(document).ready(function () {
 
     /* ////////////////////////////////////// */
 
-    $('#done').click(function () {
+    $(document).on('click', '#done', function () {
         $.get('/UserInfoChange', {
             // userpic: $('#userpic').attr('src'),
             username: $('#username').val(),
@@ -85,7 +84,7 @@ $(document).ready(function () {
     /* ////////////////////////////////////// */
 
     $('#quit').click(function () {
-        $('.modal').css('display', 'none').css('opacity', '0');
+    $('.infochage').css('display', 'none').css('opacity', '0');
         $.get('/logout', {
         }, (data) => {
         });

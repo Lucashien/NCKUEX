@@ -166,10 +166,12 @@ input:focus {
 
 .sort #login {
     width: 11%;
+    height: 100%;
 }
 
-.sort #login p {
-    font-size: 1.2vw;
+.sort #text div {
+    height: 100%;
+    text-align: bottom;
 }
 
 .sort #login:hover {
@@ -708,6 +710,21 @@ footer.sort {
 
 #MRdirty:hover {
     transform: scale(1.2) translate(-15%, -10%);
+}
+
+#MRquestion {
+    position: absolute;
+    opacity: 0;
+    transition: .3s ease-in-out;
+    transform: scale(.1) translate(100%, 50%);
+    right: 4.5vw;
+    bottom: 4vw;
+}
+
+#MRdirty:hover #MRquestion {
+    transform: scale(1.3);
+    opacity: 1;
+    z-index: 9998;
 }
 
 /* ////////////////////////////////////// */

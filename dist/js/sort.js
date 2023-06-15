@@ -73,9 +73,9 @@ $(document).ready(function () {
     documentSelect();
   });
 
-    $('#clas').on('click', '.choise', function (event) {
-      $('#clas').find('.choise').not(this).removeClass('active');
-      $(this).addClass('active')
+  $('#clas').on('click', '.choise', function (event) {
+    $('#clas').find('.choise').not(this).removeClass('active');
+    $(this).addClass('active')
     if ($(this).attr('id') == 'exam') { clasTarget = '大考' }
     if ($(this).attr('id') == 'quiz') { clasTarget = '小考' }
     if ($(this).attr('id') == 'homework') { clasTarget = '作業' }
@@ -92,7 +92,6 @@ $(document).ready(function () {
     $('#lecture .content ul').html('<li></li>');
     $('#documentcontainer').empty().css('display', 'none');
     $('.bot').css('opacity', '.25');
-    documentInitial()
   }
 
   /* ////////////////////////////////////// */
@@ -151,17 +150,17 @@ $(document).ready(function () {
       $('#year .triangle').removeClass('reverse')
       yearOrder = 1;
     }
-      $('#like .triangle').removeClass('inactive').toggleClass('reverse');
-      likeOrder = likeOrder == 1 ? 0 : 1;
-      let documents = $('.document');
-      documents.sort((a, b) => {
-        let A = parseInt($(a).find('.like h4').text());
-        let B = parseInt($(b).find('.like h4').text());
+    $('#like .triangle').removeClass('inactive').toggleClass('reverse');
+    likeOrder = likeOrder == 1 ? 0 : 1;
+    let documents = $('.document');
+    documents.sort((a, b) => {
+      let A = parseInt($(a).find('.like h4').text());
+      let B = parseInt($(b).find('.like h4').text());
       if (likeOrder == 1) { return A - B }
       if (likeOrder == 0) { return B - A }
-      });
-      $('#documentcontainer').append(documents);
-    }
+    });
+    $('#documentcontainer').append(documents);
+  }
 
   function sortInitial() {
     $('#year .triangle, #like .triangle').addClass('inactive')
@@ -277,6 +276,8 @@ $(document).ready(function () {
     showModal('personal', userID, '');
   });
 
+
+
   /* ////////////////////////////////////// */
   //預覽視窗
 
@@ -364,33 +365,29 @@ $(document).ready(function () {
     }, 100);
   }
 
-    $(document).on('click', '.personal .edit', function () {
-      console.log('556515')
-      let infochange = $('<div>').addClass('infochange');
-      $('body').append(infochange);
-      $.get('/infochange', {
-      }, (data) => {
-        $('.infochange').html(data);
-      });
-      $('.infochange').css('display', 'flex').css('opacity', '1');
-    })
-  
-    $(document).on('click', '.personal #done', function () {
-      $.get('/UserInfoChange', {
-        // userpic: $('#userpic').attr('src'),
-        username: $('#username').val(),
-        userID: userID
-      }, (data) => {
-      });
-    })
-  
-    $(document).on('click', '.personal #quit', function () {
-      $('.modal').css('display', 'none').css('opacity', '0');
-      $.get('/logout', {
-      }, (data) => {
-      });
-    })
-  
+  $(document).on('click', '.personal .edit', function () {
+    let infochange = $('<div>').addClass('infochange');
+    $('body').append(infochange);
+    $.get('/infochange', {
+    }, (data) => {
+      $('.infochange').html(data);
+    });
+    $('.infochange').css('display', 'flex');
+    setTimeout(function () {
+      $('.infochange').css('opacity', '1');
+      $('.infochange #done').click(function () {
+        $.get('/UserInfoChange', {
+          username: $('.infochange #username').val(),
+          userID: userID
+        }, (data) => {
+        });
+      })
+      $('.infochange #quit').click(function () {
+        $('.infochange').css('display', 'none').css('opacity', '0');
+      })
+    }, 500)
+  })
+
   /* ////////////////////////////////////// */
 
   $(document).on('click', '.view #userpic img', function () {
@@ -457,7 +454,7 @@ $(document).ready(function () {
       setTimeout(function () {
         console.log(data);
         $('#documentcontainer').empty();
-          documentInitial();
+        documentInitial();
         $('html').css('cursor', '');
         active_like(!iff);
       }, 100);
@@ -549,7 +546,7 @@ $(document).ready(function () {
         setTimeout(function () {
           console.log(data);
           $('#documentcontainer').empty();
-            documentInitial();
+          documentInitial();
           $('html').css('cursor', '');
           active_rate(!iff);
         }, 100);

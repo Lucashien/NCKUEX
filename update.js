@@ -217,8 +217,8 @@ app.get('/viewUploader', (req, res) => {
 });
 
 
-app.get('/personal', (req, res) => {
-  fs.readFile('./dist/personal.html', 'utf8', function (err, html) {
+app.get('/infochange', (req, res) => {
+  fs.readFile('./dist/html/infochange.html', 'utf8', function (err, html) {
     if (err) throw err;
     res.send(html);
   })

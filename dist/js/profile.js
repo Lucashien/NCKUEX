@@ -1,4 +1,5 @@
 // 選擇 input 元素和預覽圖片元素
+console.log("bug")
 const input = document.getElementById('imageInput');
 const preview = document.getElementById('imagePreview');
 const confirmButton = document.getElementById('confirmButton');

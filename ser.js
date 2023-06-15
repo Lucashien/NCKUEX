@@ -217,8 +217,8 @@ app.get('/viewUploader', (req, res) => {
 });
 
 
-app.get('/personal', (req, res) => {
-  fs.readFile('./dist/personal.html', 'utf8', function (err, html) {
+app.get('/infochange', (req, res) => {
+  fs.readFile('./dist/html/infochange.html', 'utf8', function (err, html) {
     if (err) throw err;
     res.send(html);
   })
@@ -245,7 +245,7 @@ app.get('/person', (req, res) => {
       var chineseName = user[req.query.userID].given_name.replace(/[^\u4E00-\u9FA5]/g, '');
       $('.name p').text(chineseName);
       $('.dep p').text(user[req.query.userID].dep_year);
-      $('.fire').css('display', (user[req.query.userID].award === 1 ? 'block' : 'none'))
+      $('.fire').css('display', (user[req.query.userID].award == 1 ? 'block' : 'none'))
       res.send($.html());
     });
   })
@@ -571,7 +571,6 @@ app.post('/upload', upload.single('file'), (req, res) => {
   let doc_info = req.body.doc_info.split(',');
   const [col, dep, grade, lec, teac, year, clas] = doc_info;
   const file = req.file, filename = file.filename, name = file.originalname;
-  console.log("file", file)
   const extname = path.extname(file.originalname);
   const label = Date.now();
 
@@ -694,7 +693,7 @@ app.get('/NickName', (req, res) => {
     data = JSON.parse(data);
     try {
       const studentID = req.session.user.family_name;
-      if (data[studentID].loginCnt == 1)//要改
+      if (data[studentID].loginCnt == 1)
         res.send("Edit nickname");
       else
         res.send("Login");
